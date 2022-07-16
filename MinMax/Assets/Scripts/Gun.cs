@@ -28,8 +28,8 @@ public class Gun : MonoBehaviour
     {
         curTime += Time.deltaTime;
         if(curTime >= playerOwningGun.stats.AttackCooldown){
-            curTime = 0;
             if(fire){
+                curTime = 0;
                 switch(playerOwningGun.stats.NumberOfProjectiles){
                     case 1:
                         boom(0);
