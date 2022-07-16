@@ -48,6 +48,8 @@ public class Jeffery : MonoBehaviour
                         moveDirection = new Vector2(0,0);
                     }
                     speed = .2f;
+                }else{
+                    moveDirection = new Vector2(0,0);
                 }
             break;
             case State.Dodge:
