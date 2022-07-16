@@ -258,6 +258,7 @@ public class DieRoller : MonoBehaviour
 
     public void Toggle_SameStats(bool s)
     {
+        if (PlayersAreRollingStats()) return;
         useSameStats = s;
     }
 

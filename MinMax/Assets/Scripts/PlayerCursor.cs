@@ -73,13 +73,13 @@ public class PlayerCursor : MonoBehaviour
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.botsToggle.transform.position) < 0.075f && DieRoller.singleton.botsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.botsToggle.transform.position) < 0.02f && DieRoller.singleton.botsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.botsToggle.isOn = !DieRoller.singleton.botsToggle.isOn;
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.sameStatsToggle.transform.position) < 0.075f && DieRoller.singleton.sameStatsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.sameStatsToggle.transform.position) < 0.02f && DieRoller.singleton.sameStatsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.sameStatsToggle.isOn = !DieRoller.singleton.sameStatsToggle.isOn;
             return;
