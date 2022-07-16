@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        GameManager.g.AddPlayer(this);
+        GameManager.g.AddPlayer(gameObject);
         rb = this.GetComponent<Rigidbody>();
         stats = this.GetComponent<Stats>();
         stats.Init(this);
