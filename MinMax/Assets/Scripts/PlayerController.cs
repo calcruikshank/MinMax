@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     Vector3 lastLookedPosition;
-    Vector2 lookDirection;
+    public Vector2 lookDirection;
     Vector3 movement;
-    Vector2 inputMovement;
+    public Vector2 inputMovement;
     Vector2 inputFace;
 
     public State state;
@@ -48,8 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-
-
+        GameManager.g.AddPlayer(this);
         rb = this.GetComponent<Rigidbody>();
         stats = this.GetComponent<Stats>();
         stats.Init(this);
