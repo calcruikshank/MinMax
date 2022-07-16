@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 10
-  HP: 0
+  HP: 10
   AttackSpeed: 0
   AttackDamage: 0
   ProjectileSpeed: 0

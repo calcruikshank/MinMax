@@ -14,8 +14,10 @@ public class PlayerController : MonoBehaviour
     public State state;
     Stats stats;
 
-    float acceleration;
-    float currentSpeed;
+    //float acceleration;
+    //float currentSpeed;
+
+    Gun gun;
     public enum State
     {
         Normal,
@@ -30,6 +32,8 @@ public class PlayerController : MonoBehaviour
         stats = this.GetComponent<Stats>();
         stats.Init(this);
         state = State.Normal;
+        gun = GetComponentInChildren<Gun>();
+        gun.Init(this);
     }
 
     void Update()

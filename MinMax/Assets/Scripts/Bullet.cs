@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class Bullet : MonoBehaviour
 
     private Vector3 startPosition;
     private float distMoved = 0;
+
+    PlayerController playerOwningBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,5 +29,10 @@ public class Bullet : MonoBehaviour
         if(transform.localPosition == targetPosition){
             Destroy(this.gameObject);
         }
+    }
+
+    internal void Init(PlayerController playerOwningGun)
+    {
+        playerOwningBullet = playerOwningGun;
     }
 }

@@ -9,11 +9,17 @@ public class Gun : MonoBehaviour
     public bool fire = true;
     public float startingVelocity = 100;
     public float range = 10;
-    
 
+    PlayerController playerOwningGun;
     //Timing stuff
     private float nextFire = 0;
     private float curTime = 0;
+    
+    public void Init(PlayerController playerSent)
+    {
+        playerOwningGun = playerSent;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,9 +32,10 @@ public class Gun : MonoBehaviour
         curTime += Time.deltaTime;
         if(curTime >= cooldown){
             curTime = 0;
-            var newBullet = Instantiate(bullet, transform.position, transform.rotation);
-            newBullet.GetComponent<Bullet>().velocity = startingVelocity;
-            newBullet.GetComponent<Bullet>().targetPosition = transform.position + transform.forward * range;
+            Bullet newBullet = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+            newBullet.velocity = startingVelocity;
+            newBullet.targetPosition = transform.position + transform.forward * range;
+            newBullet.Init(playerOwningGun);
         }
     }
 }
