@@ -25,8 +25,9 @@ public class DieScript : MonoBehaviour
         {
             stopped = true;
             thisDR.valueText.text = CurrentValue().ToString();
+            DieRoller.singleton.currentDie = this;
             // thisRB.isKinematic = true;
-            thisDR.SetPlayersMovement();
+            // thisDR.SetPlayersMovement();
             StartCoroutine(thisDR.Timer());
         }
     }

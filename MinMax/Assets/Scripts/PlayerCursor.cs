@@ -30,6 +30,8 @@ public class PlayerCursor : MonoBehaviour
         // newMenuStats.isBot = bot;
         newMenuStats.botToggle.isOn = bot;
         StartCoroutine(newMenuStats.RollStats());
+        transform.localScale = Vector3.one;
+        transform.localEulerAngles = Vector3.zero;
     }
 
     public void OnMove(InputValue value)
@@ -41,71 +43,99 @@ public class PlayerCursor : MonoBehaviour
 
     public void OnFire()
     {
-        Debug.Log(gameObject.name + " fire");
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playButton.transform.position) < 0.12f && DieRoller.singleton.playButton.interactable && !DieRoller.singleton.xButton.gameObject.activeSelf && DieRoller.singleton.playButton.gameObject.activeSelf)
+        {
+            DieRoller.singleton.playButton.onClick.Invoke();
+            return;
+        }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.rollButton.transform.position) < 90 && DieRoller.singleton.rollButton.interactable && !DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.rollButton.transform.position) < 0.1f && DieRoller.singleton.rollButton.interactable && !DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.rollButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.resetButton.transform.position) < 45 && DieRoller.singleton.resetButton.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.resetButton.transform.position) < 0.06f && DieRoller.singleton.resetButton.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.resetButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.optionsButton.transform.position) < 65 && DieRoller.singleton.optionsButton.interactable && !DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.optionsButton.transform.position) < 0.07f && DieRoller.singleton.optionsButton.interactable && !DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.optionsButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.xButton.transform.position) < 60 && DieRoller.singleton.xButton.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.xButton.transform.position) < 0.12f && DieRoller.singleton.xButton.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.xButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.botsToggle.transform.position) < 60 && DieRoller.singleton.botsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.botsToggle.transform.position) < 0.02f && DieRoller.singleton.botsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.botsToggle.isOn = !DieRoller.singleton.botsToggle.isOn;
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.sameStatsToggle.transform.position) < 60 && DieRoller.singleton.sameStatsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.sameStatsToggle.transform.position) < 0.02f && DieRoller.singleton.sameStatsToggle.interactable && DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             DieRoller.singleton.sameStatsToggle.isOn = !DieRoller.singleton.sameStatsToggle.isOn;
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[0].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[0].addBotButton.interactable && DieRoller.singleton.playerPanels[0].addBotButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[0].addBotButton.transform.position) < 0.07f && DieRoller.singleton.playerPanels[0].addBotButton.interactable && DieRoller.singleton.playerPanels[0].addBotButton.gameObject.activeSelf)
         {
             DieRoller.singleton.playerPanels[0].addBotButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[1].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[1].addBotButton.interactable && DieRoller.singleton.playerPanels[1].addBotButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[1].addBotButton.transform.position) < 0.07f && DieRoller.singleton.playerPanels[1].addBotButton.interactable && DieRoller.singleton.playerPanels[1].addBotButton.gameObject.activeSelf)
         {
             DieRoller.singleton.playerPanels[1].addBotButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[2].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[2].addBotButton.interactable && DieRoller.singleton.playerPanels[2].addBotButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[2].addBotButton.transform.position) < 0.07f && DieRoller.singleton.playerPanels[2].addBotButton.interactable && DieRoller.singleton.playerPanels[2].addBotButton.gameObject.activeSelf)
         {
             DieRoller.singleton.playerPanels[2].addBotButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[3].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[3].addBotButton.interactable && DieRoller.singleton.playerPanels[3].addBotButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[3].addBotButton.transform.position) < 0.07f && DieRoller.singleton.playerPanels[3].addBotButton.interactable && DieRoller.singleton.playerPanels[3].addBotButton.gameObject.activeSelf)
         {
             DieRoller.singleton.playerPanels[3].addBotButton.onClick.Invoke();
             return;
         }
 
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[0].removeButton.transform.position) < 0.007f && DieRoller.singleton.playerPanels[0].removeButton.interactable && DieRoller.singleton.playerPanels[0].removeButton.gameObject.activeSelf)
+        {
+            DieRoller.singleton.playerPanels[0].removeButton.onClick.Invoke();
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[1].removeButton.transform.position) < 0.007f && DieRoller.singleton.playerPanels[1].removeButton.interactable && DieRoller.singleton.playerPanels[1].removeButton.gameObject.activeSelf)
+        {
+            DieRoller.singleton.playerPanels[1].removeButton.onClick.Invoke();
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[2].removeButton.transform.position) < 0.007f && DieRoller.singleton.playerPanels[2].removeButton.interactable && DieRoller.singleton.playerPanels[2].removeButton.gameObject.activeSelf)
+        {
+            DieRoller.singleton.playerPanels[2].removeButton.onClick.Invoke();
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[3].removeButton.transform.position) < 0.007f && DieRoller.singleton.playerPanels[3].removeButton.interactable && DieRoller.singleton.playerPanels[3].removeButton.gameObject.activeSelf)
+        {
+            DieRoller.singleton.playerPanels[3].removeButton.onClick.Invoke();
+            return;
+        }
+
         if (thisMSS is null || !thisMSS.gameObject.activeSelf) return;
 
-        if (Vector3.Distance(transform.position, thisMSS.removeButton.transform.position) < 16 && !DieRoller.singleton.xButton.gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, thisMSS.removeButton.transform.position) < 0.014f && !DieRoller.singleton.xButton.gameObject.activeSelf)
         {
             thisMSS.removeButton.onClick.Invoke();
             return;
@@ -113,7 +143,7 @@ public class PlayerCursor : MonoBehaviour
 
         if (usedCurrentDie || DieRoller.singleton.currentDie is null || string.IsNullOrEmpty(DieRoller.singleton.valueText.text)) return;
 
-        float closestDistance = 10.0f;
+        float closestDistance = 0.014f;
         TMP_Text closestText = null;
         foreach(TMP_Text tmp in thisMSS.statTexts)
         {
@@ -139,11 +169,13 @@ public class PlayerCursor : MonoBehaviour
     void FixedUpdate()
     {
         thisRT.anchoredPosition += moveVal * speed * Time.deltaTime;
-        thisRT.anchoredPosition = new Vector2(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 40, (Screen.width/2) - 40), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2)+20, (Screen.height/2)-20));
+        thisRT.anchoredPosition = new Vector3(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 40, (Screen.width/2) - 40), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2)+20, (Screen.height/2)-20));
     }
 
     void OnDisable()
     {
+        if (thisMSS is null) return;
+        if (thisMSS.thisPC is null) return;
         thisMSS.thisPC = null;
     }
 

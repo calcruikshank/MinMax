@@ -30,6 +30,8 @@ public class MenuStatScript : MonoBehaviour
 
     public IEnumerator RollStats()
     {
+        DieRoller.singleton.botsToggle.interactable = false;
+        DieRoller.singleton.sameStatsToggle.interactable = false;
         foreach(GameObject go in statPanels)
         {
             go.SetActive(false);
@@ -63,6 +65,8 @@ public class MenuStatScript : MonoBehaviour
         waitPanel.SetActive(false);
         readyPanel.SetActive(true);
         DieRoller.singleton.rollButton.interactable = !DieRoller.singleton.PlayersAreRollingStats();
+        DieRoller.singleton.botsToggle.interactable = !DieRoller.singleton.PlayersAreRollingStats();
+        DieRoller.singleton.sameStatsToggle.interactable = !DieRoller.singleton.PlayersAreRollingStats();
     }
 
     public void Toggle_IsBot(bool b)

@@ -13,12 +13,17 @@ public class Gun : MonoBehaviour
     public void Init(PlayerController playerSent)
     {
         playerOwningGun = playerSent;
+        SetAnimationSpeedOnWand();
     }
 
+    void SetAnimationSpeedOnWand()
+    {
+        playerOwningGun.armsAnim.speed = playerOwningGun.stats.AttackCooldown;
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame

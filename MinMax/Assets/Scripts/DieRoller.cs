@@ -25,6 +25,7 @@ public class DieRoller : MonoBehaviour
     // public Button[] addBotButtons;
     public GameObject botPrefab;
     bool isRemovingPlayer = false;
+    bool isAddingPlayer = false;
 
     void Awake()
     {
@@ -48,14 +49,16 @@ public class DieRoller : MonoBehaviour
 
     public void Button_RollDie()
     {
-        Debug.Log("rolling die");
+        // Debug.Log("rolling die");
+        if (isRemovingPlayer || isAddingPlayer) return;
         if (PlayersAreReady()) return;
         if (currentDie != null && !EveryoneHasUsedCurrentDie()) return;
+        currentDie = null;
         rollButton.interactable = false;
         GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
-        currentDie = rolledDie.GetComponent<DieScript>();
-        currentDie.thisRB.AddForce(Vector3.right * Random.Range(100, 300));
-        currentDie.thisDR = this;
+        // currentDie = rolledDie.GetComponent<DieScript>();
+        rolledDie.GetComponent<DieScript>().thisRB.AddForce(Vector3.right * Random.Range(100, 300));
+        rolledDie.GetComponent<DieScript>().thisDR = this;
         // currentDie.stopped = false;
         // currentDie.thisRB.isKinematic = false;
         foreach(PlayerCursor pc in pcs)
@@ -63,7 +66,7 @@ public class DieRoller : MonoBehaviour
             if (!pc.gameObject.activeSelf) continue;
             // PlayerCursor pc = go.GetComponent<PlayerCursor>();
             pc.usedCurrentDie = false;
-            pc.speed = 0;
+            // pc.speed = 0;
             pc.thisMSS.readyPanel.SetActive(false);
             pc.thisMSS.addBotButton.gameObject.SetActive(false);
         }
@@ -121,6 +124,7 @@ public class DieRoller : MonoBehaviour
     public void OnPlayerJoined(PlayerInput pi)
     {
         if (isRemovingPlayer) return;
+        isAddingPlayer = true;
         // playerCursors[playerIndex].SetActive(true);
         pi.transform.SetParent(placePlayersHere);
         PlayerCursor joinedPlayer = pi.GetComponent<PlayerCursor>();
@@ -133,10 +137,12 @@ public class DieRoller : MonoBehaviour
         rollButton.interactable = !PlayersAreRollingStats();
         resetButton.interactable = pcs.Count > 0;
         ResetAllStats();
+        Invoke("SetRemovingPlayerToFalse", 0.1f);
     }
 
     public void OnPlayerLeft(PlayerInput pi)
     {
+        if (isAddingPlayer) return;
         isRemovingPlayer = true;
         // playerIndex--;
         // playerCursors[playerIndex].SetActive(false);
@@ -153,15 +159,16 @@ public class DieRoller : MonoBehaviour
     void SetRemovingPlayerToFalse()
     {
         isRemovingPlayer = false;
+        isAddingPlayer = false;
     }
 
-    public void SetPlayersMovement()
-    {
-        foreach(PlayerCursor pc in pcs)
-        {
-            pc.speed = 200;
-        }
-    }
+    // public void SetPlayersMovement()
+    // {
+    //     foreach(PlayerCursor pc in pcs)
+    //     {
+    //         pc.speed = 200;
+    //     }
+    // }
 
     public MenuStatScript FirstUnusedMenuStatScript()
     {
@@ -214,7 +221,7 @@ public class DieRoller : MonoBehaviour
 
         while (time > 0)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
             time--;
             timerText.text = ":0" + time.ToString();
 
@@ -251,6 +258,7 @@ public class DieRoller : MonoBehaviour
 
     public void Toggle_SameStats(bool s)
     {
+        if (PlayersAreRollingStats()) return;
         useSameStats = s;
     }
 
@@ -287,6 +295,7 @@ public class DieRoller : MonoBehaviour
     public void AddBot()
     {
         if (!useBots || currentDie != null) return;
+        isAddingPlayer = true;
         GameObject botCursor = Instantiate(botPrefab);
         botCursor.transform.SetParent(placePlayersHere);
         PlayerCursor joinedPlayer = botCursor.GetComponent<PlayerCursor>();
@@ -299,6 +308,7 @@ public class DieRoller : MonoBehaviour
         rollButton.interactable = !PlayersAreRollingStats() && !PlayersAreReady();
         resetButton.interactable = pcs.Count > 0;
         ResetAllStats();
+        Invoke("SetRemovingPlayerToFalse", 0.1f);
     }
 
     public bool PlayersAreReady()
@@ -314,6 +324,7 @@ public class DieRoller : MonoBehaviour
 
     public void RemovePlayer(MenuStatScript mss)
     {
+        if (isAddingPlayer) return;
         isRemovingPlayer = true;
         PlayerCursor leftPlayer = mss.thisPC;
         pcs.Remove(leftPlayer);
