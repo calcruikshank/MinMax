@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
     //float currentSpeed;
 
     Gun gun;
+
+    [SerializeField]
+    private Animator legsAnim;
+    [SerializeField]
+    private Animator armsAnim;
+
     public enum State
     {
         Normal,
@@ -78,7 +84,16 @@ public class PlayerController : MonoBehaviour
     {
         //rb.AddForce(movement.normalized * moveSpeed);
         rb.velocity = movement * currentSpeed;
-        
+        Debug.Log(rb.velocity.magnitude);
+
+        if (rb.velocity.magnitude != 0f)
+        {
+            legsAnim.SetBool("isMoving", true);
+        } 
+        else
+        {
+           legsAnim.SetBool("isMoving", false);
+        }
         /*if (rb.velocity.magnitude > stats.Speed)
         {
             rb.velocity = rb.velocity.normalized * stats.Speed;
@@ -96,7 +111,6 @@ public class PlayerController : MonoBehaviour
             lastLookedPosition = lookTowards;
         }
 
-        Debug.Log(lastLookedPosition);
         transform.right = lastLookedPosition;
 
     }
