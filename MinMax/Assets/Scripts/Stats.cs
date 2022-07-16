@@ -5,14 +5,14 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     public float Speed = 10f;
-    public float HP;
-    public float AttackSpeed;
-    public float AttackDamage;
-    public float ProjectileSpeed;
-    public float NumberOfProjectiles;
-    public float ProjectileSize;
-    public float PlayerSize;
-    public float Range;
+    public float HP = 10;
+    public float AttackSpeed = 1;
+    public float AttackDamage = 1;
+    public float ProjectileSpeed = 1;
+    public float NumberOfProjectiles = 1;
+    public float ProjectileSize = 1;
+    public float PlayerSize = 6;
+    public float Range = 1;
 
     PlayerController player;
 

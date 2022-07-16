@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         state = State.Normal;
         gun = GetComponentInChildren<Gun>();
         gun.Init(this);
+        this.transform.localScale /= (stats.PlayerSize / 2);
     }
 
     void Update()
