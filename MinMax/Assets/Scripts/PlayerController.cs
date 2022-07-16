@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         state = State.Normal;
         gun = GetComponentInChildren<Gun>();
         gun.Init(this);
+        this.transform.localScale /= (stats.PlayerSize / 2);
     }
 
     void Update()
@@ -108,6 +109,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void TakeDamage(float damageSent)
+    {
+        stats.HP -= damageSent;
+        if (stats.HP < 0)
+        {
+           Die();
+        }
+    }
     public void Die()
     {
         Destroy(this.gameObject);

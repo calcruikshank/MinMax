@@ -20,13 +20,5 @@ public class Stats : MonoBehaviour
     {
         player = playerSent;
     }
-    public void TakeDamage(float damageSent)
-    {
-        HP -= damageSent;
-        if (HP < 0)
-        {
-            player.Die();
-        }
-    }
 
 }

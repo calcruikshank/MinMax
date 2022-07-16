@@ -178,13 +178,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   HP: 10
-  AttackSpeed: 0
+  AttackSpeed: 1
   AttackDamage: 10
-  ProjectileSpeed: 0
-  NumberOfProjectiles: 0
-  ProjectileSize: 0
-  PlayerSize: 0
-  Range: 0
+  ProjectileSpeed: 1
+  NumberOfProjectiles: 1
+  ProjectileSize: 1
+  PlayerSize: 1
+  Range: 1
 --- !u!1 &5130789850912743947
 GameObject:
   m_ObjectHideFlags: 0
