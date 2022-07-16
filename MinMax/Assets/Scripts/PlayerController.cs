@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Animator armsAnim;
 
+    [SerializeField] Transform playerTorso;
+
+    [SerializeField] Transform playerLegs;
     public enum State
     {
         Normal,
@@ -70,6 +73,12 @@ public class PlayerController : MonoBehaviour
         movement.x = inputMovement.x;
         movement.y = 0;
         movement.z = inputMovement.y;
+        if(movement.normalized != Vector3.zero)
+        {
+            playerLegs.transform.forward = Vector3.Lerp(playerLegs.transform.forward, movement.normalized, 20f * Time.deltaTime);
+        }
+
+        legsAnim.speed = currentSpeed / stats.Speed; 
         /*if (movement.magnitude != 0)
         {
             currentSpeed += 165 * Time.deltaTime;
@@ -111,7 +120,7 @@ public class PlayerController : MonoBehaviour
             lastLookedPosition = lookTowards;
         }
 
-        transform.right = lastLookedPosition;
+        playerTorso.transform.forward = Vector3.Lerp(playerTorso.transform.forward, lastLookedPosition, 20f * Time.deltaTime);
 
     }
 
@@ -127,11 +136,13 @@ public class PlayerController : MonoBehaviour
     {
         gun.fire = true;
         currentSpeed /= stats.SpeedReductionWhenFiring;
+        armsAnim.SetBool("cast", true);
     }
     void OnFireUp()
     {
         gun.fire = false;
         currentSpeed = stats.Speed;
+        armsAnim.SetBool("cast", false);
     }
 
     public void TakeDamage(float damageSent)
