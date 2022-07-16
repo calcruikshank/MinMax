@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
         gun.fire = true;
         currentSpeed /= stats.SpeedReductionWhenFiring;
         armsAnim.SetBool("cast", true);
+        StartCoroutine("ResetCast");
     }
     void OnFireUp()
     {
@@ -221,8 +222,26 @@ public class PlayerController : MonoBehaviour
         {
             gun.hasFiredForAnim = false;
         }*/
+        if(gun.fire == true)
+        {
+            /*if (!armsAnim.runtimeAnimatorController.animationClips[0].length * ("Arms_Cast 1"))
+            {
+                armsAnim.Play("Arms_Cast 1");
+                gun.hasFiredForAnim = false;
+                entryTime = Time.time;
+            }
+            */
 
-        
+        }
 
+
+
+    }
+
+    private IEnumerator ResetCast()
+    {
+        yield return new WaitForSeconds(0.1f);
+        armsAnim.SetBool("cast", false);
+    
     }
 }
