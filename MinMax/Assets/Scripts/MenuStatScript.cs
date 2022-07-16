@@ -13,9 +13,10 @@ public class MenuStatScript : MonoBehaviour
     public TMP_Text[] statTexts;
     public GameObject[] statPanels;
     public List<string> statStrings = new List<string>();
-    public GameObject readyPanel, waitPanel;
+    public GameObject readyPanel, waitPanel, backgroundPanel;
     public bool isBot = true;
     public Toggle botToggle;
+    public Button removeButton, addBotButton;
 
     public void ResetTexts()
     {
@@ -23,6 +24,8 @@ public class MenuStatScript : MonoBehaviour
         {
             t.text = "";
         }
+        readyPanel.SetActive(true);
+        waitPanel.SetActive(false);
     }
 
     public IEnumerator RollStats()
