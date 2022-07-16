@@ -130,5 +130,4 @@ public class DieRoller : MonoBehaviour
             pc.usedCurrentDie = false;
         }
     }
-
 }
