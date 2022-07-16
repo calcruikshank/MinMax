@@ -28,9 +28,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform playerLegs;
 
     [SerializeField] Transform dieBody;
+    [SerializeField] Animator capeAnim;
     [SerializeField] List<Vector3> faceRotations;
+    [SerializeField] List<Color> faceColors;
     int currentFaceIndex = 0;
     Vector3 targetFaceRot;
+    Color targetColor;
 
     public enum State
     {
@@ -50,6 +53,8 @@ public class PlayerController : MonoBehaviour
         gun.Init(this);
         this.transform.localScale /= (stats.PlayerSize);
         currentSpeed = stats.Speed;
+
+        targetColor = faceColors[0];
     }
 
     void Update()
@@ -131,8 +136,16 @@ public class PlayerController : MonoBehaviour
         playerTorso.transform.forward = Vector3.Lerp(playerTorso.transform.forward, lastLookedPosition, 20f * Time.deltaTime);
 
         //player face spin
-        dieBody.localRotation = Quaternion.Lerp(dieBody.localRotation, Quaternion.Euler(targetFaceRot), 10f * Time.deltaTime);
-
+        if(dieBody.localRotation != Quaternion.Euler(targetFaceRot))
+        {
+            dieBody.localRotation = Quaternion.Lerp(dieBody.localRotation, Quaternion.Euler(targetFaceRot), 10f * Time.deltaTime);
+        }
+        //player face color
+        Material mat = dieBody.GetComponent<MeshRenderer>().material;
+        if(mat.GetColor("_Color") != targetColor)
+        {
+            mat.SetColor("_Color", Color.Lerp(mat.GetColor("_Color"), targetColor, 10f * Time.deltaTime));
+        }
     }
 
     void OnMove(InputValue value)
@@ -177,16 +190,19 @@ public class PlayerController : MonoBehaviour
 
     void ChangeFace()
     {
-        currentFaceIndex += -(int)inputFace.normalized.x;
+        currentFaceIndex += (int)inputFace.normalized.x;
         if (currentFaceIndex < 0)
         {
             currentFaceIndex = faceRotations.Count - 1;
         }
-        if(currentFaceIndex > 6)
+        if(currentFaceIndex > faceRotations.Count - 1)
         {
             currentFaceIndex = 0;
         }
 
+        capeAnim.Play("CapeAnim");
+    
         targetFaceRot = faceRotations[currentFaceIndex];
+        targetColor = faceColors[currentFaceIndex];
     }
 }
