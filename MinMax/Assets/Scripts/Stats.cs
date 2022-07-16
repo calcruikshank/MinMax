@@ -24,7 +24,7 @@ public class Stats : MonoBehaviour
 
     public void SetSpeed(int numSent)
     {
-        Speed = numSent;
+        Speed = 6 + (2 * numSent);
     }
     public void SetHP(int numSent)
     {
