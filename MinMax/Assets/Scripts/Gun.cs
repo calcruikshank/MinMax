@@ -6,15 +6,10 @@ public class Gun : MonoBehaviour
 {
     public GameObject bullet;
     public bool fire = false;
+    public bool hasFiredForAnim = false;
 
     PlayerController playerOwningGun;
-    //Timing stuff
-    private float nextFire = 0;
-    private float curTime = 0;
 
-
-    [SerializeField] Transform wand;
-    float DistanceBetweenWandAndGun;
     public void Init(PlayerController playerSent)
     {
         playerOwningGun = playerSent;
@@ -29,12 +24,12 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        curTime += Time.deltaTime;
-        if (curTime >= playerOwningGun.stats.AttackCooldown)
+        if (fire)
         {
-            curTime = 0;
-            if (fire)
+            //Debug.Log(playerOwningGun.armsAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+            if (playerOwningGun.currentPercentage >= 0.45f && !hasFiredForAnim)
             {
+                hasFiredForAnim = true;
                 switch (playerOwningGun.stats.NumberOfProjectiles)
                 {
                     case 1:
@@ -80,10 +75,9 @@ public class Gun : MonoBehaviour
                         boom(200);
                         break;
                 }
-
             }
-
         }
+        
     }
 
     void boom(float angleOffset)
