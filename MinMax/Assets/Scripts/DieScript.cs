@@ -20,13 +20,14 @@ public class DieScript : MonoBehaviour
     void Update()
     {
         if (stopped) return;
-        Debug.Log(thisRB.velocity.magnitude);
+        // Debug.Log(thisRB.velocity.magnitude);
         if (Mathf.Approximately(thisRB.velocity.magnitude, 0))
         {
             stopped = true;
             thisDR.valueText.text = CurrentValue().ToString();
             // thisRB.isKinematic = true;
             thisDR.SetPlayersMovement();
+            StartCoroutine(thisDR.Timer());
         }
     }
 
@@ -46,6 +47,9 @@ public class DieScript : MonoBehaviour
 
     void OnDisable()
     {
+        thisDR.time = 0;
+        thisDR.timerText.text = "";
+        StopCoroutine(thisDR.Timer());
         Instantiate(starParticles, transform.position, Quaternion.identity);
     }
 }
