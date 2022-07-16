@@ -94,6 +94,11 @@ MonoBehaviour:
   playerLabel: {fileID: 5355895894337139569}
   playerImage: {fileID: 5355895893515492343}
   thisRT: {fileID: 5355895893515492342}
+  moveVal: {x: 0, y: 0}
+  statTexts: []
+  speed: 150
+  usedCurrentDie: 0
+  thisMSS: {fileID: 0}
 --- !u!114 &5355895893515492337
 MonoBehaviour:
   m_ObjectHideFlags: 0

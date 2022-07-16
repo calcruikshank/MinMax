@@ -14,6 +14,16 @@ public class PlayerCursor : MonoBehaviour
     public TMP_Text[] statTexts;
     public float speed = 100.0f;
     public bool usedCurrentDie = false;
+    public MenuStatScript thisMSS;
+
+    public void Initialize(MenuStatScript newMenuStats)
+    {
+        thisMSS = newMenuStats;
+        playerLabel.text = newMenuStats.playerName;
+        playerImage.color = newMenuStats.playerColor;
+        playerLabel.color = newMenuStats.playerColor;
+        newMenuStats.thisPC = this;
+    }
 
     public void OnMove(InputValue value)
     {
@@ -23,15 +33,20 @@ public class PlayerCursor : MonoBehaviour
     public void OnFire()
     {
         Debug.Log(gameObject.name + " fire");
-        if (Vector3.Distance(transform.position, DieRoller.singleton.rollButton.transform.position) < 80)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.rollButton.transform.position) < 90)
         {
             DieRoller.singleton.rollButton.onClick.Invoke();
             return;
         }
-        if (usedCurrentDie) return;
+        if (Vector3.Distance(transform.position, DieRoller.singleton.resetButton.transform.position) < 45)
+        {
+            DieRoller.singleton.resetButton.onClick.Invoke();
+            return;
+        }
+        if (usedCurrentDie || DieRoller.singleton.currentDie is null || string.IsNullOrEmpty(DieRoller.singleton.valueText.text)) return;
         float closestDistance = 10.0f;
         TMP_Text closestText = null;
-        foreach(TMP_Text tmp in statTexts)
+        foreach(TMP_Text tmp in thisMSS.statTexts)
         {
             float thisDistance = Vector3.Distance(transform.position, tmp.transform.position);
             // Debug.Log(thisDistance);
@@ -43,6 +58,7 @@ public class PlayerCursor : MonoBehaviour
         }
         if (closestText != null)
         {
+            if (!string.IsNullOrEmpty(closestText.text)) return;
             closestText.text = DieRoller.singleton.valueText.text;
             usedCurrentDie = true;
             DieRoller.singleton.CheckForDieUsage();

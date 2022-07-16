@@ -431,6 +431,7 @@ MonoBehaviour:
   - {fileID: 4039888065165403185}
   - {fileID: 7494224291825242926}
   - {fileID: 3599102394138659116}
+  starParticles: {fileID: 937601478390492292, guid: 0ae06abc104154842aa5f50d989bba8d, type: 3}
 --- !u!64 &1169643184841750911
 MeshCollider:
   m_ObjectHideFlags: 0

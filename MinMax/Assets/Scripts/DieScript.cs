@@ -7,8 +7,15 @@ public class DieScript : MonoBehaviour
     public Rigidbody thisRB;
     public MeshRenderer thisMR;
     public DieRoller thisDR;
-    public bool stopped;
+    public bool stopped = true;
     public DieCollider[] dieColliders;
+    public GameObject starParticles;
+
+    void Start()
+    {
+        stopped = true;
+        Invoke("SetStoppedFalse", 0.1f);
+    }
 
     void Update()
     {
@@ -18,7 +25,8 @@ public class DieScript : MonoBehaviour
         {
             stopped = true;
             thisDR.valueText.text = CurrentValue().ToString();
-            thisRB.isKinematic = true;
+            // thisRB.isKinematic = true;
+            thisDR.SetPlayersMovement();
         }
     }
 
@@ -31,8 +39,13 @@ public class DieScript : MonoBehaviour
         return 0;
     }
 
-    void OnCollisionEnter()
+    void SetStoppedFalse()
     {
         stopped = false;
+    }
+
+    void OnDisable()
+    {
+        Instantiate(starParticles, transform.position, Quaternion.identity);
     }
 }
