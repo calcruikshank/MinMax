@@ -43,10 +43,13 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Stats>() != null)
+        if (other.GetComponent<PlayerController>() != null)
         {
-            Stats objectHit = other.GetComponent<Stats>();
-            objectHit.TakeDamage(attackDamage);
+            var objectHit = other.GetComponent<PlayerController>();
+            if(objectHit != playerOwningBullet){
+                objectHit.TakeDamage(attackDamage);
+                Destroy(this.gameObject);
+            }
         }
     }
 }
