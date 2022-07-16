@@ -7,7 +7,8 @@ public class Gun : MonoBehaviour
     public GameObject bullet;
     public float cooldown = 1;
     public bool fire = true;
-    public float startingVelocity = 10;
+    public float startingVelocity = 10000;
+    public float range = 10;
 
 
     //Timing stuff
@@ -25,7 +26,9 @@ public class Gun : MonoBehaviour
         curTime += Time.deltaTime;
         if(curTime >= cooldown){
             curTime = 0;
-            var newBullet = Instantiate(bullet, gameObject.transform.position, Quaternion.identity);
+            var newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
+            newBullet.GetComponent<Bullet>().velocity = startingVelocity;
+            newBullet.GetComponent<Bullet>().targetPosition = transform.position + transform.forward * range;
         }
     }
 }

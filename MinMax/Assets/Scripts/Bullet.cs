@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float velocity = 0;
+    public float velocity;
+    public Vector3 targetPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,10 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0,0,0), Time.deltaTime * velocity);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * velocity);
+
+        if(transform.localPosition == targetPosition){
+            Destroy(this);
+        }
     }
 }

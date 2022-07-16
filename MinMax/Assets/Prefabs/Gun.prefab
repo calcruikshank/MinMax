@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5fbaec265322be3afdfe1649a99e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 0}
+  bullet: {fileID: 8125971820830103854, guid: 6b419f557b6a8b354ba7252a85dff73b, type: 3}
+  cooldown: 1
+  fire: 1
+  startingVelocity: 10000
+  range: 10
