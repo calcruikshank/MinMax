@@ -9,7 +9,7 @@ public class Stats : MonoBehaviour
     public float AttackCooldown = 1f;
     public float AttackDamage = 1f;
     public float ProjectileSpeed = 30f;
-    public int NumberOfProjectiles = 2;
+    public float NumberOfProjectiles = 1f;
     public float ProjectileSize = 1f;
     public float PlayerSize = 1f;
     public float ProjectileRange = 30f;
