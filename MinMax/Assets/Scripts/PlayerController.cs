@@ -19,10 +19,10 @@ public class PlayerController : MonoBehaviour
     //float acceleration;
     //float currentSpeed;
 
-    Gun gun;
+    public Gun gun;
   
     [SerializeField] private Animator legsAnim; 
-    [SerializeField] private Animator armsAnim;
+    public Animator armsAnim;
 
     [SerializeField] Transform playerTorso;
     [SerializeField] Transform playerLegs;
@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     Vector3 targetFaceRot;
     Color targetColor;
 
+    public float entryTime;
+    public float currentPercentage;
+
     public enum State
     {
         Normal,
@@ -45,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
+
         rb = this.GetComponent<Rigidbody>();
         stats = this.GetComponent<Stats>();
         stats.Init(this);
@@ -64,6 +69,7 @@ public class PlayerController : MonoBehaviour
             case State.Normal:
                 FaceLookDirection();
                 HandleMovement();
+                TrackAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
                 break;
         }
     }
@@ -158,6 +164,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnFireDown()
     {
+        entryTime = Time.time;
         gun.fire = true;
         currentSpeed /= stats.SpeedReductionWhenFiring;
         armsAnim.SetBool("cast", true);
@@ -204,5 +211,18 @@ public class PlayerController : MonoBehaviour
     
         targetFaceRot = faceRotations[currentFaceIndex];
         targetColor = faceColors[currentFaceIndex];
+    }
+
+    private void TrackAnimation(AnimatorStateInfo stateInfo)
+    {
+        //Debug.Log(currentPercentage % stateInfo.length * stateInfo.speed);
+        currentPercentage = (Time.time - entryTime) / stateInfo.length;
+        /*if(currentPercentage % stateInfo.length * stateInfo.speed <= .45f)
+        {
+            gun.hasFiredForAnim = false;
+        }*/
+
+        
+
     }
 }
