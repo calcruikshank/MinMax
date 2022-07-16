@@ -4,24 +4,35 @@ using UnityEngine;
 
 public class DieScript : MonoBehaviour
 {
-    public int currentValue;
     public Rigidbody thisRB;
     public MeshRenderer thisMR;
     public DieRoller thisDR;
-
-    // void Start()
-    // {
-    //     StartCoroutine(CheckValue());
-    // }
+    public bool stopped;
+    public DieCollider[] dieColliders;
 
     void Update()
     {
+        if (stopped) return;
         Debug.Log(thisRB.velocity.magnitude);
+        if (Mathf.Approximately(thisRB.velocity.magnitude, 0))
+        {
+            stopped = true;
+            thisDR.valueText.text = CurrentValue().ToString();
+            thisRB.isKinematic = true;
+        }
     }
 
-    public IEnumerator CheckValue()
+    public int CurrentValue()
     {
-        while(thisRB.velocity.magnitude > 0) yield return new WaitForEndOfFrame();
-        thisDR.valueText.text = "1";
+        foreach(DieCollider dc in dieColliders)
+        {
+            if (dc.isContacted) return dc.value;
+        }
+        return 0;
+    }
+
+    void OnColliderEnter()
+    {
+        stopped = false;
     }
 }
