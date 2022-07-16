@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        GameManager.g.AddPlayer(gameObject);
+        GameManager.g.AddPlayer(this);
         rb = this.GetComponent<Rigidbody>();
         stats = this.GetComponent<Stats>();
         stats.Init(this);
@@ -188,7 +188,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
-        GameManager.g.RemovePlayer(this.gameObject);
+        GameManager.g.RemovePlayer(this);
         Destroy(this.gameObject);
     }
 

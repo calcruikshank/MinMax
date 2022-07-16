@@ -7,6 +7,7 @@ public class Jeffery : MonoBehaviour
 {
     PlayerController controller;
     PlayerController target = null;
+    GameObject dodgeTarget = null;
 
     float keepDistance = 10f;
     float keepRange = 2f;
@@ -21,12 +22,14 @@ public class Jeffery : MonoBehaviour
     private enum State
     {
         Chasing,
+        Dodge
     }
     State state;
     // Update is called once per frame
     void Update()
     {
-        InvokeRepeating("SelectTarget", 2.0f, 0.3f);
+        InvokeRepeating("SelectTarget", 1.0f, 1f);
+        //InvokeRepeating("CheckDodge", 2.0f, 0.5f);
         InvokeRepeating("Fuzz", 2.0f, 2f);
         LookAt();
         switch(state){
@@ -43,6 +46,13 @@ public class Jeffery : MonoBehaviour
                     }
                 }
             break;
+            case State.Dodge:
+                if(dodgeTarget != null){
+
+                }else{
+                    state = State.Chasing;
+                }
+                break;
         }
     }
 
@@ -65,6 +75,19 @@ public class Jeffery : MonoBehaviour
             controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);       
         }
 
+    }
+
+    void CheckDodge(){
+        var listOfClosest = OrderByClosest(GameManager.g.Bullets,transform.position);
+        foreach(var obj in listOfClosest){
+            if(obj.GetComponent<Bullet>().playerOwningBullet != controller){
+                var distance = Vector3.Distance(obj.transform.position, transform.position);
+                if(distance<0.5f){
+                    state = State.Dodge;
+                    dodgeTarget = obj;
+                }
+            }
+        }
     }
 
     List<GameObject> OrderByClosest(List<GameObject> objs, Vector3 origin){

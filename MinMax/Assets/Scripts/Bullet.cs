@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     private float distMoved;
     private float attackDamage;
     private float projectileSize;
-    PlayerController playerOwningBullet;
+    public PlayerController playerOwningBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
 
     internal void Init(PlayerController playerOwningGun, Vector3 endPosition)
     {
+        GameManager.g.AddBullet(this);
         targetPosition = endPosition;
         playerOwningBullet = playerOwningGun;
         var s = playerOwningBullet.stats;
@@ -37,7 +38,7 @@ public class Bullet : MonoBehaviour
         transform.localPosition = Vector3.Lerp(startPosition, targetPosition, percentMoved);
 
         if(transform.localPosition == targetPosition){
-            Destroy(this.gameObject);
+            Die();
         }
     }
 
@@ -48,8 +49,12 @@ public class Bullet : MonoBehaviour
             var objectHit = other.GetComponent<PlayerController>();
             if(objectHit != playerOwningBullet){
                 objectHit.TakeDamage(attackDamage);
-                Destroy(this.gameObject);
+                Die();
             }
         }
+    }
+    private void Die(){
+        GameManager.g.RemoveBullet(this);
+        Destroy(this.gameObject);
     }
 }
