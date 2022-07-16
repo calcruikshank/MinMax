@@ -45,7 +45,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.GetComponent<Stats>() != null)
         {
-            Stats objectHit = other.GetComponent<Stats>();
+            PlayerController objectHit = other.GetComponent<PlayerController>();
             objectHit.TakeDamage(attackDamage);
         }
     }

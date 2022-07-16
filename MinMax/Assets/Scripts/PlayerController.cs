@@ -109,6 +109,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void TakeDamage(float damageSent)
+    {
+        stats.HP -= damageSent;
+        if (stats.HP < 0)
+        {
+           Die();
+        }
+    }
     public void Die()
     {
         Destroy(this.gameObject);
