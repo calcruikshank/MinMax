@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   HP: 10
-  AttackCooldown: 0.55
+  AttackCooldown: 1
   AttackDamage: 10
   ProjectileSpeed: 5
   NumberOfProjectiles: 1
