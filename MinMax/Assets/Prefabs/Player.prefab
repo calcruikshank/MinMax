@@ -182,9 +182,10 @@ MonoBehaviour:
   AttackDamage: 10
   ProjectileSpeed: 1
   NumberOfProjectiles: 1
-  ProjectileSize: 2
+  ProjectileSize: 1
   PlayerSize: 1
   ProjectileRange: 30
+  speedReductionWhenFiring: 2
 --- !u!1 &5130789850912743947
 GameObject:
   m_ObjectHideFlags: 0

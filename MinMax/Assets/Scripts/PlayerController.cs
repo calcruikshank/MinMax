@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public State state;
     public Stats stats;
 
+    float currentSpeed;
     //float acceleration;
     //float currentSpeed;
 
@@ -34,7 +35,8 @@ public class PlayerController : MonoBehaviour
         state = State.Normal;
         gun = GetComponentInChildren<Gun>();
         gun.Init(this);
-        this.transform.localScale /= (stats.PlayerSize / 2);
+        this.transform.localScale /= (stats.PlayerSize);
+        currentSpeed = stats.Speed;
     }
 
     void Update()
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour
     private void FixedHandleMovement()
     {
         //rb.AddForce(movement.normalized * moveSpeed);
-        rb.velocity = movement * stats.Speed;
+        rb.velocity = movement * currentSpeed;
         
         /*if (rb.velocity.magnitude > stats.Speed)
         {
@@ -106,7 +108,16 @@ public class PlayerController : MonoBehaviour
     {
         lookDirection = value.Get<Vector2>();
     }
-
+    void OnFireDown()
+    {
+        gun.fire = true;
+        currentSpeed /= stats.SpeedReductionWhenFiring;
+    }
+    void OnFireUp()
+    {
+        gun.fire = false;
+        currentSpeed = stats.Speed;
+    }
 
     public void TakeDamage(float damageSent)
     {
