@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
     Vector3 movement;
     Vector2 inputMovement;
 
-    float currentSpeed;
     public State state;
     Stats stats;
+
+    float acceleration;
+    float currentSpeed;
     public enum State
     {
         Normal,
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody>();
         stats = this.GetComponent<Stats>();
+        stats.Init(this);
         state = State.Normal;
     }
 
@@ -54,16 +57,28 @@ public class PlayerController : MonoBehaviour
         movement.x = inputMovement.x;
         movement.y = 0;
         movement.z = inputMovement.y;
-        
+        /*if (movement.magnitude != 0)
+        {
+            currentSpeed += 165 * Time.deltaTime;
+        }
+        if (movement.magnitude == 0)
+        {
+            currentSpeed = 0f;
+        }*/
+
     }
     private void FixedHandleMovement()
     {
         //rb.AddForce(movement.normalized * moveSpeed);
         rb.velocity = movement * stats.Speed;
         
-        /*if (rb.velocity.magnitude > maxSpeed)
+        /*if (rb.velocity.magnitude > stats.Speed)
         {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
+            rb.velocity = rb.velocity.normalized * stats.Speed;
+        }
+        if (movement.magnitude == 0)
+        {
+            rb.velocity *= .97f;
         }*/
     }
     void FaceLookDirection()
@@ -86,6 +101,12 @@ public class PlayerController : MonoBehaviour
     void OnLook(InputValue value)
     {
         lookDirection = value.Get<Vector2>();
+    }
+
+
+    public void Die()
+    {
+        Destroy(this.gameObject);
     }
 
 }

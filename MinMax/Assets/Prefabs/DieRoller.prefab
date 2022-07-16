@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2732353352750873571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2732353352750873573}
+  - component: {fileID: 2732353352750873572}
+  m_Layer: 0
+  m_Name: DieRoller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2732353352750873573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2732353352750873571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.5595622, y: 0.05725351, z: -4.8798895}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2732353352750873572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2732353352750873571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f4860a117c0784fa4734d368493834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diePrefab: {fileID: 7534103558304884838, guid: e355ec368cc7faf42b0a39c1b98ece1d, type: 3}
+  placeDiceHere: {fileID: 0}
+  currentDie: {fileID: 0}
+  valueText: {fileID: 0}
+  unusedDie: {fileID: 2100000, guid: 083a184c653ea3c4b9b68a57992f6844, type: 2}
+  usedDie: {fileID: 2100000, guid: 4d3717fd502f28e45b180a7c90cc8b99, type: 2}
