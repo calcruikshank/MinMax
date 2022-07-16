@@ -19,6 +19,8 @@ public class PlayerCursor : MonoBehaviour
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
         thisMSS = newMenuStats;
+        thisMSS.backgroundPanel.gameObject.SetActive(true);
+        thisMSS.addBotButton.gameObject.SetActive(false);
         playerLabel.text = newMenuStats.playerName;
         playerImage.color = newMenuStats.playerColor;
         playerLabel.color = newMenuStats.playerColor;
@@ -32,6 +34,7 @@ public class PlayerCursor : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
+        if (thisMSS is null || !thisMSS.gameObject.activeSelf) return;
         if (thisMSS.waitPanel.activeSelf || thisMSS.isBot) return;
         moveVal = value.Get<Vector2>();
     }
@@ -76,27 +79,35 @@ public class PlayerCursor : MonoBehaviour
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.addBotButtons[0].transform.position) < 60 && DieRoller.singleton.addBotButtons[0].interactable && DieRoller.singleton.addBotButtons[0].gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[0].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[0].addBotButton.interactable && DieRoller.singleton.playerPanels[0].addBotButton.gameObject.activeSelf)
         {
-            DieRoller.singleton.addBotButtons[0].onClick.Invoke();
+            DieRoller.singleton.playerPanels[0].addBotButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.addBotButtons[1].transform.position) < 60 && DieRoller.singleton.addBotButtons[1].interactable && DieRoller.singleton.addBotButtons[1].gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[1].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[1].addBotButton.interactable && DieRoller.singleton.playerPanels[1].addBotButton.gameObject.activeSelf)
         {
-            DieRoller.singleton.addBotButtons[1].onClick.Invoke();
+            DieRoller.singleton.playerPanels[1].addBotButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.addBotButtons[2].transform.position) < 60 && DieRoller.singleton.addBotButtons[2].interactable && DieRoller.singleton.addBotButtons[2].gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[2].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[2].addBotButton.interactable && DieRoller.singleton.playerPanels[2].addBotButton.gameObject.activeSelf)
         {
-            DieRoller.singleton.addBotButtons[2].onClick.Invoke();
+            DieRoller.singleton.playerPanels[2].addBotButton.onClick.Invoke();
             return;
         }
 
-        if (Vector3.Distance(transform.position, DieRoller.singleton.addBotButtons[3].transform.position) < 60 && DieRoller.singleton.addBotButtons[3].interactable && DieRoller.singleton.addBotButtons[3].gameObject.activeSelf)
+        if (Vector3.Distance(transform.position, DieRoller.singleton.playerPanels[3].addBotButton.transform.position) < 60 && DieRoller.singleton.playerPanels[3].addBotButton.interactable && DieRoller.singleton.playerPanels[3].addBotButton.gameObject.activeSelf)
         {
-            DieRoller.singleton.addBotButtons[3].onClick.Invoke();
+            DieRoller.singleton.playerPanels[3].addBotButton.onClick.Invoke();
+            return;
+        }
+
+        if (thisMSS is null || !thisMSS.gameObject.activeSelf) return;
+
+        if (Vector3.Distance(transform.position, thisMSS.removeButton.transform.position) < 16 && !DieRoller.singleton.xButton.gameObject.activeSelf)
+        {
+            thisMSS.removeButton.onClick.Invoke();
             return;
         }
 
@@ -121,6 +132,7 @@ public class PlayerCursor : MonoBehaviour
             usedCurrentDie = true;
             DieRoller.singleton.CheckForDieUsage();
             thisMSS.readyPanel.SetActive(true);
+            DieRoller.singleton.Button_RollDie();
         }
     }
 
@@ -132,7 +144,7 @@ public class PlayerCursor : MonoBehaviour
 
     void OnDisable()
     {
-        thisMSS.isBot = true;
+        thisMSS.thisPC = null;
     }
 
     public void ChooseRandomStat(int rand)
