@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public GameObject bullet;
-    public bool fire = true;
+    public bool fire = false;
 
     PlayerController playerOwningGun;
     //Timing stuff

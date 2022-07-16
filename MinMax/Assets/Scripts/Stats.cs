@@ -13,20 +13,13 @@ public class Stats : MonoBehaviour
     public float ProjectileSize = 1f;
     public float PlayerSize = 1f;
     public float ProjectileRange = 30f;
+    public float SpeedReductionWhenFiring = 2f;
 
     PlayerController player;
 
     public void Init(PlayerController playerSent)
     {
         player = playerSent;
-    }
-    public void TakeDamage(float damageSent)
-    {
-        HP -= damageSent;
-        if (HP < 0)
-        {
-            player.Die();
-        }
     }
 
 }
