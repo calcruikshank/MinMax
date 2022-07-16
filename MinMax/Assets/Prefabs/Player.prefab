@@ -178,13 +178,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   HP: 10
-  AttackSpeed: 1
+  AttackCooldown: 1
   AttackDamage: 10
   ProjectileSpeed: 1
   NumberOfProjectiles: 1
   ProjectileSize: 1
   PlayerSize: 1
-  Range: 1
+  ProjectileRange: 30
+  speedReductionWhenFiring: 2
 --- !u!1 &5130789850912743947
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,10 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8125971820830103854, guid: fae5944b3ac4b2645a5b8e8e08ad3ad7, type: 3}
-  cooldown: 1
   fire: 1
-  startingVelocity: 30
-  range: 10
 --- !u!4 &8980383816741080839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}

@@ -13,6 +13,7 @@ public class Stats : MonoBehaviour
     public float ProjectileSize = 1f;
     public float PlayerSize = 1f;
     public float ProjectileRange = 30f;
+    public float SpeedReductionWhenFiring = 2f;
 
     PlayerController player;
 
