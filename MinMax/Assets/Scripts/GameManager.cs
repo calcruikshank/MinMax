@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager g;
-    public readonly List<PlayerController> Players;
+    public readonly List<PlayerController> Players = new List<PlayerController>();
 
     void Awake()
     {
