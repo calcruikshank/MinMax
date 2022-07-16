@@ -5,10 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public GameObject bullet;
-    public float cooldown = 1;
     public bool fire = true;
-    public float startingVelocity = 100;
-    public float range = 10;
 
     PlayerController playerOwningGun;
     //Timing stuff
@@ -30,12 +27,13 @@ public class Gun : MonoBehaviour
     void Update()
     {
         curTime += Time.deltaTime;
-        if(curTime >= cooldown){
+        if(curTime >= playerOwningGun.stats.AttackCooldown){
             curTime = 0;
-            Bullet newBullet = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
-            newBullet.velocity = startingVelocity;
-            newBullet.targetPosition = transform.position + transform.forward * range;
-            newBullet.Init(playerOwningGun);
+            if(fire){
+                Bullet newBullet = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+                newBullet.Init(playerOwningGun,transform.position + transform.forward * playerOwningGun.stats.ProjectileRange);
+            }
+
         }
     }
 }
