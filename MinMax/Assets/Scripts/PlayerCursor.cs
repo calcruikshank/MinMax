@@ -10,9 +10,15 @@ public class PlayerCursor : MonoBehaviour
     public TMP_Text playerLabel;
     public Image playerImage;
     public RectTransform thisRT;
+    public Vector2 moveVal;
 
     public void OnMove(InputValue value)
     {
-        thisRT.anchoredPosition += value.Get<Vector2>();
+        moveVal = value.Get<Vector2>();
+    }
+
+    void FixedUpdate()
+    {
+        thisRT.anchoredPosition += moveVal;
     }
 }
