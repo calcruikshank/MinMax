@@ -31,7 +31,7 @@ public class DieScript : MonoBehaviour
         return 0;
     }
 
-    void OnColliderEnter()
+    void OnCollisionEnter()
     {
         stopped = false;
     }

@@ -18,6 +18,7 @@ public class DieRoller : MonoBehaviour
         currentDie.thisRB.AddForce(Vector3.right * Random.Range(100, 300));
         currentDie.thisDR = this;
         currentDie.stopped = false;
+        currentDie.thisRB.isKinematic = false;
     }
 
 }
