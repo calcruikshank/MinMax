@@ -229,7 +229,6 @@ public class PlayerController : MonoBehaviour
         {
             currentPercentage = (Time.time - entryTime) / stateInfo.length;
 
-            Debug.Log(stateInfo.IsName("Arms_Cast 1"));
             if (!stateInfo.IsName("Arms_Cast 1"))
             {
                 if (gun.fire)
