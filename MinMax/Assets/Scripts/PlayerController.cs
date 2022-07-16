@@ -167,7 +167,10 @@ public class PlayerController : MonoBehaviour
     {
         fireAnimationIsPlaying = true;
         entryTime = Time.time;
-        gun.fire = true;
+        if (gun != null)
+        {
+            gun.fire = true;
+        }
         currentSpeed /= stats.SpeedReductionWhenFiring;
         armsAnim.SetBool("cast", true);
         StartCoroutine("ResetCast");
@@ -181,7 +184,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(float damageSent)
     {
         stats.HP -= damageSent;
-        if (stats.HP < 0)
+        if (stats.HP <= 0)
         {
            Die();
         }
