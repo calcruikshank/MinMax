@@ -20,7 +20,6 @@ public class Jeffery : MonoBehaviour
     {
         controller = gameObject.GetComponent<PlayerController>();
         state = State.Chasing;
-        Fire();
     }
     private enum State
     {
@@ -92,14 +91,25 @@ public class Jeffery : MonoBehaviour
         if(target != null){
             var rb = target.GetComponent<Rigidbody>();
             var dir = target.transform.position + rb.velocity - transform.position;
-            controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);       
+            controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);
+            Fire();
+        }else{
+            StopFire();
         }
 
     }
+    void StopFire(){
+        if(isFiring){
+            controller.OnFireUp();
+            isFiring = false;
+        }
+    }
 
     void Fire(){
-        if(!isFiring)
+        if(!isFiring){
             controller.OnFireDown();
+            isFiring = true;
+        }
     }
 
     void CheckDodge(){

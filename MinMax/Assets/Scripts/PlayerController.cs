@@ -177,8 +177,8 @@ public class PlayerController : MonoBehaviour
         armsAnim.SetBool("cast", true);
         StartCoroutine("ResetCast");
     }
-    
-    void OnFireUp()
+
+    public void OnFireUp()
     {
         gun.fire = false;
         armsAnim.SetBool("cast", false);
