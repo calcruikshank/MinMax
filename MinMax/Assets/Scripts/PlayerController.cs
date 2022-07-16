@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     Vector2 lookDirection;
     Vector3 movement;
     Vector2 inputMovement;
+    Vector2 inputFace;
 
     public State state;
     public Stats stats;
@@ -19,15 +20,18 @@ public class PlayerController : MonoBehaviour
     //float currentSpeed;
 
     Gun gun;
-
-    [SerializeField]
-    private Animator legsAnim;
-    [SerializeField]
-    private Animator armsAnim;
+  
+    [SerializeField] private Animator legsAnim; 
+    [SerializeField] private Animator armsAnim;
 
     [SerializeField] Transform playerTorso;
-
     [SerializeField] Transform playerLegs;
+
+    [SerializeField] Transform dieBody;
+    [SerializeField] List<Vector3> faceRotations;
+    int currentFaceIndex = 0;
+    Vector3 targetFaceRot;
+
     public enum State
     {
         Normal,
@@ -93,7 +97,6 @@ public class PlayerController : MonoBehaviour
     {
         //rb.AddForce(movement.normalized * moveSpeed);
         rb.velocity = movement * currentSpeed;
-        Debug.Log(rb.velocity.magnitude);
 
         if (rb.velocity.magnitude != 0f)
         {
@@ -118,9 +121,17 @@ public class PlayerController : MonoBehaviour
         if (lookTowards.magnitude != 0f)
         {
             lastLookedPosition = lookTowards;
+        } 
+        else
+        {
+            //if you aren't actively looking anywhere look where you are going. 
+            lastLookedPosition = movement.normalized;
         }
 
         playerTorso.transform.forward = Vector3.Lerp(playerTorso.transform.forward, lastLookedPosition, 20f * Time.deltaTime);
+
+        //player face spin
+        dieBody.localRotation = Quaternion.Lerp(dieBody.localRotation, Quaternion.Euler(targetFaceRot), 10f * Time.deltaTime);
 
     }
 
@@ -158,4 +169,24 @@ public class PlayerController : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    void OnFaceSelect(InputValue value)
+    {
+        inputFace = value.Get<Vector2>();
+        ChangeFace();
+    }
+
+    void ChangeFace()
+    {
+        currentFaceIndex += -(int)inputFace.normalized.x;
+        if (currentFaceIndex < 0)
+        {
+            currentFaceIndex = faceRotations.Count - 1;
+        }
+        if(currentFaceIndex > 6)
+        {
+            currentFaceIndex = 0;
+        }
+
+        targetFaceRot = faceRotations[currentFaceIndex];
+    }
 }
