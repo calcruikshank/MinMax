@@ -26,4 +26,7 @@ public class GameManager : MonoBehaviour
             Players.Add(player);
         }
     }
+    public void RemovePlayer(GameObject player){
+        Players.Remove(player);
+    }
 }

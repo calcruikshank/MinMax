@@ -188,6 +188,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
+        GameManager.g.RemovePlayer(this.gameObject);
         Destroy(this.gameObject);
     }
 
