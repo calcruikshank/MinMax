@@ -15,9 +15,9 @@ public class DieRoller : MonoBehaviour
     {
         GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
         currentDie = rolledDie.GetComponent<DieScript>();
-        currentDie.thisRB.AddForce(Vector3.right * 150);
+        currentDie.thisRB.AddForce(Vector3.right * Random.Range(50, 250));
         currentDie.thisDR = this;
-        StartCoroutine(currentDie.CheckValue());
+        currentDie.stopped = false;
     }
 
 }

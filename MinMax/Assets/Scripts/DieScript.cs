@@ -8,20 +8,31 @@ public class DieScript : MonoBehaviour
     public Rigidbody thisRB;
     public MeshRenderer thisMR;
     public DieRoller thisDR;
+    public bool stopped = true;
+    public DieCollider[] dieColliders;
 
-    // void Start()
-    // {
-    //     StartCoroutine(CheckValue());
-    // }
+    void OnCollisionEnter()
+    {
+        stopped = false;
+    }
 
     void Update()
     {
+        if (stopped) return;
         Debug.Log(thisRB.velocity.magnitude);
+        if (Mathf.Approximately(thisRB.velocity.magnitude, 0))
+        {
+            stopped = true;
+            thisDR.valueText.text = GetValue().ToString();
+        }
     }
 
-    public IEnumerator CheckValue()
+    int GetValue()
     {
-        while(thisRB.velocity.magnitude > 0) yield return new WaitForEndOfFrame();
-        thisDR.valueText.text = "1";
+        foreach(DieCollider dc in dieColliders)
+        {
+            if (dc.isContacted) return dc.value;
+        }
+        return 0;
     }
 }
