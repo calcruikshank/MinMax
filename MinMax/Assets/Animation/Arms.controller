@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Arms_Cast
+  m_Name: Arms_Cast 1
   m_Speed: 0.85
   m_CycleOffset: 0
   m_Transitions:
@@ -121,9 +121,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.13224801
-  m_TransitionOffset: 0
-  m_ExitTime: 0.5646568
+  m_TransitionDuration: 0.18775654
+  m_TransitionOffset: 0.008007791
+  m_ExitTime: 0.5705355
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0

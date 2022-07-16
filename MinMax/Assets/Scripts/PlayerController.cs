@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
     public float entryTime;
     public float currentPercentage;
 
+    bool fireAnimationIsPlaying = false;
+
     public enum State
     {
         Normal,
@@ -164,6 +166,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnFireDown()
     {
+        fireAnimationIsPlaying = true;
         entryTime = Time.time;
         gun.fire = true;
         currentSpeed /= stats.SpeedReductionWhenFiring;
@@ -173,7 +176,6 @@ public class PlayerController : MonoBehaviour
     void OnFireUp()
     {
         gun.fire = false;
-        currentSpeed = stats.Speed;
         armsAnim.SetBool("cast", false);
     }
 
@@ -216,14 +218,33 @@ public class PlayerController : MonoBehaviour
 
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
+
         //Debug.Log(currentPercentage % stateInfo.length * stateInfo.speed);
-        currentPercentage = (Time.time - entryTime) / stateInfo.length;
+        //currentPercentage = (Time.time - entryTime) / stateInfo.length;
         /*if(currentPercentage % stateInfo.length * stateInfo.speed <= .45f)
         {
             gun.hasFiredForAnim = false;
         }*/
-        if(gun.fire == true)
+        if(fireAnimationIsPlaying)
         {
+            currentPercentage = (Time.time - entryTime) / stateInfo.length;
+
+            Debug.Log(stateInfo.IsName("Arms_Cast 1"));
+            if (!stateInfo.IsName("Arms_Cast 1"))
+            {
+                if (gun.fire)
+                {
+                    armsAnim.SetBool("cast", true);
+                    StartCoroutine("ResetCast");
+
+                    entryTime = Time.time;
+                }
+                if (!gun.fire && gun.hasFiredForAnim)
+                {
+                    currentSpeed = stats.Speed;
+                    fireAnimationIsPlaying = false;
+                }
+            }
             /*if (!armsAnim.runtimeAnimatorController.animationClips[0].length * ("Arms_Cast 1"))
             {
                 armsAnim.Play("Arms_Cast 1");
@@ -233,15 +254,14 @@ public class PlayerController : MonoBehaviour
             */
 
         }
-
-
-
     }
 
-    private IEnumerator ResetCast()
+    IEnumerator ResetCast()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(.001f) ;
+
         armsAnim.SetBool("cast", false);
-    
+        gun.hasFiredForAnim = false;
+
     }
 }

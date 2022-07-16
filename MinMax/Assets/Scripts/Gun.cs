@@ -24,10 +24,8 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (fire)
-        {
             //Debug.Log(playerOwningGun.armsAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
-            if (playerOwningGun.currentPercentage >= 0.45f && !hasFiredForAnim)
+            if (playerOwningGun.currentPercentage >= 0.4f && !hasFiredForAnim)
             {
                 hasFiredForAnim = true;
                 switch (playerOwningGun.stats.NumberOfProjectiles)
@@ -75,7 +73,6 @@ public class Gun : MonoBehaviour
                         boom(200);
                         break;
                 }
-            }
         }
         
     }
