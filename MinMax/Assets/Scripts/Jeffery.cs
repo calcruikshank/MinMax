@@ -13,12 +13,14 @@ public class Jeffery : MonoBehaviour
     float keepDistance = 10f;
     float keepRange = 2f;
     float keepFuzz = 0f;
+    bool isFiring;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = gameObject.GetComponent<PlayerController>();
         state = State.Chasing;
+        Fire();
     }
     private enum State
     {
@@ -92,6 +94,11 @@ public class Jeffery : MonoBehaviour
             controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);       
         }
 
+    }
+
+    void Fire(){
+        if(!isFiring)
+            controller.OnFireDown();
     }
 
     void CheckDodge(){
