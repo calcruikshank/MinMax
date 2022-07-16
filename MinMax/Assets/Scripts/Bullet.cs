@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float velocity;
-    public Vector3 targetPosition;
+    private float velocity;
+    private Vector3 targetPosition;
 
     private Vector3 startPosition;
-    private float distMoved = 0;
-
+    private float distMoved;
+    private float attackDamage;
+    private float projectileSize;
     PlayerController playerOwningBullet;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,16 @@ public class Bullet : MonoBehaviour
         startPosition = transform.localPosition;
     }
 
-    
+    internal void Init(PlayerController playerOwningGun, Vector3 endPosition)
+    {
+        targetPosition = endPosition;
+        playerOwningBullet = playerOwningGun;
+        var s = playerOwningBullet.stats;
+        velocity = s.ProjectileSpeed;
+        attackDamage = s.AttackDamage;
+        projectileSize = s.ProjectileSize;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -31,17 +41,12 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    internal void Init(PlayerController playerOwningGun)
-    {
-        playerOwningBullet = playerOwningGun;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Stats>() != null)
         {
             Stats objectHit = other.GetComponent<Stats>();
-            objectHit.TakeDamage(playerOwningBullet.stats.AttackDamage);
+            objectHit.TakeDamage(attackDamage);
         }
     }
 }
