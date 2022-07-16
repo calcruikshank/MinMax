@@ -7,7 +7,7 @@ public class Gun : MonoBehaviour
     public GameObject bullet;
     public float cooldown = 1;
     public bool fire = true;
-    public float startingVelocity = 10000;
+    public float startingVelocity = 100;
     public float range = 10;
 
 
