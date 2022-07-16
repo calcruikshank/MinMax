@@ -94,7 +94,6 @@ public class PlayerController : MonoBehaviour
             lastLookedPosition = lookTowards;
         }
 
-        Debug.Log(lastLookedPosition);
         transform.right = lastLookedPosition;
 
     }
