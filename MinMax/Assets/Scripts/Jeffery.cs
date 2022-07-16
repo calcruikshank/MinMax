@@ -22,8 +22,8 @@ public class Jeffery : MonoBehaviour
             }
         }
         if(target != null){
-            var dir = transform.position - target.transform.position;
-            controller.inputMovement = new Vector2(dir.x,dir.z);            
+            var dir = target.transform.position - transform.position;
+            controller.inputMovement = new Vector2(dir.x * .1f,dir.z *.1f);            
         }
     }
 }
