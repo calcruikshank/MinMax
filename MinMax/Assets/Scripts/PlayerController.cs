@@ -10,10 +10,10 @@ public class PlayerController : MonoBehaviour
     Vector2 lookDirection;
     Vector3 movement;
     Vector2 inputMovement;
-    float moveSpeed = 10f;
 
     float currentSpeed;
     public State state;
+    Stats stats;
     public enum State
     {
         Normal,
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+        stats = this.GetComponent<Stats>();
         state = State.Normal;
     }
 
@@ -58,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private void FixedHandleMovement()
     {
         //rb.AddForce(movement.normalized * moveSpeed);
-        rb.velocity = movement * moveSpeed;
+        rb.velocity = movement * stats.Speed;
         
         /*if (rb.velocity.magnitude > maxSpeed)
         {
