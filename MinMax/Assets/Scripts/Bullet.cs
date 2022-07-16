@@ -35,4 +35,13 @@ public class Bullet : MonoBehaviour
     {
         playerOwningBullet = playerOwningGun;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Stats>() != null)
+        {
+            Stats objectHit = other.GetComponent<Stats>();
+            objectHit.TakeDamage(playerOwningBullet.stats.AttackDamage);
+        }
+    }
 }

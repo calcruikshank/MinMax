@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  stats: {fileID: 0}
 --- !u!54 &3569663969878693508
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ MonoBehaviour:
   Speed: 10
   HP: 10
   AttackSpeed: 0
-  AttackDamage: 0
+  AttackDamage: 10
   ProjectileSpeed: 0
   NumberOfProjectiles: 0
   ProjectileSize: 0

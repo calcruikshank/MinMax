@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     Vector2 inputMovement;
 
     public State state;
-    Stats stats;
+    public Stats stats;
 
     //float acceleration;
     //float currentSpeed;
