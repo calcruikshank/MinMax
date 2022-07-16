@@ -90,7 +90,8 @@ public class Jeffery : MonoBehaviour
 
     void LookAt(){
         if(target != null){
-            var dir = target.transform.position - transform.position;
+            var rb = target.GetComponent<Rigidbody>();
+            var dir = target.transform.position + rb.velocity - transform.position;
             controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);       
         }
 
