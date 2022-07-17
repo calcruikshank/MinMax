@@ -1922,6 +1922,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1527190818821819345, guid: 568ecfc8859d6e24c9509506a84ccaea, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1527190818821819346, guid: 568ecfc8859d6e24c9509506a84ccaea, type: 3}
       propertyPath: m_Name
       value: GroundGrid
