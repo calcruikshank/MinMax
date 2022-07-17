@@ -52,7 +52,6 @@ public class Bullet : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Bollenan");
             var objectHit = other.GetComponent<PlayerController>();
             if(objectHit != playerOwningBullet){
                 objectHit.TakeDamage(attackDamage);

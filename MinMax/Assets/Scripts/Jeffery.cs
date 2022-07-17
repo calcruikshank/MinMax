@@ -9,9 +9,9 @@ public class Jeffery : MonoBehaviour
     PlayerController target = null;
     GameObject dodgeTarget = null;
     Vector2 moveDirection;
-    float keepDistance = 10f;
+    float keepDistance = 15f;
     float keepRange = 5f;
-    float keepFuzz = 0f;
+    float keepFuzz = 2f;
     bool isFiring;
 
     // Start is called before the first frame update
@@ -30,7 +30,7 @@ public class Jeffery : MonoBehaviour
     void Update()
     {
         float speed = 1f;
-        InvokeRepeating("SelectTarget", .5f, 1f);
+        InvokeRepeating("SelectTarget", .5f, 2f);
         InvokeRepeating("Fuzz", 2.0f, 2f);
         LookAt();
         CheckDodge();
@@ -82,13 +82,14 @@ public class Jeffery : MonoBehaviour
         var listOfClosest = OrderByClosest(GameManager.g.Players,transform.position);
         foreach(var obj in listOfClosest){
             if(obj != gameObject){
+                StopFire();
                 target = obj.GetComponent<PlayerController>();
             }
         }
     }
 
     void Fuzz(){
-        //keepFuzz = Random.Range(-1,1);
+        keepFuzz = Random.Range(-1,1);
     }
 
     void LookAt(){
