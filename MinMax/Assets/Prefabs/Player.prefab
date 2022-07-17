@@ -122,6 +122,8 @@ MonoBehaviour:
   wand: {fileID: 5370026483510068232}
   entryTime: 0
   currentPercentage: 0
+  hatRenderer: {fileID: 6656775143725793235}
+  cloakRenderer: {fileID: 9125506614056855743}
 --- !u!54 &3569663969878693508
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1642,11 +1644,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hat
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f869143a8b4a4643b9a8a75cbc9df3b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f869143a8b4a4643b9a8a75cbc9df3b, type: 3}
 --- !u!4 &5488394147338585276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4f869143a8b4a4643b9a8a75cbc9df3b, type: 3}
+  m_PrefabInstance: {fileID: 5449364450669650775}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6656775143725793235 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4f869143a8b4a4643b9a8a75cbc9df3b, type: 3}
   m_PrefabInstance: {fileID: 5449364450669650775}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7078113418983092879
@@ -1819,6 +1830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cape
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 48f1546d646cbab4db09415a10e7371f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48f1546d646cbab4db09415a10e7371f, type: 3}
 --- !u!1 &7324176370852530538 stripped
@@ -1849,5 +1864,10 @@ Animator:
 --- !u!4 &7993716948029002704 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 48f1546d646cbab4db09415a10e7371f, type: 3}
+  m_PrefabInstance: {fileID: 7594716363578717243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &9125506614056855743 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 48f1546d646cbab4db09415a10e7371f, type: 3}
   m_PrefabInstance: {fileID: 7594716363578717243}
   m_PrefabAsset: {fileID: 0}
