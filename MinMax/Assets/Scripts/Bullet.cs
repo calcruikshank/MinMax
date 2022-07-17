@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Bullet : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class Bullet : MonoBehaviour
     private float distMoved;
     public float attackDamage;
     private float projectileSize;
+    private GameObject homingTarget;
     public PlayerController playerOwningBullet;
+    public bool isHoming;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +24,22 @@ public class Bullet : MonoBehaviour
 
     public void ShootAt(Vector3 endPosition)
     {
+        if(isHoming){
+            SetHomingTarget();
+        }
         startPosition = transform.localPosition;
         targetPosition = endPosition;
         distMoved = 0;
+    }
+
+    public void SetHomingTarget(){
+        var players = GameManager.g.Players.OrderBy(x => Vector3.Distance(x.transform.position, transform.position + transform.forward * 10)).ToList();
+        foreach(var player in players){
+            if(player != playerOwningBullet && Vector3.Distance(transform.position + transform.forward * 10f,player.transform.position) < 15f){
+                homingTarget = player;
+            }
+            break;
+        }
     }
 
     internal void Init(PlayerController playerOwningGun, Vector3 endPosition)
@@ -40,6 +56,9 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(homingTarget != null){
+            targetPosition = homingTarget.transform.position;
+        }
         distMoved += Time.deltaTime * velocity ;
         float percentMoved = distMoved/Vector3.Distance(targetPosition,startPosition);
         transform.localPosition = Vector3.Lerp(startPosition, targetPosition, percentMoved);

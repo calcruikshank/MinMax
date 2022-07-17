@@ -25,6 +25,7 @@ public class Jeffery : MonoBehaviour
         InvokeRepeating("Fuzz", 2.0f, 2f);
         InvokeRepeating("Face", 10f, 10f);
         InvokeRepeating("LookForPower", 1f, 1f);
+        //InvokeRepeating("FindDirection", 1f, 1f);
         keepDistance = controller.stats.ProjectileRange * .75f;
         keepRange = controller.stats.ProjectileRange * .10f;
     }
@@ -94,6 +95,9 @@ public class Jeffery : MonoBehaviour
                 break;
             case State.Goto:
                 var direction = moveTarget - transform.position;
+                if(Vector3.Distance(moveTarget, transform.position) < 2f){
+                    state = State.Chasing;
+                }
                 break;
         }
         speed = 1f;
@@ -113,7 +117,7 @@ public class Jeffery : MonoBehaviour
     }
 
     void Fuzz(){
-        keepFuzz = Random.Range(-1,1);
+        keepFuzz = Random.Range(-1f,1f);
     }
 
     void Face(){
@@ -176,7 +180,21 @@ public class Jeffery : MonoBehaviour
             }
         }
     }
-
+    void FindDirection(){
+        RaycastHit hit;
+        if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, 10)){
+            moveTarget = transform.position + transform.TransformDirection(Vector3.left) * 10;
+            state = State.Goto;
+        }
+        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 10)){
+            moveTarget = transform.position + transform.TransformDirection(Vector3.right) * 10;
+            state = State.Goto;
+        }
+        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 10)){
+            moveTarget = transform.position + transform.TransformDirection(Vector3.back) * 10;
+            state = State.Goto;
+        }
+    }
     bool RayCastBullet(Bullet b){
         RaycastHit hitMid;
         RaycastHit hitRight;
