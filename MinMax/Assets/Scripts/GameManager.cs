@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
 
                 //show winner text here.
                 winnerCg.alpha = 1f;
+                winnerCg.GetComponent<TMP_Text>().text = Players[0].GetComponentInChildren<Jeffery>() ? "BOTS WIN" : "YOU WIN";
 
                 StartCoroutine(Restart());
                 startedRestart = true;
@@ -98,7 +100,7 @@ public class GameManager : MonoBehaviour
         SoundManager.singleton.pcs.Clear();
         // Destroy(SpawnManager.singleton.gameObject);
         // SpawnManager.singleton = null;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(7f);
         SceneManager.LoadScene("Main Menu");
         // DieRoller.singleton.gameObject.SetActive(true);
         // DieRoller.singleton.ResetAllThings();
