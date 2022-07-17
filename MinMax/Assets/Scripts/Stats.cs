@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     public float Speed = 10f;
-    public float HP;
+    public float HP = 10;
     public float AttackCooldown = 1f;
     public float AttackDamage = 1f;
     public float ProjectileSpeed = 30f;
