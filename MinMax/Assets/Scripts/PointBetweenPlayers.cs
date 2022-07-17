@@ -11,9 +11,12 @@ public class PointBetweenPlayers : MonoBehaviour
 
     public static PointBetweenPlayers singleton;
 
+    Vector3 startingOffset;
+
     private void Awake()
     {
         singleton = this;
+        startingOffset = Camera.main.transform.position;
     }
     // Start is called before the first frame update
     void Start()
@@ -26,7 +29,7 @@ public class PointBetweenPlayers : MonoBehaviour
         if (GameManager.g.Players.Count == 1)
         {
             pointToFollow = GameManager.g.Players[0].transform.position;
-            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(pointToFollow.x, pointToFollow.y + 25, pointToFollow.z - 15), 50 * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(pointToFollow.x, pointToFollow.y + startingOffset.y, pointToFollow.z + startingOffset.z), 50 * Time.deltaTime);
             return;
         }
         foreach (GameObject player in GameManager.g.Players)
@@ -62,6 +65,6 @@ public class PointBetweenPlayers : MonoBehaviour
         }
 
 
-        this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(pointToFollow.x, pointToFollow.y + 25, pointToFollow.z - 15), 50 * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(this.transform.position, new Vector3(pointToFollow.x, pointToFollow.y + startingOffset.y, pointToFollow.z + startingOffset.z), 50 * Time.deltaTime);
     }
 }
