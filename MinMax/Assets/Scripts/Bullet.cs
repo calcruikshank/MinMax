@@ -6,9 +6,9 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float velocity;
-    private Vector3 targetPosition;
+    public Vector3 targetPosition;
 
-    private Vector3 startPosition;
+    public Vector3 startPosition;
     private float distMoved;
     public float attackDamage;
     private float projectileSize;
