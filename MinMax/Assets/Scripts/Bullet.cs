@@ -16,13 +16,19 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.g.AddBullet(this);
+    }
+
+    public void ShootAt(Vector3 endPosition)
+    {
         startPosition = transform.localPosition;
+        targetPosition = endPosition;
+        distMoved = 0;
     }
 
     internal void Init(PlayerController playerOwningGun, Vector3 endPosition)
     {
-        GameManager.g.AddBullet(this);
-        targetPosition = endPosition;
+        ShootAt(endPosition);
         playerOwningBullet = playerOwningGun;
         var s = playerOwningBullet.stats;
         velocity = s.ProjectileSpeed;

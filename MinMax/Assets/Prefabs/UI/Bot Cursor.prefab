@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5355895893515492336}
   - component: {fileID: 5355895893515492343}
   - component: {fileID: 5355895893515492338}
+  - component: {fileID: 301066580746609369}
   m_Layer: 5
   m_Name: Bot Cursor
   m_TagString: Untagged
@@ -97,6 +98,28 @@ MonoBehaviour:
   speed: 150
   usedCurrentDie: 0
   thisMSS: {fileID: 0}
+--- !u!114 &301066580746609369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5355895893515492341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931da2f0295921c418a85ce050299e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 10
+  HP: 0
+  AttackCooldown: 1
+  AttackDamage: 1
+  ProjectileSpeed: 30
+  NumberOfProjectiles: 1
+  ProjectileSize: 1
+  PlayerSize: 1
+  ProjectileRange: 30
+  SpeedReductionWhenFiring: 2
 --- !u!1 &5355895894337139575
 GameObject:
   m_ObjectHideFlags: 0

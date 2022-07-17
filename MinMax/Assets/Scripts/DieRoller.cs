@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DieRoller : MonoBehaviour
 {
@@ -72,6 +73,11 @@ public class DieRoller : MonoBehaviour
         }
         // StartCoroutine(Timer());
         time = 6;
+    }
+
+    public void Button_LoadGamesScene()
+    {
+        SceneManager.LoadScene("SampleScene", LoadSceneMode.Additive);
     }
 
     public void Button_RollSameStats()
