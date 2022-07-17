@@ -34,7 +34,7 @@ public class DieRoller : MonoBehaviour
         if (singleton is null)
         {
             singleton = this;
-            DontDestroyOnLoad(this);
+            // DontDestroyOnLoad(this);
         }
         else
         {

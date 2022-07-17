@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         }
         InvokeRepeating("SpawnPower", 5f, 10f);
         //Destroy(DieRoller.singleton.gameObject);
-        DieRoller.singleton.gameObject.SetActive(false);
+        // DieRoller.singleton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -70,8 +70,8 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("Main Menu");
-        DieRoller.singleton.gameObject.SetActive(true);
-        DieRoller.singleton.ResetAllThings();
+        // DieRoller.singleton.gameObject.SetActive(true);
+        // DieRoller.singleton.ResetAllThings();
     }
 
     public void SpawnPower(){
