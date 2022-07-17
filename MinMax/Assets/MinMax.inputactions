@@ -628,6 +628,28 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "c8aecd89-1ace-40a7-abea-cdf00ebb8c75",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "615c8eb0-fef5-4599-ac46-35b919348f0b",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "Dpad",
                     "id": "6e7242a8-bf24-42a4-a396-1280f4325ffe",
                     "path": "Dpad",
