@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (DieRoller.singleton != null) DieRoller.singleton = null;
+        DieRoller.singleton = null;
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             // PlayerCursor pc = DieRoller.singleton.pcs[i];
@@ -74,11 +74,18 @@ public class GameManager : MonoBehaviour
     bool startedRestart = false;
     IEnumerator Restart()
     {
-
+        // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
+        for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
+        {
+            Destroy(SoundManager.singleton.pcs[i].gameObject);
+        }
+        SoundManager.singleton.pcs.Clear();
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("Main Menu");
         // DieRoller.singleton.gameObject.SetActive(true);
         // DieRoller.singleton.ResetAllThings();
+        GameObject dr = GameObject.Find("DieRoller");
+        if (dr != null) DieRoller.singleton = dr.GetComponent<DieRoller>();
     }
 
     public void SpawnPower(){

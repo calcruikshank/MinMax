@@ -34,6 +34,7 @@ public class DieRoller : MonoBehaviour
     {
         if (singleton is null)
         {
+            Debug.Log("setting die roller singleton");
             singleton = this;
             // DontDestroyOnLoad(this);
         }
