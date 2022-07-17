@@ -52,7 +52,7 @@ CapsuleCollider:
   m_Radius: 1.17
   m_Height: 4.0820775
   m_Direction: 1
-  m_Center: {x: 0, y: 1.0561655, z: 0}
+  m_Center: {x: 0, y: 0.88, z: 0}
 --- !u!114 &215145169884454506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   ProjectileSpeed: 15
   NumberOfProjectiles: 1
   ProjectileSize: 1
-  PlayerSize: 1
+  PlayerSize: 6
   ProjectileRange: 30
   SpeedReductionWhenFiring: 2
   DispelSpeed: 2
