@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
                 notJeff.GetComponent<PlayerController>().thisHPS = hps;
             }
         }
-        InvokeRepeating("SpawnPower", 10f, 10f);
+        InvokeRepeating("SpawnPower", 5f, 10f);
         Destroy(DieRoller.singleton.gameObject);
     }
 
@@ -55,11 +55,10 @@ public class GameManager : MonoBehaviour
         
     }
     public void SpawnPower(){
-        Powers.Add(Instantiate(powerUpPrefab, SpawnManager.singleton.RandomSpawn().position, Quaternion.identity));
-        
+        Powers.Add(Instantiate(powerUpPrefab, new Vector3(Random.Range(-20, 20),0,Random.Range(-20, 20)), Quaternion.identity));
     }
     public void AddPlayer(PlayerController player){
-            Players.Add(player.gameObject);
+        Players.Add(player.gameObject);
     }
 
     public void RemovePlayer(PlayerController player){

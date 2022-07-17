@@ -149,7 +149,7 @@ public class PlayerCursor : MonoBehaviour
 
         if (usedCurrentDie || DieRoller.singleton.currentDie is null || string.IsNullOrEmpty(DieRoller.singleton.valueText.text)) return;
 
-        float closestDistance = 0.017f;
+        float closestDistance = 0.02f;
         TMP_Text closestText = null;
         foreach(TMP_Text tmp in thisMSS.statTexts)
         {
