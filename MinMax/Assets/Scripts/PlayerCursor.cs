@@ -11,10 +11,10 @@ public class PlayerCursor : MonoBehaviour
     public Image playerImage;
     public RectTransform thisRT;
     public Vector2 moveVal;
-    // public TMP_Text[] statTexts;
     public float speed = 100.0f;
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
+    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedNumber = false, usedProjSize = false, usedPlaSize = false, usedRange = false;
 
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
@@ -25,6 +25,7 @@ public class PlayerCursor : MonoBehaviour
         playerImage.color = newMenuStats.playerColor;
         playerLabel.color = newMenuStats.playerColor;
         newMenuStats.thisPC = this;
+        newMenuStats.thisStats = GetComponent<Stats>();
         transform.position = newMenuStats.transform.position;
         newMenuStats.ResetTexts();
         // newMenuStats.isBot = bot;
@@ -143,7 +144,7 @@ public class PlayerCursor : MonoBehaviour
 
         if (usedCurrentDie || DieRoller.singleton.currentDie is null || string.IsNullOrEmpty(DieRoller.singleton.valueText.text)) return;
 
-        float closestDistance = 0.014f;
+        float closestDistance = 0.017f;
         TMP_Text closestText = null;
         foreach(TMP_Text tmp in thisMSS.statTexts)
         {
@@ -159,6 +160,66 @@ public class PlayerCursor : MonoBehaviour
         {
             if (!string.IsNullOrEmpty(closestText.text)) return;
             closestText.text = DieRoller.singleton.valueText.text;
+            StatComponent sc = closestText.GetComponent<StatComponent>();
+            if (thisMSS.thisStats != null)
+            {
+                // Set selected stat to selected die roll
+                if (sc.statName.text.Contains("Movement"))
+                {
+                    Debug.Log("Setting speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetSpeed(int.Parse(closestText.text));
+                    usedMovement = true;
+                }
+                else if (sc.statName.text.Contains("Health"))
+                {
+                    Debug.Log("Setting health of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetHP(int.Parse(closestText.text));
+                    usedHealth = true;
+                }
+                else if (sc.statName.text.Contains("Attack Speed"))
+                {
+                    Debug.Log("Setting attack speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetAttackCooldown(int.Parse(closestText.text));
+                    usedAttackSpeed = true;
+                }
+                else if (sc.statName.text.Contains("Damage"))
+                {
+                    Debug.Log("Setting damage of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetAttackDamage(int.Parse(closestText.text));
+                    usedDamage = true;
+                }
+                else if (sc.statName.text.Contains("Projectile Speed"))
+                {
+                    Debug.Log("Setting projectile speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetProjectileSpeed(int.Parse(closestText.text));
+                    usedProjSpeed = true;
+                }
+                else if (sc.statName.text.Contains("Number"))
+                {
+                    Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetNumberOfProjectiles(int.Parse(closestText.text));
+                    usedNumber = true;
+                }
+                else if (sc.statName.text.Contains("Projectile Size"))
+                {
+                    Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetProjectileSize(int.Parse(closestText.text));
+                    usedProjSize = true;
+                }
+                else if (sc.statName.text.Contains("Player Size"))
+                {
+                    Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetPlayerSize(int.Parse(closestText.text));
+                    usedPlaSize = true;
+                }
+                else if (sc.statName.text.Contains("Range"))
+                {
+                    Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetProjectileRange(int.Parse(closestText.text));
+                    usedRange = true;
+                }
+            }
+
             usedCurrentDie = true;
             DieRoller.singleton.CheckForDieUsage();
             thisMSS.readyPanel.SetActive(true);
@@ -169,7 +230,7 @@ public class PlayerCursor : MonoBehaviour
     void FixedUpdate()
     {
         thisRT.anchoredPosition += moveVal * speed * Time.deltaTime;
-        thisRT.anchoredPosition = new Vector3(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 40, (Screen.width/2) - 40), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2)+20, (Screen.height/2)-20));
+        thisRT.anchoredPosition = new Vector3(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 80, (Screen.width/2) - 80), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2)+40, (Screen.height/2)-40));
     }
 
     void OnDisable()
@@ -189,12 +250,124 @@ public class PlayerCursor : MonoBehaviour
                 unusedStatTexts.Add(tt);
             }
         }
-        Debug.Log(unusedStatTexts.Count);
+        // Debug.Log(unusedStatTexts.Count);
         int randomText = Mathf.FloorToInt(Random.Range(0, unusedStatTexts.Count));
-        Debug.Log(randomText);
+        // Debug.Log(randomText);
         unusedStatTexts[randomText].text = rand.ToString();
+        StatComponent sc = unusedStatTexts[randomText].GetComponent<StatComponent>();
+        if (thisMSS.thisStats != null)
+        {
+            // Set selected stat to selected die roll
+            if (sc.statName.text.Contains("Movement"))
+            {
+                Debug.Log("Setting speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetSpeed(rand);
+                usedMovement = true;
+            }
+            else if (sc.statName.text.Contains("Health"))
+            {
+                Debug.Log("Setting health of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetHP(rand);
+                usedHealth = true;
+            }
+            else if (sc.statName.text.Contains("Attack Speed"))
+            {
+                Debug.Log("Setting attack speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetAttackCooldown(rand);
+                usedAttackSpeed = true;
+            }
+            else if (sc.statName.text.Contains("Damage"))
+            {
+                Debug.Log("Setting damage of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetAttackDamage(rand);
+                usedDamage = true;
+            }
+            else if (sc.statName.text.Contains("Projectile Speed"))
+            {
+                Debug.Log("Setting projectile speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetProjectileSpeed(rand);
+                usedProjSpeed = true;
+            }
+            else if (sc.statName.text.Contains("Number"))
+            {
+                Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetNumberOfProjectiles(rand);
+                usedNumber = true;
+            }
+            else if (sc.statName.text.Contains("Projectile Size"))
+            {
+                Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetProjectileSize(rand);
+                usedProjSize = true;
+            }
+            else if (sc.statName.text.Contains("Player Size"))
+            {
+                Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetPlayerSize(rand);
+                usedPlaSize = true;
+            }
+            else if (sc.statName.text.Contains("Range"))
+            {
+                Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetProjectileRange(rand);
+                usedRange = true;
+            }
+        }
         usedCurrentDie = true;
         DieRoller.singleton.CheckForDieUsage();
         thisMSS.readyPanel.SetActive(true);
+    }
+
+    public void SetUnusedStatsToThree()
+    {
+        foreach(string statName in thisMSS.statStrings)
+        {
+            switch(statName)
+            {
+                case "Movement Speed":
+                    if (!usedMovement) thisMSS.thisStats.SetSpeed(3);
+                    break;
+                case "Health":
+                    if (!usedHealth) thisMSS.thisStats.SetHP(3);
+                    break;
+                case "Attack Speed":
+                    if (!usedAttackSpeed) thisMSS.thisStats.SetAttackCooldown(3);
+                    break;
+                case "Attack Damage":
+                    if (!usedDamage) thisMSS.thisStats.SetAttackDamage(3);
+                    break;
+                case "Projectile Speed":
+                    if (!usedProjSpeed) thisMSS.thisStats.SetProjectileSpeed(3);
+                    break;
+                case "Projectile Number":
+                    if (!usedNumber) thisMSS.thisStats.SetNumberOfProjectiles(3);
+                    break;
+                case "Projectile Size":
+                    if (!usedProjSize) thisMSS.thisStats.SetProjectileSize(3);
+                    break;
+                case "Player Size":
+                    if (!usedPlaSize) thisMSS.thisStats.SetPlayerSize(3);
+                    break;
+                case "Range":
+                    if (!usedRange) thisMSS.thisStats.SetProjectileRange(3);
+                    break;
+                default:
+                    break;
+            }
+        }
+        usedMovement = false;
+        usedHealth = false;
+        usedAttackSpeed = false;
+        usedDamage = false;
+        usedProjSpeed = false;
+        usedNumber = false;
+        usedProjSize = false;
+        usedPlaSize = false;
+        usedRange = false;
+    }
+
+    public void PassStatsToPlayer()
+    {
+        SetUnusedStatsToThree();
     }
 }

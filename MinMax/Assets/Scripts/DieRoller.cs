@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DieRoller : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class DieRoller : MonoBehaviour
         if (singleton is null)
         {
             singleton = this;
+            DontDestroyOnLoad(this);
         }
         else
         {
@@ -72,6 +74,14 @@ public class DieRoller : MonoBehaviour
         }
         // StartCoroutine(Timer());
         time = 6;
+    }
+
+    public void Button_LoadGamesScene()
+    {
+        // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        GetComponent<PlayerInputManager>().enabled = false;
+
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void Button_RollSameStats()
@@ -221,7 +231,7 @@ public class DieRoller : MonoBehaviour
 
         while (time > 0)
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.35f);
             time--;
             timerText.text = ":0" + time.ToString();
 

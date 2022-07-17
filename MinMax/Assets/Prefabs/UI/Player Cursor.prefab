@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5355895893515492343}
   - component: {fileID: 5355895893515492338}
   - component: {fileID: 5355895893515492337}
+  - component: {fileID: 3425143180498874451}
   m_Layer: 5
   m_Name: Player Cursor
   m_TagString: Untagged
@@ -95,7 +96,6 @@ MonoBehaviour:
   playerImage: {fileID: 5355895893515492343}
   thisRT: {fileID: 5355895893515492342}
   moveVal: {x: 0, y: 0}
-  statTexts: []
   speed: 150
   usedCurrentDie: 0
   thisMSS: {fileID: 0}
@@ -129,6 +129,28 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3425143180498874451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5355895893515492341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931da2f0295921c418a85ce050299e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 10
+  HP: 0
+  AttackCooldown: 1
+  AttackDamage: 1
+  ProjectileSpeed: 30
+  NumberOfProjectiles: 1
+  ProjectileSize: 1
+  PlayerSize: 1
+  ProjectileRange: 30
+  SpeedReductionWhenFiring: 2
 --- !u!1 &5355895894337139575
 GameObject:
   m_ObjectHideFlags: 0

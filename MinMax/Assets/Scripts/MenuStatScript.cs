@@ -51,9 +51,9 @@ public class MenuStatScript : MonoBehaviour
         }
         else
         {
-            List<string> statsCopy = new List<string>(statStrings);
             for (int i = 0; i < 6; i++)
             {
+                List<string> statsCopy = new List<string>(statStrings);
                 int randomStat = Mathf.FloorToInt(Random.Range(0, statsCopy.Count));
                 GameObject randPanel = statPanels[i];
                 randPanel.SetActive(true);

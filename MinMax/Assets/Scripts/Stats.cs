@@ -24,7 +24,7 @@ public class Stats : MonoBehaviour
 
     public void SetSpeed(int numSent)
     {
-        Speed = 6 + (2 * numSent);
+        Speed = 5 + (2 * numSent);
     }
     public void SetHP(int numSent)
     {
@@ -52,7 +52,7 @@ public class Stats : MonoBehaviour
     }
     public void SetPlayerSize(int numSent)
     {
-        PlayerSize = numSent / 2;
+        PlayerSize = numSent / 2.0f;
     }
     public void SetProjectileRange(int numSent)
     {
@@ -61,5 +61,19 @@ public class Stats : MonoBehaviour
     public void SetSpeedReductionWhenFiring(int numSent)
     {
         
+    }
+
+    public void CopyStatsToOtherComponent(Stats otherStats)
+    {
+        otherStats.Speed = Speed;
+        otherStats.HP = HP;
+        otherStats.AttackCooldown = AttackCooldown;
+        otherStats.AttackDamage = AttackDamage;
+        otherStats.ProjectileSpeed = ProjectileSpeed;
+        otherStats.NumberOfProjectiles = NumberOfProjectiles;
+        otherStats.ProjectileSize = ProjectileSize;
+        otherStats.PlayerSize = PlayerSize;
+        otherStats.ProjectileRange = ProjectileRange;
+        otherStats.SpeedReductionWhenFiring = SpeedReductionWhenFiring;
     }
 }

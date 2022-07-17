@@ -1,29 +1,11 @@
 fileFormatVersion: 2
-guid: 74b2a9a583f96824f99889c14de8b5cb
+guid: 4f869143a8b4a4643b9a8a75cbc9df3b
 ModelImporter:
   serializedVersion: 21300
-  internalIDToNameTable:
-  - first:
-      74: 4827120973585216906
-    second: Arms_Idle
-  - first:
-      74: 5789698042586474820
-    second: Arms_Cast
-  - first:
-      74: 7121731668635460593
-    second: Arm_Dispell
-  - first:
-      74: 738574731918147648
-    second: HandsArmature|Arm_Dispell
-  - first:
-      74: -3930853237801261566
-    second: HandsArmature|Arms_Cast
-  - first:
-      74: 7670666849698443963
-    second: HandsArmature|Arms_Idle
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
