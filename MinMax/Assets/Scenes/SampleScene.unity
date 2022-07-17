@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 627d6dc3a45d56b469e1a4347b8ccb00, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 6a45162d1d137604291a195f49f84c7d, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3452184534867605431, guid: fbae756a5bc11104e8dbd79a0b3a312f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3452184534867605435, guid: fbae756a5bc11104e8dbd79a0b3a312f, type: 3}
       propertyPath: m_Pivot.x
@@ -2148,7 +2148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 4
-  m_AllowJoining: 1
+  m_AllowJoining: 0
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
