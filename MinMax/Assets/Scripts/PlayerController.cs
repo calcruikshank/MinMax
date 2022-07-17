@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                this.transform.position = new Vector3(transform.position.x, hit.collider.transform.position.y + this.GetComponent<Collider>().bounds.size.y / 2, transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, hit.collider.transform.position.y + this.GetComponent<Collider>().bounds.size.y / 4.3f, transform.position.z);
                 Debug.Log(hit.transform);
             }
         }
@@ -273,14 +273,18 @@ public class PlayerController : MonoBehaviour
 
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
-        currentMana = Mathf.Clamp(currentMana + (Time.deltaTime * stats.manaRegenRate), 0, 100);
-        thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
+
+        currentMana = Mathf.Clamp(currentMana + (Time.deltaTime * stats.manaRegenRate), 0, stats.manaPool);
+        if (thisHPS != null)
+        {
+            thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
+        }
         
         if (currentMana < stats.manaCost)
         {
             return;
         }
-        if (fireDownPressed && (currentMana > stats.manaCost))
+        if (fireDownPressed)
         {
             if (fireAnimationIsPlaying) return;
             if (dispelAnimationIsPlaying == true) return;
