@@ -14,7 +14,7 @@ public class PlayerCursor : MonoBehaviour
     public float speed = 100.0f;
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
-    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false;
+    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false;
 
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
@@ -205,7 +205,7 @@ public class PlayerCursor : MonoBehaviour
                     thisMSS.thisStats.SetProjectileSize(int.Parse(closestText.text));
                     usedProjSize = true;
                 }
-                else if (sc.statName.text.Contains("Player Size"))
+                else if (sc.statName.text.Contains("Player Shrinkage"))
                 {
                     // Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetPlayerSize(int.Parse(closestText.text));
@@ -216,6 +216,12 @@ public class PlayerCursor : MonoBehaviour
                     // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetProjectileRange(int.Parse(closestText.text));
                     usedRange = true;
+                }
+                else if (sc.statName.text.Contains("Reflect Speed"))
+                {
+                    // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetDispelSpeed(int.Parse(closestText.text));
+                    usedReflect = true;
                 }
             }
 
@@ -291,7 +297,7 @@ public class PlayerCursor : MonoBehaviour
                 thisMSS.thisStats.SetProjectileSize(rand);
                 usedProjSize = true;
             }
-            else if (sc.statName.text.Contains("Player Size"))
+            else if (sc.statName.text.Contains("Player Shrinkage"))
             {
                 // Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetPlayerSize(rand);
@@ -302,6 +308,12 @@ public class PlayerCursor : MonoBehaviour
                 // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetProjectileRange(rand);
                 usedRange = true;
+            }
+            else if (sc.statName.text.Contains("Reflect Speed"))
+            {
+                // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetDispelSpeed(rand);
+                usedReflect = true;
             }
         }
         usedCurrentDie = true;
@@ -343,7 +355,7 @@ public class PlayerCursor : MonoBehaviour
                 // Debug.Log("setting projectile size of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetProjectileSize(3);
             }
-            if (statName.Contains("Player Size") && !usedPlaSize)
+            if (statName.Contains("Player Shrinkage") && !usedPlaSize)
             {
                 // Debug.Log("setting size of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetPlayerSize(3);
@@ -352,6 +364,11 @@ public class PlayerCursor : MonoBehaviour
             {
                 // Debug.Log("setting range of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetProjectileRange(3);
+            }
+            if (statName.Contains("Reflect Speed") && !usedReflect)
+            {
+                // Debug.Log("setting range of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetDispelSpeed(3);
             }
         }
         usedMovement = false;
@@ -362,5 +379,6 @@ public class PlayerCursor : MonoBehaviour
         usedProjSize = false;
         usedPlaSize = false;
         usedRange = false;
+        usedReflect = false;
     }
 }

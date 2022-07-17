@@ -205,6 +205,7 @@ public class PlayerController : MonoBehaviour
         {
            Die();
         }
+        if (thisHPS is null) return;
         if (thisHPS.healthSlider is null) return;
         thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
