@@ -20,6 +20,7 @@ public class Stats : MonoBehaviour
     public float manaRegenRate = 1f;
     public float manaCost = 20f;
     public float critChance = 1;
+    public bool Homing = false;
 
     PlayerController player;
 

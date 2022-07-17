@@ -26,6 +26,7 @@ public class MenuStatScript : MonoBehaviour
         }
         readyPanel.SetActive(true);
         waitPanel.SetActive(false);
+        addBotButton.gameObject.SetActive(!backgroundPanel.activeSelf);
     }
 
     public IEnumerator RollStats()
