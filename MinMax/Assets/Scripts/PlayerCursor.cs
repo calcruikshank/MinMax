@@ -14,7 +14,7 @@ public class PlayerCursor : MonoBehaviour
     public float speed = 100.0f;
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
-    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedNumber = false, usedProjSize = false, usedPlaSize = false, usedRange = false;
+    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false;
 
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
@@ -22,8 +22,8 @@ public class PlayerCursor : MonoBehaviour
         thisMSS.backgroundPanel.gameObject.SetActive(true);
         thisMSS.addBotButton.gameObject.SetActive(false);
         playerLabel.text = newMenuStats.playerName;
-        playerImage.color = newMenuStats.playerColor;
-        playerLabel.color = newMenuStats.playerColor;
+        playerImage.color = bot ? new Color(0,0,0,0) : newMenuStats.playerColor;
+        playerLabel.color = bot ? new Color(0,0,0,0) : newMenuStats.playerColor;
         newMenuStats.thisPC = this;
         newMenuStats.thisStats = GetComponent<Stats>();
         transform.position = newMenuStats.transform.position;
@@ -149,7 +149,6 @@ public class PlayerCursor : MonoBehaviour
         foreach(TMP_Text tmp in thisMSS.statTexts)
         {
             float thisDistance = Vector3.Distance(transform.position, tmp.transform.position);
-            // Debug.Log(thisDistance);
             if (thisDistance < closestDistance)
             {
                 closestDistance = thisDistance;
@@ -167,55 +166,49 @@ public class PlayerCursor : MonoBehaviour
                 // Set selected stat to selected die roll
                 if (sc.statName.text.Contains("Movement"))
                 {
-                    Debug.Log("Setting speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetSpeed(int.Parse(closestText.text));
                     usedMovement = true;
                 }
                 else if (sc.statName.text.Contains("Health"))
                 {
-                    Debug.Log("Setting health of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting health of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetHP(int.Parse(closestText.text));
                     usedHealth = true;
                 }
                 else if (sc.statName.text.Contains("Attack Speed"))
                 {
-                    Debug.Log("Setting attack speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting attack speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetAttackCooldown(int.Parse(closestText.text));
                     usedAttackSpeed = true;
                 }
                 else if (sc.statName.text.Contains("Damage"))
                 {
-                    Debug.Log("Setting damage of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting damage of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetAttackDamage(int.Parse(closestText.text));
                     usedDamage = true;
                 }
                 else if (sc.statName.text.Contains("Projectile Speed"))
                 {
-                    Debug.Log("Setting projectile speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting projectile speed of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetProjectileSpeed(int.Parse(closestText.text));
                     usedProjSpeed = true;
                 }
-                // else if (sc.statName.text.Contains("Number"))
-                // {
-                //     Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
-                //     thisMSS.thisStats.SetNumberOfProjectiles(int.Parse(closestText.text));
-                //     usedNumber = true;
-                // }
                 else if (sc.statName.text.Contains("Projectile Size"))
                 {
-                    Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetProjectileSize(int.Parse(closestText.text));
                     usedProjSize = true;
                 }
                 else if (sc.statName.text.Contains("Player Size"))
                 {
-                    Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetPlayerSize(int.Parse(closestText.text));
                     usedPlaSize = true;
                 }
                 else if (sc.statName.text.Contains("Range"))
                 {
-                    Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetProjectileRange(int.Parse(closestText.text));
                     usedRange = true;
                 }
@@ -251,9 +244,7 @@ public class PlayerCursor : MonoBehaviour
                 unusedStatTexts.Add(tt);
             }
         }
-        // Debug.Log(unusedStatTexts.Count);
         int randomText = Mathf.FloorToInt(Random.Range(0, unusedStatTexts.Count));
-        // Debug.Log(randomText);
         unusedStatTexts[randomText].text = rand.ToString();
         StatComponent sc = unusedStatTexts[randomText].GetComponent<StatComponent>();
         if (thisMSS.thisStats != null)
@@ -261,55 +252,49 @@ public class PlayerCursor : MonoBehaviour
             // Set selected stat to selected die roll
             if (sc.statName.text.Contains("Movement"))
             {
-                Debug.Log("Setting speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetSpeed(rand);
                 usedMovement = true;
             }
             else if (sc.statName.text.Contains("Health"))
             {
-                Debug.Log("Setting health of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting health of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetHP(rand);
                 usedHealth = true;
             }
             else if (sc.statName.text.Contains("Attack Speed"))
             {
-                Debug.Log("Setting attack speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting attack speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetAttackCooldown(rand);
                 usedAttackSpeed = true;
             }
             else if (sc.statName.text.Contains("Damage"))
             {
-                Debug.Log("Setting damage of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting damage of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetAttackDamage(rand);
                 usedDamage = true;
             }
             else if (sc.statName.text.Contains("Projectile Speed"))
             {
-                Debug.Log("Setting projectile speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting projectile speed of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetProjectileSpeed(rand);
                 usedProjSpeed = true;
             }
-            // else if (sc.statName.text.Contains("Number"))
-            // {
-            //     Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + rand);
-            //     thisMSS.thisStats.SetNumberOfProjectiles(rand);
-            //     usedNumber = true;
-            // }
             else if (sc.statName.text.Contains("Projectile Size"))
             {
-                Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetProjectileSize(rand);
                 usedProjSize = true;
             }
             else if (sc.statName.text.Contains("Player Size"))
             {
-                Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetPlayerSize(rand);
                 usedPlaSize = true;
             }
             else if (sc.statName.text.Contains("Range"))
             {
-                Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetProjectileRange(rand);
                 usedRange = true;
             }
@@ -323,37 +308,45 @@ public class PlayerCursor : MonoBehaviour
     {
         foreach(string statName in thisMSS.statStrings)
         {
-            switch(statName)
+            if (statName.Contains("Movement") && !usedMovement)
             {
-                case "Movement Speed":
-                    if (!usedMovement) thisMSS.thisStats.SetSpeed(3);
-                    break;
-                case "Health":
-                    if (!usedHealth) thisMSS.thisStats.SetHP(3);
-                    break;
-                case "Attack Speed":
-                    if (!usedAttackSpeed) thisMSS.thisStats.SetAttackCooldown(3);
-                    break;
-                case "Attack Damage":
-                    if (!usedDamage) thisMSS.thisStats.SetAttackDamage(3);
-                    break;
-                case "Projectile Speed":
-                    if (!usedProjSpeed) thisMSS.thisStats.SetProjectileSpeed(3);
-                    break;
-                // case "Projectile Number":
-                //     if (!usedNumber) thisMSS.thisStats.SetNumberOfProjectiles(3);
-                //     break;
-                case "Projectile Size":
-                    if (!usedProjSize) thisMSS.thisStats.SetProjectileSize(3);
-                    break;
-                case "Player Size":
-                    if (!usedPlaSize) thisMSS.thisStats.SetPlayerSize(3);
-                    break;
-                case "Range":
-                    if (!usedRange) thisMSS.thisStats.SetProjectileRange(3);
-                    break;
-                default:
-                    break;
+                // Debug.Log("setting movement of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetSpeed(3);
+            }
+            if (statName.Contains("Health") && !usedHealth)
+            {
+                // Debug.Log("setting health of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetHP(3);
+            }
+            if (statName.Contains("Attack Speed") && !usedAttackSpeed)
+            {
+                // Debug.Log("setting attack speed of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetAttackCooldown(3);
+            }
+            if (statName.Contains("Damage") && !usedDamage)
+            {
+                // Debug.Log("setting damage of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetAttackDamage(3);
+            }
+            if (statName.Contains("Projectile Speed") && !usedProjSpeed)
+            {
+                // Debug.Log("setting proj speed of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetProjectileSpeed(3);
+            }
+            if (statName.Contains("Projectile Size") && !usedProjSize)
+            {
+                // Debug.Log("setting projectile size of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetProjectileSize(3);
+            }
+            if (statName.Contains("Player Size") && !usedPlaSize)
+            {
+                // Debug.Log("setting size of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetPlayerSize(3);
+            }
+            if (statName.Contains("Range") && !usedRange)
+            {
+                // Debug.Log("setting range of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetProjectileRange(3);
             }
         }
         usedMovement = false;
@@ -361,14 +354,8 @@ public class PlayerCursor : MonoBehaviour
         usedAttackSpeed = false;
         usedDamage = false;
         usedProjSpeed = false;
-        usedNumber = false;
         usedProjSize = false;
         usedPlaSize = false;
         usedRange = false;
-    }
-
-    public void PassStatsToPlayer()
-    {
-        SetUnusedStatsToThree();
     }
 }

@@ -278,7 +278,6 @@ public class PlayerController : MonoBehaviour
         if (dispelDownPressed)
         {
             if (dispelAnimationIsPlaying) return;
-            if (gun.hasFiredForAnim && fireAnimationIsPlaying) return;
             if (fireDownPressed) return;
             dispelDownPressed = false;
             dispelEntryTime = Time.time;
@@ -293,11 +292,11 @@ public class PlayerController : MonoBehaviour
             fireAnimationIsPlaying = false;
             currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
 
-            if (currentDispelPercentage > .3f && !wand.GetComponent<Collider>().enabled)
+            if (currentDispelPercentage > .2f && !wand.GetComponent<Collider>().enabled)
             {
                 wand.GetComponent<Collider>().enabled = true;
             }
-            if (currentDispelPercentage > .7f && wand.GetComponent<Collider>().enabled)
+            if (currentDispelPercentage > .9f && wand.GetComponent<Collider>().enabled)
             {
                 wand.GetComponent<Collider>().enabled = false;
             }

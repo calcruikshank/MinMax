@@ -32,7 +32,7 @@ public class Stats : MonoBehaviour
     }
     public void SetAttackCooldown(int numSent)
     {
-        AttackCooldown = (numSent / 2);
+        AttackCooldown = (numSent / 3);
     }
     public void SetAttackDamage(int numSent)
     {
