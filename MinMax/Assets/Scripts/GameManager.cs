@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
             HealthPanelScript hps = hp.GetComponent<HealthPanelScript>();
             hps.playerName.text = pc.playerLabel.text;
             hps.sliderFill.color = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
+            hps.playerBackground.color = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
 
             if (pc.thisMSS.isBot)
             {
