@@ -285,12 +285,19 @@ public class PlayerController : MonoBehaviour
         {
             currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
 
-            if (currentDispelPercentage > .2f && !wand.GetComponent<Collider>().enabled)
+            if (currentDispelPercentage > .3f && !wand.GetComponent<Collider>().enabled)
             {
                 wand.GetComponent<Collider>().enabled = true;
+                wand.GetComponent<MeshRenderer>().enabled = true;
+            }
+            if (currentDispelPercentage > .7f && wand.GetComponent<Collider>().enabled)
+            {
+                wand.GetComponent<Collider>().enabled = false;
+                wand.GetComponent<MeshRenderer>().enabled = false;
             }
 
-            if (currentDispelPercentage >= 1)
+
+            if (currentDispelPercentage >= 1.4f)
             {
                 currentSpeed = stats.Speed;
                 dispelAnimationIsPlaying = false;
