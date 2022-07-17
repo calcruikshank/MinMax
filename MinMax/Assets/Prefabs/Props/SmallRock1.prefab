@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8825378132291316074}
   - component: {fileID: 5608618924740863695}
   - component: {fileID: 7651939554481836549}
-  - component: {fileID: 7685150940024009681}
+  - component: {fileID: -8356781505208587883}
   m_Layer: 0
   m_Name: SmallRock1
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7685150940024009681
+--- !u!64 &-8356781505208587883
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

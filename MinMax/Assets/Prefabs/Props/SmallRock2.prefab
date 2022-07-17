@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 634012257495743090}
   m_Layer: 0
   m_Name: SmallRock2
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

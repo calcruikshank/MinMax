@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2263118556857978303}
   - component: {fileID: 2938578703725249050}
   - component: {fileID: 1090744718754756304}
-  - component: {fileID: 2530431411725902450}
+  - component: {fileID: -2295261479819789921}
   m_Layer: 0
   m_Name: MossWall
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2530431411725902450
+--- !u!64 &-2295261479819789921
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
