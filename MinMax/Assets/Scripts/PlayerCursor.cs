@@ -328,47 +328,47 @@ public class PlayerCursor : MonoBehaviour
             if (statName.Contains("Movement") && !usedMovement)
             {
                 // Debug.Log("setting movement of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetSpeed(3);
+                thisMSS.thisStats.SetSpeed(2);
             }
             if (statName.Contains("Health") && !usedHealth)
             {
                 // Debug.Log("setting health of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetHP(3);
+                thisMSS.thisStats.SetHP(2);
             }
             if (statName.Contains("Attack Speed") && !usedAttackSpeed)
             {
                 // Debug.Log("setting attack speed of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetAttackCooldown(3);
+                thisMSS.thisStats.SetAttackCooldown(2);
             }
             if (statName.Contains("Damage") && !usedDamage)
             {
                 // Debug.Log("setting damage of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetAttackDamage(3);
+                thisMSS.thisStats.SetAttackDamage(2);
             }
             if (statName.Contains("Projectile Speed") && !usedProjSpeed)
             {
                 // Debug.Log("setting proj speed of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetProjectileSpeed(3);
+                thisMSS.thisStats.SetProjectileSpeed(2);
             }
             if (statName.Contains("Projectile Size") && !usedProjSize)
             {
                 // Debug.Log("setting projectile size of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetProjectileSize(3);
+                thisMSS.thisStats.SetProjectileSize(2);
             }
             if (statName.Contains("Player Shrinkage") && !usedPlaSize)
             {
                 // Debug.Log("setting size of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetPlayerSize(3);
+                thisMSS.thisStats.SetPlayerSize(2);
             }
             if (statName.Contains("Range") && !usedRange)
             {
                 // Debug.Log("setting range of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetProjectileRange(3);
+                thisMSS.thisStats.SetProjectileRange(2);
             }
             if (statName.Contains("Reflect Speed") && !usedReflect)
             {
                 // Debug.Log("setting range of " + gameObject.name + " to 3");
-                thisMSS.thisStats.SetDispelSpeed(3);
+                thisMSS.thisStats.SetDispelSpeed(2);
             }
         }
         usedMovement = false;
