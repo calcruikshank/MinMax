@@ -36,6 +36,7 @@ public class SoundManager : MonoBehaviour
         newAC.volume = volume;
         newAC.pitch += Random.Range(-variance, variance);
         newAC.PlayOneShot(foundClip);
+        Destroy(newSound, foundClip.length);
     }
 
     public void PlaySound(string soundName, float volume = 0.5f, float variance = 0.1f)
@@ -52,6 +53,7 @@ public class SoundManager : MonoBehaviour
         newAC.volume = volume;
         newAC.pitch += Random.Range(-variance, variance);
         newAC.PlayOneShot(foundClip);
+        Destroy(newSound, foundClip.length);
     }
 
     public void PlayRandomDieSound()

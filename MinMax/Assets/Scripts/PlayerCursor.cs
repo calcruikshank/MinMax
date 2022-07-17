@@ -195,12 +195,12 @@ public class PlayerCursor : MonoBehaviour
                     thisMSS.thisStats.SetProjectileSpeed(int.Parse(closestText.text));
                     usedProjSpeed = true;
                 }
-                else if (sc.statName.text.Contains("Number"))
-                {
-                    Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
-                    thisMSS.thisStats.SetNumberOfProjectiles(int.Parse(closestText.text));
-                    usedNumber = true;
-                }
+                // else if (sc.statName.text.Contains("Number"))
+                // {
+                //     Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                //     thisMSS.thisStats.SetNumberOfProjectiles(int.Parse(closestText.text));
+                //     usedNumber = true;
+                // }
                 else if (sc.statName.text.Contains("Projectile Size"))
                 {
                     Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
@@ -289,12 +289,12 @@ public class PlayerCursor : MonoBehaviour
                 thisMSS.thisStats.SetProjectileSpeed(rand);
                 usedProjSpeed = true;
             }
-            else if (sc.statName.text.Contains("Number"))
-            {
-                Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + rand);
-                thisMSS.thisStats.SetNumberOfProjectiles(rand);
-                usedNumber = true;
-            }
+            // else if (sc.statName.text.Contains("Number"))
+            // {
+            //     Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+            //     thisMSS.thisStats.SetNumberOfProjectiles(rand);
+            //     usedNumber = true;
+            // }
             else if (sc.statName.text.Contains("Projectile Size"))
             {
                 Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
@@ -340,9 +340,9 @@ public class PlayerCursor : MonoBehaviour
                 case "Projectile Speed":
                     if (!usedProjSpeed) thisMSS.thisStats.SetProjectileSpeed(3);
                     break;
-                case "Projectile Number":
-                    if (!usedNumber) thisMSS.thisStats.SetNumberOfProjectiles(3);
-                    break;
+                // case "Projectile Number":
+                //     if (!usedNumber) thisMSS.thisStats.SetNumberOfProjectiles(3);
+                //     break;
                 case "Projectile Size":
                     if (!usedProjSize) thisMSS.thisStats.SetProjectileSize(3);
                     break;
