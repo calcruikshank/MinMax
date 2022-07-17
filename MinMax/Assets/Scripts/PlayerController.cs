@@ -333,6 +333,7 @@ public class PlayerController : MonoBehaviour
         if (dispelDownPressed)
         {
             if (dispelAnimationIsPlaying) return;
+            SoundManager.singleton.PlaySound(6, 0.4f, 0.4f);
             dispelDownPressed = false;
             dispelEntryTime = Time.time;
             dispelAnimationIsPlaying = true;
