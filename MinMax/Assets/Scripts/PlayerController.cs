@@ -251,9 +251,15 @@ public class PlayerController : MonoBehaviour
     
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
-        currentMana = Mathf.Clamp(currentMana + (Time.deltaTime * stats.manaRegenRate), 0, stats.manaPool);
-        thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
-        if (currentMana < stats.manaCost) return;
+        if (currentMana < stats.manaPool)
+        {
+            currentMana += Time.deltaTime * stats.manaRegenRate;
+        }
+
+        if (currentMana < stats.manaCost)
+        {
+            return;
+        }
         if (fireDownPressed && (currentMana > stats.manaCost))
         {
             if (fireAnimationIsPlaying) return;
