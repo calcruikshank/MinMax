@@ -61,7 +61,6 @@ public class PointBetweenPlayers : MonoBehaviour
         if (GameManager.g.Players.Count > 1)
         {
             pointToFollow = pointToFollow / (GameManager.g.Players.Count + 1);
-
         }
 
 

@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject dispellMesh;
 
+    public float currentMana;
     public enum State
     {
         Normal,
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
         currentSpeed = stats.Speed;
 
         targetColor = faceColors[0];
+        currentMana = stats.manaPool;
     }
 
     void Update()
@@ -244,7 +246,9 @@ public class PlayerController : MonoBehaviour
 
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
-        if (fireDownPressed)
+        currentMana += Time.deltaTime * stats.manaRegenRate;
+        if (currentMana < stats.manaCost) return;
+        if (fireDownPressed && (currentMana > stats.manaCost))
         {
             if (fireAnimationIsPlaying) return;
             if (dispelAnimationIsPlaying == true) return;
@@ -303,7 +307,7 @@ public class PlayerController : MonoBehaviour
             fireAnimationIsPlaying = false;
             currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
 
-            if (currentDispelPercentage > .2f && !wand.GetComponent<Collider>().enabled)
+            if (currentDispelPercentage > .2f && !wand.GetComponent<Collider>().enabled && currentDispelPercentage < .9f)
             {
                 wand.GetComponent<Collider>().enabled = true;
                 dispellMesh.SetActive(true);

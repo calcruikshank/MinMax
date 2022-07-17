@@ -16,12 +16,19 @@ public class Stats : MonoBehaviour
     public float ProjectileRange = 30f;
     public float SpeedReductionWhenFiring = 2f;
     public float DispelSpeed = 2f;
+    public float manaPool = 100f;
+    public float manaRegenRate = 1f;
+    public float manaCost = 20f;
+    public float critChance = 1;
 
     PlayerController player;
 
     public void Init(PlayerController playerSent)
     {
         player = playerSent;
+        manaPool = 100;
+        SetManaRegenRate(3);
+        manaCost = 40f;
     }
 
     public void SetSpeed(int numSent)
@@ -64,6 +71,10 @@ public class Stats : MonoBehaviour
     public void SetSpeedReductionWhenFiring(int numSent)
     {
         
+    }
+    public void SetManaRegenRate(int numSent)
+    {
+        manaRegenRate = 20 + (numSent * 4f);
     }
     public void SetDispelSpeed(int numSent)
     {
