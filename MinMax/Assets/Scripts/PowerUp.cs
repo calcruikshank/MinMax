@@ -6,20 +6,22 @@ public class PowerUp : MonoBehaviour
 {
     public GameObject icePrefab;
     public GameObject lightningPrefab;
+    public GameObject homingPrefab;
     [SerializeField] List<Color> colors = new List<Color>();
 
     private enum PowerT{
         projectiles = 0,
         hp,
         ice,
-        lightning
+        lightning,
+        homing
     }
 
     PowerT type;
     // Start is called before the first frame update
     void Start()
     {
-        type = (PowerT) Random.Range(0,4);
+        type = (PowerT) Random.Range(0,5);
         SetColor(type);
     }
 
@@ -69,7 +71,11 @@ public class PowerUp : MonoBehaviour
                     stats.AttackCooldown += 2f;
                     playerHit.gun.bullet = lightningPrefab;
                     break;
+                case PowerT.homing:
                     
+                    playerHit.gun.bullet = homingPrefab;
+                    break;
+
             }
             GameManager.g.RemovePower(this);
             Destroy(this.gameObject);

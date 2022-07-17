@@ -44,9 +44,10 @@ public class Bullet : MonoBehaviour
 
     internal void Init(PlayerController playerOwningGun, Vector3 endPosition)
     {
-        ShootAt(endPosition);
         playerOwningBullet = playerOwningGun;
         var s = playerOwningBullet.stats;
+        isHoming = s.Homing;
+        ShootAt(endPosition);
         velocity = s.ProjectileSpeed;
         attackDamage = s.AttackDamage;
         projectileSize = s.ProjectileSize;
