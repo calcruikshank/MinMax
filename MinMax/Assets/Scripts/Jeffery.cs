@@ -9,6 +9,7 @@ public class Jeffery : MonoBehaviour
     PlayerController target = null;
     GameObject dodgeTarget = null;
     GameObject grabTarget = null;
+    Vector3 moveTarget;
     Vector2 moveDirection;
     float keepDistance = 15f;
     float keepRange = 5f;
@@ -31,7 +32,8 @@ public class Jeffery : MonoBehaviour
     {
         Chasing,
         Dodge,
-        Grabbing
+        Grabbing,
+        Goto
     }
     State state;
     // Update is called once per frame
@@ -46,9 +48,11 @@ public class Jeffery : MonoBehaviour
                     var distance = Vector3.Distance(target.transform.position, transform.position);
                     var dir = target.transform.position - transform.position;
                     if( distance > keepDistance + (keepRange + keepFuzz)){
-                        moveDirection = new Vector2(dir.x,dir.z); 
+                        moveDirection = new Vector2(dir.x,dir.z);
+                        StopFire();
                     }else if(distance < keepDistance - (keepRange + keepFuzz)){
-                        moveDirection = new Vector2(dir.x*-1,dir.z*-1);     
+                        moveDirection = new Vector2(dir.x*-1,dir.z*-1);
+                        Fire();     
                     }else{
                         var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
                         moveDirection = new Vector2(strafe.x,strafe.z);
@@ -88,7 +92,9 @@ public class Jeffery : MonoBehaviour
                     state = State.Chasing;
                 }
                 break;
-
+            case State.Goto:
+                var direction = moveTarget - transform.position;
+                break;
         }
         speed = 1f;
         moveDirection.Normalize();
