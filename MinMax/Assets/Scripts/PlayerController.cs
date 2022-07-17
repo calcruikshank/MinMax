@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                this.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, 0 + 0.09f, transform.position.z);
                 Debug.Log(hit.transform);
             }
         }
