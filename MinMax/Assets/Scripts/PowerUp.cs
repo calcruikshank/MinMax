@@ -21,7 +21,8 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        type = (PowerT) Random.Range(0,5);
+        //type = (PowerT) Random.Range(0,5);
+        type = PowerT.homing;
         SetColor(type);
     }
 
@@ -72,7 +73,7 @@ public class PowerUp : MonoBehaviour
                     playerHit.gun.bullet = lightningPrefab;
                     break;
                 case PowerT.homing:
-                    
+                    stats.Homing = true;
                     playerHit.gun.bullet = homingPrefab;
                     break;
 
