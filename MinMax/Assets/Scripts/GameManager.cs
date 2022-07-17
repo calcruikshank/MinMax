@@ -13,6 +13,12 @@ public class GameManager : MonoBehaviour
     public readonly List<GameObject> Powers = new List<GameObject>();
     public GameObject playerPrefab, jefferyPrefab, healthPanelPrefab, canvasPanel, powerUpPrefab;
 
+    //camera refs
+    public ZoomScript zoom;
+    public FollowScript follow;
+    public PointBetweenPlayers pbp;
+    public CanvasGroup winnerCg;
+
     void Awake()
     {
         if(g != null){
@@ -63,12 +69,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!startedRestart){
-        if(Players.Count == 1){
-            Debug.Log("Winner winner");
-            StartCoroutine(Restart());
-            startedRestart = true;
-        }
+        if(!startedRestart)
+        {
+            if(Players.Count == 1 && !startedRestart)
+            {
+                Debug.Log("Winner winner");
+                follow.enabled = false;
+                zoom.enabled = false;
+                pbp.enabled = false;
+
+                //show winner text here.
+                winnerCg.alpha = 1f;
+
+                StartCoroutine(Restart());
+                startedRestart = true;
+            }
         }
 
     }
@@ -83,7 +98,7 @@ public class GameManager : MonoBehaviour
         SoundManager.singleton.pcs.Clear();
         // Destroy(SpawnManager.singleton.gameObject);
         // SpawnManager.singleton = null;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         SceneManager.LoadScene("Main Menu");
         // DieRoller.singleton.gameObject.SetActive(true);
         // DieRoller.singleton.ResetAllThings();

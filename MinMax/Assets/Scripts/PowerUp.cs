@@ -73,6 +73,7 @@ public class PowerUp : MonoBehaviour
                     break;
                 case PowerT.homing:
                     stats.Homing = true;
+                    stats.ProjectileRange *= 0.5f;
                     playerHit.gun.bullet = homingPrefab;
                     break;
 
