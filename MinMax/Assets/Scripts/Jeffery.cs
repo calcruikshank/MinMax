@@ -22,8 +22,8 @@ public class Jeffery : MonoBehaviour
         InvokeRepeating("SelectTarget", .5f, 2f);
         InvokeRepeating("Fuzz", 2.0f, 2f);
         InvokeRepeating("Face", 10f, 10f);
-        keepRange = controller.stats.ProjectileRange * .75f;
-        keepFuzz = controller.stats.ProjectileRange * .10f;
+        keepDistance = controller.stats.ProjectileRange * .75f;
+        keepRange = controller.stats.ProjectileRange * .10f;
     }
     private enum State
     {
@@ -52,6 +52,7 @@ public class Jeffery : MonoBehaviour
                         var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
                         moveDirection = new Vector2(strafe.x,strafe.z);
                         speed = .8f;
+                        Fire();
                     }
                 }else{
                     moveDirection = new Vector2(0,0);
@@ -113,7 +114,6 @@ public class Jeffery : MonoBehaviour
             var predictedPos  = target.transform.position + rb.velocity * timeToTarget;
             var dir = predictedPos - gun.transform.position;
             controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);
-            Fire();
         }else{
             StopFire();
         }
