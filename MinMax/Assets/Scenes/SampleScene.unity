@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.75896627, g: 0.81523997, b: 0.80703735, a: 1}
+  m_IndirectSpecularColor: {r: 0.7590647, g: 0.8152966, b: 0.80734795, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1107,7 +1107,7 @@ MonoBehaviour:
   jefferyPrefab: {fileID: 8208515157465726771, guid: 7175f9a48fa5d0149a24e239d1261b0f, type: 3}
   healthPanelPrefab: {fileID: 2175903572498422995, guid: 7527d0fba815bc9488a8f26aac0dff06, type: 3}
   canvasPanel: {fileID: 240639963}
-  powerUpPrefab: {fileID: 0}
+  powerUpPrefab: {fileID: 1296448337726034850, guid: 434d66e14124bd66c8b86a61b8aa79db, type: 3}
 --- !u!1001 &618465155
 PrefabInstance:
   m_ObjectHideFlags: 0

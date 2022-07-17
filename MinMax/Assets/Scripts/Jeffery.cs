@@ -83,8 +83,13 @@ public class Jeffery : MonoBehaviour
         var listOfClosest = OrderByClosest(GameManager.g.Players,transform.position);
         foreach(var obj in listOfClosest){
             if(obj != gameObject){
-                StopFire();
-                target = obj.GetComponent<PlayerController>();
+                if(target != obj){
+                    StopFire();
+                    target = obj.GetComponent<PlayerController>();                    
+                }
+                else{
+                    break;
+                }
             }
         }
     }
