@@ -14,7 +14,13 @@ public class Jeffery : MonoBehaviour
     float keepDistance = 15f;
     float keepRange = 5f;
     float keepFuzz = 2f;
+    float moveFuzzX;
+    float moveFuzzZ;
     bool isFiring;
+
+    private Vector3 lastPos = new Vector3();
+    private float distMoved = 0;
+    private float timeStamp = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +46,28 @@ public class Jeffery : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(timeStamp == 0){
+            timeStamp = Time.time;
+        }
+        else{
+            distMoved += Vector3.Distance(lastPos, transform.position);
+            lastPos = transform.position;
+        }
+
+        if(Time.time >= timeStamp + 1f){
+            if(state == State.Goto){
+                state = State.Chasing;
+            }
+            if(distMoved < 2f){
+                Debug.Log("I'm stuck");
+                FindDirection();
+                //state = State.Goto;
+                //moveTarget = new Vector3(transform.position.x + Random.Range(-5,5), transform.position.y, transform.position.z + Random.Range(-5,5));
+            }
+            distMoved = 0;
+            timeStamp = Time.time;
+        }
+
         float speed = 1f;
         LookAt();
         CheckDodge();
@@ -95,13 +123,15 @@ public class Jeffery : MonoBehaviour
                 }
                 break;
             case State.Goto:
-                var direction = moveTarget - transform.position;
+                moveDirection = moveTarget - transform.position;
                 if(Vector3.Distance(moveTarget, transform.position) < 2f){
                     state = State.Chasing;
                 }
                 break;
         }
         speed = 1f;
+        //moveDirection.x = moveDirection.x + moveFuzzX;
+        //moveDirection.y = moveDirection.y + moveFuzzZ;
         moveDirection.Normalize();
         controller.inputMovement = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
     }
@@ -119,6 +149,8 @@ public class Jeffery : MonoBehaviour
 
     void Fuzz(){
         keepFuzz = Random.Range(-1f,1f);
+        moveFuzzX = Random.Range(-1f,1f);
+        moveFuzzZ = Random.Range(-1f,1f);
     }
 
     void Face(){
@@ -128,7 +160,7 @@ public class Jeffery : MonoBehaviour
     void LookForPower(){
         var listOfClosest = OrderByClosest(GameManager.g.Powers,transform.position);
         foreach(var obj in listOfClosest){
-            if(Vector3.Distance(obj.transform.position,transform.position)>60 || obj.transform.position.y<.2 || obj.transform.position.y>1){
+            if(Vector3.Distance(obj.transform.position,transform.position)>60 || obj.transform.position.y<.2 || obj.transform.position.y>.5){
                 break;
             }
             grabTarget = obj;

@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        if (DieRoller.singleton != null) DieRoller.singleton = null;
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             // PlayerCursor pc = DieRoller.singleton.pcs[i];
@@ -50,12 +51,12 @@ public class GameManager : MonoBehaviour
         //Destroy(DieRoller.singleton.gameObject);
         // DieRoller.singleton.gameObject.SetActive(false);
         
-        for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
-        {
-            Destroy(SoundManager.singleton.pcs[i].gameObject);
-        }
+        // for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
+        // {
+        //     Destroy(SoundManager.singleton.pcs[i].gameObject);
+        // }
 
-        SoundManager.singleton.pcs.Clear();
+        // SoundManager.singleton.pcs.Clear();
     }
 
     // Update is called once per frame
