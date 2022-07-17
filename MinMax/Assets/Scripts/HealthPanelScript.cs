@@ -6,7 +6,7 @@ using TMPro;
 
 public class HealthPanelScript : MonoBehaviour
 {
-    public Slider healthSlider;
+    public Slider healthSlider, manaSlider;
     public TMP_Text playerName, playerHealthText;
     public Image sliderFill;
 }
