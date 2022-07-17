@@ -31,6 +31,7 @@ public class Gun : MonoBehaviour
             //Debug.Log(playerOwningGun.armsAnim.GetCurrentAnimatorStateInfo(0).normalizedTime);
             if (playerOwningGun.currentPercentage >= 0.3f && !hasFiredForAnim)
             {
+                playerOwningGun.currentMana -= playerOwningGun.stats.manaCost;
                 hasFiredForAnim = true;
                 switch (playerOwningGun.stats.NumberOfProjectiles)
                 {
