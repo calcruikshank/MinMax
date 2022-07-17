@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     public void NewPlayerInput(GameObject prefab, PlayerInput newPI, Stats newStats)
     {
         // GameObject prefabToInstantiate = Instantiate(prefab);
-        var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "Player", -1, newPI.user.pairedDevices[0]);
+        var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "PlayerInput", -1, newPI.user.pairedDevices[0]);
         Stats newPlayerStats = newPlayer.GetComponent<Stats>();
         // prefabToInstantiate.GetComponent<PlayerInput>().user
         newStats.CopyStatsToOtherComponent(newPlayerStats);
