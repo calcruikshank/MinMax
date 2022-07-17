@@ -26,9 +26,9 @@ public class Stats : MonoBehaviour
     public void Init(PlayerController playerSent)
     {
         player = playerSent;
-        manaPool = 200;
-        SetManaRegenRate(2);
-        manaCost = 40f;
+        manaPool = 300;
+        SetManaRegenRate(3);
+        manaCost = 50f; SetPlayerSize(6);
     }
 
     public void SetSpeed(int numSent)
@@ -62,7 +62,7 @@ public class Stats : MonoBehaviour
     }
     public void SetPlayerSize(int numSent)
     {
-        PlayerSize = numSent / 2.0f;
+        PlayerSize = (numSent * .2f) + (.45f);
     }
     public void SetProjectileRange(int numSent)
     {
