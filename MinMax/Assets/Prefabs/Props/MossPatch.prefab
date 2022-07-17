@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 7560360582373672801}
   - component: {fileID: 6864629813298104516}
   - component: {fileID: 8692201508699143182}
-  - component: {fileID: 1874466951968280864}
   m_Layer: 0
   m_Name: MossPatch
-  m_TagString: Untagged
+  m_TagString: object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -84,17 +83,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1874466951968280864
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7178767803096227291}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1277823619196050322, guid: c55c20677a26b4a41981193df4652acd, type: 3}

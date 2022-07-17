@@ -58,6 +58,12 @@ public class Bullet : MonoBehaviour
                 objectHit.TakeDamage(attackDamage);
                 Die();
             }
+        } else
+        {
+            if(other.transform.tag == "object")
+            {
+                Die();
+            }
         }
     }
     private void Die(){
