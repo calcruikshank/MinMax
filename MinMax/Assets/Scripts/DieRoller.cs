@@ -80,17 +80,37 @@ public class DieRoller : MonoBehaviour
         time = 6;
     }
 
+    public void TogglePlayerJoining(bool on)
+    {
+        if (on)
+        {
+            GetComponent<PlayerInputManager>().EnableJoining();
+            // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        }
+        else
+        {
+            GetComponent<PlayerInputManager>().DisableJoining();
+            // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        }
+    }
+
+    bool isStartingGame = false;
+
     public void Button_LoadGamesScene()
     {
+        isStartingGame = true;
+        GetComponent<PlayerInputManager>().DisableJoining();
+
         SoundManager.singleton.pcs = new List<PlayerCursor>();
+
         foreach(PlayerCursor pc in pcs)
         {
             GameObject newPC = Instantiate(pc.gameObject);
             newPC.transform.SetParent(SoundManager.singleton.transform);
             SoundManager.singleton.pcs.Add(newPC.GetComponent<PlayerCursor>());
         }
+
         // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
-        GetComponent<PlayerInputManager>().enabled = false;
 
         SceneManager.LoadScene("SampleScene");
     }
@@ -144,7 +164,7 @@ public class DieRoller : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput pi)
     {
-        if (isRemovingPlayer) return;
+        if (isRemovingPlayer || isStartingGame) return;
         isAddingPlayer = true;
         // playerCursors[playerIndex].SetActive(true);
         pi.transform.SetParent(placePlayersHere);
@@ -328,7 +348,7 @@ public class DieRoller : MonoBehaviour
 
     public void AddBot()
     {
-        if (!useBots || currentDie != null) return;
+        if (!useBots || currentDie != null || isStartingGame) return;
         isAddingPlayer = true;
         GameObject botCursor = Instantiate(botPrefab);
         botCursor.transform.SetParent(placePlayersHere);
