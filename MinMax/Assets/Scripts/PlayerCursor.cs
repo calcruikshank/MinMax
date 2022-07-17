@@ -15,7 +15,7 @@ public class PlayerCursor : MonoBehaviour
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
     bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false, usedMana = false;
-
+    PlayerInput playerInput;
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
         if (newMenuStats is null) 
@@ -38,6 +38,7 @@ public class PlayerCursor : MonoBehaviour
         StartCoroutine(newMenuStats.RollStats());
         transform.localScale = Vector3.one;
         transform.localEulerAngles = Vector3.zero;
+        playerInput = this.GetComponent<PlayerInput>();
     }
 
     public void OnMove(InputValue value)
@@ -45,7 +46,8 @@ public class PlayerCursor : MonoBehaviour
         if (DieRoller.singleton is null) return;
         if (thisMSS is null || !thisMSS.gameObject.activeSelf) return;
         if (thisMSS.waitPanel.activeSelf || thisMSS.isBot) return;
-        moveVal = value.Get<Vector2>();
+        
+            moveVal = value.Get<Vector2>();
     }
 
     public void OnFire()

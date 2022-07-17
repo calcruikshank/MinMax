@@ -127,6 +127,9 @@ MonoBehaviour:
   circleImage: {fileID: 640957127616621353}
   dispellMesh: {fileID: 1659994395858292958}
   currentMana: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   hatRenderer: {fileID: 6656775143725793235}
   cloakRenderer: {fileID: 9125506614056855743}
 --- !u!54 &3569663969878693508
@@ -173,6 +176,7 @@ MonoBehaviour:
   manaRegenRate: 1
   manaCost: 20
   critChance: 1
+  Homing: 0
 --- !u!1 &280016767781650806
 GameObject:
   m_ObjectHideFlags: 0

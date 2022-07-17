@@ -51,6 +51,9 @@ public class PlayerController : MonoBehaviour
     public GameObject dispellMesh;
 
     public float currentMana;
+
+    PlayerInput playerInput;
+    InputDevice currentDevice;
     public enum State
     {
         Normal,
@@ -79,6 +82,8 @@ public class PlayerController : MonoBehaviour
         currentMana = stats.manaPool;
         FindLowestPoint();
 
+        playerInput = this.GetComponent<PlayerInput>();
+        Debug.Log(playerInput.currentControlScheme);
         if (thisHPS is null || thisHPS.healthSlider is null) return;
         thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
@@ -200,9 +205,26 @@ public class PlayerController : MonoBehaviour
     {
         inputMovement = value.Get<Vector2>();
     }
+
+    [SerializeField] LayerMask groundLayer;
     void OnLook(InputValue value)
     {
-        lookDirection = value.Get<Vector2>();
+        if (playerInput.currentControlScheme == "Gamepad")
+        {
+            lookDirection = value.Get<Vector2>();
+        }
+        if (playerInput.currentControlScheme == "Keyboard&Mouse")
+        {
+            Vector2 mousePosition;
+            mousePosition = value.Get<Vector2>();
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+            {
+                lookDirection = new Vector2(hit.point.x - transform.position.x, hit.point.z - transform.position.z);
+                Debug.Log(lookDirection);
+            }
+        }
     }
 
     bool fireDownPressed = false;
