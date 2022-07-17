@@ -422,6 +422,17 @@
                 },
                 {
                     "name": "",
+                    "id": "ee73ea46-9459-40c8-b5b7-0a24e59e6302",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DispelDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d8e350cc-8931-428c-a46a-b00c80c4226a",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
@@ -710,6 +721,17 @@
                     "name": "",
                     "id": "4d901c6f-abbe-4055-abd7-661aba337b30",
                     "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DispelUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f502a1ed-d526-4478-b43d-077cbbbfa349",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

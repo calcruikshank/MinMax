@@ -28,7 +28,7 @@ public class Stats : MonoBehaviour
     }
     public void SetHP(int numSent)
     {
-        HP = numSent * 30;
+        HP = 200 + numSent * 50;
     }
     public void SetAttackCooldown(int numSent)
     {
@@ -40,11 +40,11 @@ public class Stats : MonoBehaviour
     }
     public void SetProjectileSpeed(int numSent)
     {
-        ProjectileSpeed = 15 + (numSent * 5);
+        ProjectileSpeed = 10 + (numSent * 2);
     }
     public void SetNumberOfProjectiles(int numSent)
     {
-        NumberOfProjectiles = numSent;
+        NumberOfProjectiles = numSent + 1;
     }
     public void SetProjectileSize(int numSent)
     {
@@ -56,7 +56,7 @@ public class Stats : MonoBehaviour
     }
     public void SetProjectileRange(int numSent)
     {
-        ProjectileRange = numSent;
+        ProjectileRange = 10 + (numSent * 5);
     }
     public void SetSpeedReductionWhenFiring(int numSent)
     {
