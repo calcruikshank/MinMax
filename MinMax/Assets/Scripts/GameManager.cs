@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager g;
     public readonly List<GameObject> Players = new List<GameObject>();
     public readonly List<GameObject> Bullets = new List<GameObject>();
-    public GameObject playerPrefab;
+    public GameObject playerPrefab, jefferyPrefab;
 
     void Awake()
     {
@@ -24,7 +24,14 @@ public class GameManager : MonoBehaviour
         for (int i = DieRoller.singleton.pcs.Count - 1; i >= 0; i--)
         {
             PlayerCursor pc = DieRoller.singleton.pcs[i];
-            NewPlayerInput(playerPrefab, pc.GetComponent<PlayerInput>(), pc.GetComponent<Stats>());
+            if (pc.thisMSS.isBot)
+            {
+                NewJeffery(jefferyPrefab, pc.GetComponent<Stats>());
+            }
+            else
+            {
+                NewPlayerInput(playerPrefab, pc.GetComponent<PlayerInput>(), pc.GetComponent<Stats>());
+            }
         }
 
         Destroy(DieRoller.singleton.gameObject);
@@ -54,10 +61,15 @@ public class GameManager : MonoBehaviour
 
     public void NewPlayerInput(GameObject prefab, PlayerInput newPI, Stats newStats)
     {
-        // GameObject prefabToInstantiate = Instantiate(prefab);
         var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "PlayerInput", -1, newPI.user.pairedDevices[0]);
         Stats newPlayerStats = newPlayer.GetComponent<Stats>();
-        // prefabToInstantiate.GetComponent<PlayerInput>().user
         newStats.CopyStatsToOtherComponent(newPlayerStats);
+    }
+
+    public void NewJeffery(GameObject prefab, Stats newStats)
+    {
+        GameObject newJeff = Instantiate(prefab);
+        Stats jeffStats = newJeff.GetComponent<Stats>();
+        newStats.CopyStatsToOtherComponent(jeffStats);
     }
 }

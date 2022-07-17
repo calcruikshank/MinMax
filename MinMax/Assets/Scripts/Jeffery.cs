@@ -9,7 +9,6 @@ public class Jeffery : MonoBehaviour
     PlayerController target = null;
     GameObject dodgeTarget = null;
     Vector2 moveDirection;
-    public GameObject debugBall;
     float keepDistance = 10f;
     float keepRange = 2f;
     float keepFuzz = 0f;
@@ -96,7 +95,6 @@ public class Jeffery : MonoBehaviour
             var dist = Vector3.Distance(target.transform.position,gun.transform.position);
             var timeToTarget = dist / controller.stats.ProjectileSpeed;
             var predictedPos  = target.transform.position + rb.velocity * timeToTarget;
-            debugBall.transform.position = predictedPos;
             var dir = predictedPos - gun.transform.position;
             controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);
             Fire();

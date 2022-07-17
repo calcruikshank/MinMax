@@ -6460,6 +6460,54 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 245853838}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1299111454}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1664712657}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1326579884812578736}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1926139810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7852,7 +7900,7 @@ PrefabInstance:
       objectReference: {fileID: 224643293}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: statStrings.Array.size
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: playerPanels.Array.size
@@ -7888,15 +7936,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: statStrings.Array.data[5]
-      value: Projectile Number
-      objectReference: {fileID: 0}
-    - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
-      propertyPath: statStrings.Array.data[6]
       value: Projectile Size
       objectReference: {fileID: 0}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
-      propertyPath: statStrings.Array.data[7]
+      propertyPath: statStrings.Array.data[6]
       value: Player Size
+      objectReference: {fileID: 0}
+    - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
+      propertyPath: statStrings.Array.data[7]
+      value: Range
       objectReference: {fileID: 0}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: statStrings.Array.data[8]
