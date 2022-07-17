@@ -7,7 +7,7 @@ public class WandDispel : MonoBehaviour
     PlayerController playerOwningWand;
     private void Start()
     {
-        playerOwningWand = this.transform.root.GetComponent<PlayerController>();   
+        playerOwningWand = this.transform.root.GetComponent<PlayerController>();
     }
     private void OnTriggerEnter(Collider other)
     {

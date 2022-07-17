@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
                 HandleMovement();
                 TrackAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
                 HandleDispelAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
+                HandleAnimationSpeeds();
                 break;
         }
     }
@@ -261,6 +262,7 @@ public class PlayerController : MonoBehaviour
                 if (gun.fire)
                 {
                     armsAnim.SetBool("cast", true);
+                    dispelAnimationIsPlaying = false;
                     StartCoroutine("ResetCast");
 
                     entryTime = Time.time;
@@ -318,6 +320,23 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    void HandleAnimationSpeeds()
+    {
+        if (dispelAnimationIsPlaying)
+        {
+            armsAnim.speed = stats.DispelSpeed;
+        }
+        if (fireAnimationIsPlaying)
+        {
+            armsAnim.speed = stats.AttackCooldown;
+        }
+        if(!dispelAnimationIsPlaying && !fireAnimationIsPlaying)
+        {
+            armsAnim.speed = 1;
+        }
+    }
+
 
     IEnumerator ResetCast()
     {

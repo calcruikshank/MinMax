@@ -15,6 +15,7 @@ public class Stats : MonoBehaviour
     public float PlayerSize = 1f;
     public float ProjectileRange = 30f;
     public float SpeedReductionWhenFiring = 2f;
+    public float DispelSpeed = 2f;
 
     PlayerController player;
 
@@ -64,7 +65,10 @@ public class Stats : MonoBehaviour
     {
         
     }
-
+    public void SetDispelSpeed(int numSent)
+    {
+        DispelSpeed = ((float)numSent / 3f) * 1.0f;
+    }
     public void CopyStatsToOtherComponent(Stats otherStats)
     {
         otherStats.Speed = Speed;

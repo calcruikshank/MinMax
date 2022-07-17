@@ -18,7 +18,6 @@ public class Gun : MonoBehaviour
 
     void SetAnimationSpeedOnWand()
     {
-        playerOwningGun.armsAnim.speed = playerOwningGun.stats.AttackCooldown;
     }
     // Start is called before the first frame update
     void Start()
