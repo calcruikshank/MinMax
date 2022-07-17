@@ -18,6 +18,11 @@ public class PlayerCursor : MonoBehaviour
 
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
+        if (newMenuStats is null) 
+        {
+            Destroy(gameObject);
+            return;
+        }
         thisMSS = newMenuStats;
         thisMSS.backgroundPanel.gameObject.SetActive(true);
         thisMSS.addBotButton.gameObject.SetActive(false);
