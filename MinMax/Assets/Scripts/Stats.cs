@@ -50,7 +50,7 @@ public class Stats : MonoBehaviour
     }
     public void SetProjectileSize(int numSent)
     {
-        ProjectileSize = numSent;
+        ProjectileSize = .2f + ((float)numSent)/4f;
     }
     public void SetPlayerSize(int numSent)
     {
@@ -69,6 +69,7 @@ public class Stats : MonoBehaviour
     {
         otherStats.Speed = Speed;
         otherStats.HP = HP;
+        otherStats.maxHP = maxHP;
         otherStats.AttackCooldown = AttackCooldown;
         otherStats.AttackDamage = AttackDamage;
         otherStats.ProjectileSpeed = ProjectileSpeed;
