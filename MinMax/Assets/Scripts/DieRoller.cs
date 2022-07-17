@@ -34,7 +34,7 @@ public class DieRoller : MonoBehaviour
     {
         if (singleton is null)
         {
-            Debug.Log("setting die roller singleton");
+            // Debug.Log("setting die roller singleton");
             singleton = this;
             // DontDestroyOnLoad(this);
         }
@@ -47,21 +47,21 @@ public class DieRoller : MonoBehaviour
         botsToggle.isOn = useBots;
         sameStatsToggle.isOn = useSameStats;
         // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
-        for(int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
-        {
-            // GameObject newPC = Instantiate(pc.gameObject);
-            // newPC.transform.SetParent(SoundManager.singleton.transform);
-            // pc.transform.SetParent(placePlayersHere.transform);
-            // SoundManager.singleton.pcs.Add(pc);
-            PlayerCursor pc = SoundManager.singleton.pcs[i];
-            if (pc.GetComponent<PlayerInput>()) {
-                OnPlayerJoined(pc.GetComponent<PlayerInput>());
-            }
-            else {
-                SoundManager.singleton.pcs.Remove(pc);
-                Destroy(pc.gameObject);
-            }
-        }
+        // for(int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
+        // {
+        //     // GameObject newPC = Instantiate(pc.gameObject);
+        //     // newPC.transform.SetParent(SoundManager.singleton.transform);
+        //     // pc.transform.SetParent(placePlayersHere.transform);
+        //     // SoundManager.singleton.pcs.Add(pc);
+        //     PlayerCursor pc = SoundManager.singleton.pcs[i];
+        //     if (pc.GetComponent<PlayerInput>()) {
+        //         OnPlayerJoined(pc.GetComponent<PlayerInput>());
+        //     }
+        //     else {
+        //         SoundManager.singleton.pcs.Remove(pc);
+        //         Destroy(pc.gameObject);
+        //     }
+        // }
     }
 
     public void Button_RollDie()

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager g;
+    public SpawnManager sManager;
     public readonly List<GameObject> Players = new List<GameObject>();
     public readonly List<GameObject> Bullets = new List<GameObject>();
     public readonly List<GameObject> Powers = new List<GameObject>();
@@ -80,12 +81,14 @@ public class GameManager : MonoBehaviour
             Destroy(SoundManager.singleton.pcs[i].gameObject);
         }
         SoundManager.singleton.pcs.Clear();
+        // Destroy(SpawnManager.singleton.gameObject);
+        // SpawnManager.singleton = null;
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("Main Menu");
         // DieRoller.singleton.gameObject.SetActive(true);
         // DieRoller.singleton.ResetAllThings();
-        GameObject dr = GameObject.Find("DieRoller");
-        if (dr != null) DieRoller.singleton = dr.GetComponent<DieRoller>();
+        // GameObject dr = GameObject.Find("DieRoller");
+        // if (dr != null) DieRoller.singleton = dr.GetComponent<DieRoller>();
     }
 
     public void SpawnPower(){
@@ -123,13 +126,13 @@ public class GameManager : MonoBehaviour
         var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "PlayerInput", -1, playerDevices);
         Stats newPlayerStats = newPlayer.GetComponent<Stats>();
         newStats.CopyStatsToOtherComponent(newPlayerStats);
-        newPlayer.transform.position = SpawnManager.singleton.RandomSpawn().position;
+        newPlayer.transform.position = sManager.RandomSpawn().position;
         return newPlayer.gameObject;
     }
 
     GameObject NewJeffery(GameObject prefab, Stats newStats)
     {
-        GameObject newJeff = Instantiate(prefab, SpawnManager.singleton.RandomSpawn().position, Quaternion.identity);
+        GameObject newJeff = Instantiate(prefab, sManager.RandomSpawn().position, Quaternion.identity);
         Stats jeffStats = newJeff.GetComponent<Stats>();
         newStats.CopyStatsToOtherComponent(jeffStats);
         return newJeff;
