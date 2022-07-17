@@ -34,6 +34,7 @@ public class Bullet : MonoBehaviour
         velocity = s.ProjectileSpeed;
         attackDamage = s.AttackDamage;
         projectileSize = s.ProjectileSize;
+        transform.localScale = new Vector3(projectileSize,projectileSize,projectileSize);
     }
 
     // Update is called once per frame

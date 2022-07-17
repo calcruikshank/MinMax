@@ -50,7 +50,7 @@ public class Stats : MonoBehaviour
     }
     public void SetProjectileSize(int numSent)
     {
-        ProjectileSize = numSent;
+        ProjectileSize = .2f + ((float)numSent)/4f;
     }
     public void SetPlayerSize(int numSent)
     {
