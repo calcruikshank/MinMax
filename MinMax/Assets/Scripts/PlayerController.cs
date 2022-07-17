@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
         //rb.AddForce(movement.normalized * moveSpeed);
         rb.velocity = new Vector3(movement.x * currentSpeed, rb.velocity.y, movement.z * currentSpeed);
 
-        if (rb.velocity.magnitude != 0f)
+        if (Mathf.Abs( rb.velocity.magnitude) >= .02f)
         {
             legsAnim.SetBool("isMoving", true);
         } 
