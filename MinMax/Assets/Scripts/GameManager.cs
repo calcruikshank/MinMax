@@ -55,7 +55,9 @@ public class GameManager : MonoBehaviour
         
     }
     public void SpawnPower(){
-        Powers.Add(Instantiate(powerUpPrefab, new Vector3(Random.Range(-20, 20),0,Random.Range(-20, 20)), Quaternion.identity));
+        GameObject rolledDie = Instantiate(powerUpPrefab, new Vector3(Random.Range(-15, 15),Random.Range(0,30),Random.Range(-15, 15)), Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+        Powers.Add(rolledDie);
+        rolledDie.GetComponent<Rigidbody>().AddForce(Vector3.right * Random.Range(100, 500));
     }
     public void AddPlayer(PlayerController player){
         Players.Add(player.gameObject);

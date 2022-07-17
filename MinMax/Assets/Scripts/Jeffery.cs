@@ -19,6 +19,9 @@ public class Jeffery : MonoBehaviour
     {
         controller = gameObject.GetComponent<PlayerController>();
         state = State.Chasing;
+        InvokeRepeating("SelectTarget", .5f, 2f);
+        InvokeRepeating("Fuzz", 2.0f, 2f);
+        InvokeRepeating("Face", 10f, 10f);
     }
     private enum State
     {
@@ -30,8 +33,6 @@ public class Jeffery : MonoBehaviour
     void Update()
     {
         float speed = 1f;
-        InvokeRepeating("SelectTarget", .5f, 2f);
-        InvokeRepeating("Fuzz", 2.0f, 2f);
         LookAt();
         CheckDodge();
         switch(state){
@@ -98,6 +99,9 @@ public class Jeffery : MonoBehaviour
         keepFuzz = Random.Range(-1,1);
     }
 
+    void Face(){
+        controller.PickRandomFace();
+    }
     void LookAt(){
         if(target != null){
             var gun = controller.GetComponentInChildren<Gun>();

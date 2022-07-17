@@ -66,7 +66,7 @@ public class Stats : MonoBehaviour
     }
     public void SetProjectileRange(int numSent)
     {
-        ProjectileRange = 30 + (numSent * 10);
+        ProjectileRange = 5 + (numSent * 4);
     }
     public void SetSpeedReductionWhenFiring(int numSent)
     {
