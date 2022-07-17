@@ -77,32 +77,26 @@ public class PlayerController : MonoBehaviour
 
         targetColor = faceColors[0];
         currentMana = stats.manaPool;
-        float yToSnapTo = FindLowestPoint();
-        SnapToLowestPoint(yToSnapTo);
+        FindLowestPoint();
 
         thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
         thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
+        FindLowestPoint();
     }
-    void SnapToLowestPoint(float yToSnapTo)
+    void FindLowestPoint()
     {
-        this.transform.position = new Vector3(this.transform.position.x, yToSnapTo, this.transform.position.z);
-    }
-    float FindLowestPoint()
-    {
-        Collider colliderHit = transform.GetComponentInChildren<Collider>();
+        Ray ray = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
-        bool hitDetected = Physics.BoxCast(this.transform.GetComponent<Collider>().bounds.center, new Vector3(this.transform.GetComponent<Collider>().bounds.extents.x, this.transform.GetComponent<Collider>().bounds.extents.y, this.transform.GetComponent<Collider>().bounds.extents.z), Vector3.down, out hit, Quaternion.identity, Mathf.Infinity);
 
-        if (hitDetected)
+        if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.GetComponent<Collider>() != null && this.transform.GetComponentInChildren<Collider>() != null)
+            if (hit.collider != null)
             {
-                return hit.transform.GetComponent<Collider>().bounds.extents.y + hit.transform.position.y + this.transform.GetComponentInChildren<Collider>().bounds.extents.y;
+                this.transform.position = new Vector3(transform.position.x, hit.collider.transform.position.y + this.GetComponent<Collider>().bounds.size.y / 2, transform.position.z);
+                Debug.Log(hit.transform);
             }
-
         }
-        return 0f;
 
     }
     void Update()
