@@ -255,6 +255,7 @@ public class PlayerController : MonoBehaviour
         {
             currentMana += Time.deltaTime * stats.manaRegenRate;
         }
+
         if (currentMana < stats.manaCost)
         {
             return;
