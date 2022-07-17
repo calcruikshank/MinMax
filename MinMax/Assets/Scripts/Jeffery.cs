@@ -102,13 +102,13 @@ public class Jeffery : MonoBehaviour
                     
                     if(Time.time >= dispelCoolDown){
                         if(leftDistance<15f || rightDistance<15f){
-                            controller.dispelDownPressed = true;
+                            Dispell();
                             dispelCoolDown = Time.time + 10f;
                         }else{
-                            controller.dispelDownPressed = false;
+                            StopDispell();
                         }
                     }else{
-                        controller.dispelDownPressed = false;
+                        StopDispell();
                     }
                     if(leftDistance<rightDistance){
                         vec = bullet.transform.TransformDirection(Vector3.left);
@@ -120,11 +120,11 @@ public class Jeffery : MonoBehaviour
                     speed = 1f;
                     if(!RayCastBullet(bullet)){
                         state = State.Chasing;
-                        controller.dispelDownPressed = false;
+                        StopDispell();
                     }
                 }else{
                     state = State.Chasing;
-                    controller.dispelDownPressed = false;
+                    StopDispell();
                 }
                 break;
             case State.Grabbing:
@@ -210,6 +210,22 @@ public class Jeffery : MonoBehaviour
                 controller.OnFireDown();
                 isFiring = true;
             }
+        }
+    }
+    bool isDispelling = false;
+    void Dispell(){
+        if(state == State.Dodge){
+            if(!isDispelling){
+                controller.dispelDownPressed = true;
+                isDispelling = true;
+            }
+        }
+    }
+
+    void StopDispell(){
+        if(isDispelling){
+            controller.dispelDownPressed = false;
+            isDispelling = false;
         }
     }
 
