@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager g;
     public readonly List<GameObject> Players = new List<GameObject>();
     public readonly List<GameObject> Bullets = new List<GameObject>();
+    public readonly List<GameObject> Powers = new List<GameObject>();
     public GameObject playerPrefab, jefferyPrefab;
 
     void Awake()
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
                 NewPlayerInput(playerPrefab, pc.GetComponent<PlayerInput>(), pc.GetComponent<Stats>());
             }
         }
-
+        InvokeRepeating("SpawnPower", 10f, 10f);
         Destroy(DieRoller.singleton.gameObject);
     }
 
@@ -43,13 +44,19 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
+    public void SpawnPower(){
+        
+    }
     public void AddPlayer(PlayerController player){
             Players.Add(player.gameObject);
     }
 
     public void RemovePlayer(PlayerController player){
         Players.Remove(player.gameObject);
+    }
+
+    public void RemovePower(PowerUp power){
+        Powers.Remove(power.gameObject);
     }
 
     public void AddBullet(Bullet bullet){
