@@ -44,7 +44,8 @@ public class Jeffery : MonoBehaviour
                     }else if(distance < keepDistance - (keepRange + keepFuzz)){
                         moveDirection = new Vector2(dir.x*-1,dir.z*-1);     
                     }else{
-                        moveDirection = new Vector2(0,0);
+                        var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
+                        moveDirection = new Vector2(strafe.x,strafe.z);
                     }
                     speed = .2f;
                 }else{
@@ -126,7 +127,6 @@ public class Jeffery : MonoBehaviour
             if(bullet.playerOwningBullet != controller){
                 var distance = Vector3.Distance(bullet.transform.position, transform.position);
                 if(distance < 10000 && RayCastBullet(bullet)){
-                    Debug.Log("DODGIN");
                     state = State.Dodge;
                     dodgeTarget = obj;
                     break;
