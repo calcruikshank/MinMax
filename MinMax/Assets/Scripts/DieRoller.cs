@@ -58,7 +58,7 @@ public class DieRoller : MonoBehaviour
         SoundManager.singleton.PlaySound(3, 0.5f, 0.5f);
         currentDie = null;
         rollButton.interactable = false;
-        GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
+        GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
         // currentDie = rolledDie.GetComponent<DieScript>();
         rolledDie.GetComponent<DieScript>().thisRB.AddForce(Vector3.right * Random.Range(100, 300));
         rolledDie.GetComponent<DieScript>().thisDR = this;

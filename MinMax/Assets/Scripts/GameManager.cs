@@ -62,7 +62,20 @@ public class GameManager : MonoBehaviour
 
     public void NewPlayerInput(GameObject prefab, PlayerInput newPI, Stats newStats)
     {
-        var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "PlayerInput", -1, newPI.user.pairedDevices[0]);
+        // Debug.Log(newPI.devices);
+        InputDevice[] playerDevices = new InputDevice[newPI.user.pairedDevices.Count];
+        // foreach(var v in newPI.devices)
+        // {
+        //     Debug.Log("device " + v);
+        // }
+        // foreach(var v in newPI.user.pairedDevices)
+        for(int i = 0; i < newPI.user.pairedDevices.Count; i++)
+        {
+            // Debug.Log("paired device " + newPI.user.pairedDevices[i]);
+            playerDevices[i] = newPI.user.pairedDevices[i];
+        }
+        // GameObject prefab, int playerIndex = -1, string controlScheme = null, int splitScreenIndex = -1, params InputDevice[] pairWithDevices
+        var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "PlayerInput", -1, playerDevices);
         Stats newPlayerStats = newPlayer.GetComponent<Stats>();
         newStats.CopyStatsToOtherComponent(newPlayerStats);
     }

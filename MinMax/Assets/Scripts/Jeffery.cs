@@ -10,7 +10,7 @@ public class Jeffery : MonoBehaviour
     GameObject dodgeTarget = null;
     Vector2 moveDirection;
     float keepDistance = 10f;
-    float keepRange = 2f;
+    float keepRange = 5f;
     float keepFuzz = 0f;
     bool isFiring;
 
@@ -30,7 +30,7 @@ public class Jeffery : MonoBehaviour
     void Update()
     {
         float speed = 1f;
-        InvokeRepeating("SelectTarget", 1.0f, 1f);
+        InvokeRepeating("SelectTarget", .5f, 1f);
         InvokeRepeating("Fuzz", 2.0f, 2f);
         LookAt();
         CheckDodge();
@@ -40,13 +40,16 @@ public class Jeffery : MonoBehaviour
                     var distance = Vector3.Distance(target.transform.position, transform.position);
                     var dir = target.transform.position - transform.position;
                     if( distance > keepDistance + (keepRange + keepFuzz)){
-                        moveDirection = new Vector2(dir.x,dir.z);     
+                        moveDirection = new Vector2(dir.x,dir.z);
+                        speed = .2f;     
                     }else if(distance < keepDistance - (keepRange + keepFuzz)){
-                        moveDirection = new Vector2(dir.x*-1,dir.z*-1);     
+                        moveDirection = new Vector2(dir.x*-1,dir.z*-1);
+                        speed = .2f;     
                     }else{
-                        moveDirection = new Vector2(0,0);
+                        var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
+                        moveDirection = new Vector2(strafe.x,strafe.z);
+                        speed = .4f;
                     }
-                    speed = .2f;
                 }else{
                     moveDirection = new Vector2(0,0);
                 }
@@ -126,7 +129,6 @@ public class Jeffery : MonoBehaviour
             if(bullet.playerOwningBullet != controller){
                 var distance = Vector3.Distance(bullet.transform.position, transform.position);
                 if(distance < 10000 && RayCastBullet(bullet)){
-                    Debug.Log("DODGIN");
                     state = State.Dodge;
                     dodgeTarget = obj;
                     break;
