@@ -323,37 +323,77 @@ public class PlayerCursor : MonoBehaviour
     {
         foreach(string statName in thisMSS.statStrings)
         {
-            switch(statName)
+            // switch(statName)
+            // {
+            //     case "Movement Speed":
+            //         if (!usedMovement) thisMSS.thisStats.SetSpeed(3);
+            //         break;
+            //     case "Health":
+            //         if (!usedHealth) thisMSS.thisStats.SetHP(3);
+            //         break;
+            //     case "Attack Speed":
+            //         if (!usedAttackSpeed) thisMSS.thisStats.SetAttackCooldown(3);
+            //         break;
+            //     case "Attack Damage":
+            //         if (!usedDamage) thisMSS.thisStats.SetAttackDamage(3);
+            //         break;
+            //     case "Projectile Speed":
+            //         if (!usedProjSpeed) thisMSS.thisStats.SetProjectileSpeed(3);
+            //         break;
+            //     // case "Projectile Number":
+            //     //     if (!usedNumber) thisMSS.thisStats.SetNumberOfProjectiles(3);
+            //     //     break;
+            //     case "Projectile Size":
+            //         if (!usedProjSize) thisMSS.thisStats.SetProjectileSize(3);
+            //         break;
+            //     case "Player Size":
+            //         if (!usedPlaSize) thisMSS.thisStats.SetPlayerSize(3);
+            //         break;
+            //     case "Range":
+            //         if (!usedRange) thisMSS.thisStats.SetProjectileRange(3);
+            //         break;
+            //     default:
+            //         break;
+            // }
+            if (statName.Contains("Movement") && !usedMovement)
             {
-                case "Movement Speed":
-                    if (!usedMovement) thisMSS.thisStats.SetSpeed(3);
-                    break;
-                case "Health":
-                    if (!usedHealth) thisMSS.thisStats.SetHP(3);
-                    break;
-                case "Attack Speed":
-                    if (!usedAttackSpeed) thisMSS.thisStats.SetAttackCooldown(3);
-                    break;
-                case "Attack Damage":
-                    if (!usedDamage) thisMSS.thisStats.SetAttackDamage(3);
-                    break;
-                case "Projectile Speed":
-                    if (!usedProjSpeed) thisMSS.thisStats.SetProjectileSpeed(3);
-                    break;
-                // case "Projectile Number":
-                //     if (!usedNumber) thisMSS.thisStats.SetNumberOfProjectiles(3);
-                //     break;
-                case "Projectile Size":
-                    if (!usedProjSize) thisMSS.thisStats.SetProjectileSize(3);
-                    break;
-                case "Player Size":
-                    if (!usedPlaSize) thisMSS.thisStats.SetPlayerSize(3);
-                    break;
-                case "Range":
-                    if (!usedRange) thisMSS.thisStats.SetProjectileRange(3);
-                    break;
-                default:
-                    break;
+                Debug.Log("setting movement of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetSpeed(3);
+            }
+            if (statName.Contains("Health") && !usedHealth)
+            {
+                Debug.Log("setting health of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetHP(3);
+            }
+            if (statName.Contains("Attack Speed") && !usedAttackSpeed)
+            {
+                Debug.Log("setting attack speed of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetAttackCooldown(3);
+            }
+            if (statName.Contains("Damage") && !usedDamage)
+            {
+                Debug.Log("setting damage of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetAttackDamage(3);
+            }
+            if (statName.Contains("Projectile Speed") && !usedProjSpeed)
+            {
+                Debug.Log("setting proj speed of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetProjectileSpeed(3);
+            }
+            if (statName.Contains("Projectile Size") && !usedProjSize)
+            {
+                Debug.Log("setting projectile size of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetProjectileSize(3);
+            }
+            if (statName.Contains("Player Size") && !usedPlaSize)
+            {
+                Debug.Log("setting size of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetPlayerSize(3);
+            }
+            if (statName.Contains("Range") && !usedRange)
+            {
+                Debug.Log("setting range of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetProjectileRange(3);
             }
         }
         usedMovement = false;
@@ -365,10 +405,5 @@ public class PlayerCursor : MonoBehaviour
         usedProjSize = false;
         usedPlaSize = false;
         usedRange = false;
-    }
-
-    public void PassStatsToPlayer()
-    {
-        SetUnusedStatsToThree();
     }
 }
