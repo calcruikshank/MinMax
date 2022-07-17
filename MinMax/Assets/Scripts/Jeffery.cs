@@ -28,10 +28,10 @@ public class Jeffery : MonoBehaviour
     {
         controller = gameObject.GetComponent<PlayerController>();
         state = State.Chasing;
-        InvokeRepeating("SelectTarget", .5f, 1f);
-        InvokeRepeating("Fuzz", 2.0f, 2f);
-        InvokeRepeating("Face", 10f, 10f);
-        InvokeRepeating("LookForPower", 1f, 1f);
+        InvokeRepeating("SelectTarget", Random.Range(.3f,.7f), 1f);
+        InvokeRepeating("Fuzz", Random.Range(.3f,.7f), Random.Range(2f,3f));
+        InvokeRepeating("Face", Random.Range(1f,10f), Random.Range(11f,20f));
+        InvokeRepeating("LookForPower", Random.Range(2f,.4f), Random.Range(1f,3f));
         //InvokeRepeating("FindDirection", 1f, 1f);
         keepDistance = controller.stats.ProjectileRange * .75f;
         keepRange = controller.stats.ProjectileRange * .10f;
@@ -43,6 +43,7 @@ public class Jeffery : MonoBehaviour
         Grabbing,
         Goto
     }
+    int move = 0;
     State state;
     // Update is called once per frame
     void Update()
@@ -60,7 +61,7 @@ public class Jeffery : MonoBehaviour
                 state = State.Chasing;
             }
             if(distMoved < 2f){
-                Debug.Log("I'm stuck");
+                move = 0;
                 FindDirection();
                 //state = State.Goto;
                 //moveTarget = new Vector3(transform.position.x + Random.Range(-5,5), transform.position.y, transform.position.z + Random.Range(-5,5));
@@ -137,9 +138,16 @@ public class Jeffery : MonoBehaviour
                 }
                 break;
             case State.Goto:
-                moveDirection = moveTarget - transform.position;
-                if(Vector3.Distance(moveTarget, transform.position) < 2f){
-                    state = State.Chasing;
+                
+                if(Vector3.Distance(moveTarget, transform.position) <= 2f){
+                    moveDirection = new Vector2(0,0);
+                    if(move == 0){
+                        move++;
+                        FindDirection();
+                    }
+                    else{
+                        state = State.Chasing;
+                    }
                 }
                 break;
         }
@@ -245,19 +253,35 @@ public class Jeffery : MonoBehaviour
     }
     void FindDirection(){
         RaycastHit hit;
-        if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, 7)){
+        state = State.Chasing;
+        for(int i = 0; i < 20; i++){
+            float angle = Random.Range(0f,360f);
+            Vector3 dir = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+            if(!Physics.Raycast(transform.position, dir, out hit, 7)){
+                moveTarget = transform.position + dir * 7;
+                state = State.Goto;
+                moveDirection = moveTarget - transform.position;
+                break;
+            }
+        }/*
+        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(90), 0, Mathf.Cos(90)),Color.red,10);
+        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(0), 0, Mathf.Cos(0)),Color.red,10);
+        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(180), 0, Mathf.Cos(180)),Color.red,10);
+        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(270), 0, Mathf.Cos(270)),Color.red,10);
+        if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 7)){
             moveTarget = transform.position + transform.TransformDirection(Vector3.left) * 7;
             state = State.Goto;
         }
-        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 7)){
+        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 7)){
             moveTarget = transform.position + transform.TransformDirection(Vector3.right) * 7;
             state = State.Goto;
         }
         else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 7)){
             moveTarget = transform.position + transform.TransformDirection(Vector3.back) * 7;
             state = State.Goto;
-        }
+        }*/
     }
+    
     bool RayCastBullet(Bullet b){
         RaycastHit hitMid;
         RaycastHit hitRight;
