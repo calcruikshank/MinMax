@@ -245,16 +245,16 @@ public class Jeffery : MonoBehaviour
     }
     void FindDirection(){
         RaycastHit hit;
-        if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, 10)){
-            moveTarget = transform.position + transform.TransformDirection(Vector3.left) * 10;
+        if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.left), out hit, 7)){
+            moveTarget = transform.position + transform.TransformDirection(Vector3.left) * 7;
             state = State.Goto;
         }
-        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 10)){
-            moveTarget = transform.position + transform.TransformDirection(Vector3.right) * 10;
+        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.right), out hit, 7)){
+            moveTarget = transform.position + transform.TransformDirection(Vector3.right) * 7;
             state = State.Goto;
         }
-        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 10)){
-            moveTarget = transform.position + transform.TransformDirection(Vector3.back) * 10;
+        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 7)){
+            moveTarget = transform.position + transform.TransformDirection(Vector3.back) * 7;
             state = State.Goto;
         }
     }
