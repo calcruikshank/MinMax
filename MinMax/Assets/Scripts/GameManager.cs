@@ -74,7 +74,12 @@ public class GameManager : MonoBehaviour
     bool startedRestart = false;
     IEnumerator Restart()
     {
-
+        // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
+        for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
+        {
+            Destroy(SoundManager.singleton.pcs[i].gameObject);
+        }
+        SoundManager.singleton.pcs.Clear();
         yield return new WaitForSeconds(5f);
         SceneManager.LoadScene("Main Menu");
         // DieRoller.singleton.gameObject.SetActive(true);
