@@ -33,6 +33,7 @@ public class DieRoller : MonoBehaviour
         if (singleton is null)
         {
             singleton = this;
+            DontDestroyOnLoad(this);
         }
         else
         {
@@ -77,7 +78,10 @@ public class DieRoller : MonoBehaviour
 
     public void Button_LoadGamesScene()
     {
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Additive);
+        // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        GetComponent<PlayerInputManager>().enabled = false;
+
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void Button_RollSameStats()
@@ -227,7 +231,7 @@ public class DieRoller : MonoBehaviour
 
         while (time > 0)
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.35f);
             time--;
             timerText.text = ":0" + time.ToString();
 

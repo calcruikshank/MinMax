@@ -62,4 +62,18 @@ public class Stats : MonoBehaviour
     {
         
     }
+
+    public void CopyStatsToOtherComponent(Stats otherStats)
+    {
+        otherStats.Speed = Speed;
+        otherStats.HP = HP;
+        otherStats.AttackCooldown = AttackCooldown;
+        otherStats.AttackDamage = AttackDamage;
+        otherStats.ProjectileSpeed = ProjectileSpeed;
+        otherStats.NumberOfProjectiles = NumberOfProjectiles;
+        otherStats.ProjectileSize = ProjectileSize;
+        otherStats.PlayerSize = PlayerSize;
+        otherStats.ProjectileRange = ProjectileRange;
+        otherStats.SpeedReductionWhenFiring = SpeedReductionWhenFiring;
+    }
 }

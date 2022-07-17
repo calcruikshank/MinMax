@@ -303,7 +303,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &35346080
 MonoBehaviour:
@@ -728,8 +728,8 @@ RectTransform:
   - {fileID: 228268429}
   - {fileID: 1946354325}
   - {fileID: 626206477}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1939277370}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6084,6 +6084,11 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!4 &1939277370 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2732353352750873573, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
+  m_PrefabInstance: {fileID: 2732353351710022504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1946354324
 GameObject:
   m_ObjectHideFlags: 0
@@ -6172,30 +6177,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: DieRoller, Assembly-CSharp
         m_MethodName: Button_LoadGamesScene
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1043208147}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1939277367}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
