@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public readonly List<GameObject> Players = new List<GameObject>();
     public readonly List<GameObject> Bullets = new List<GameObject>();
     public readonly List<GameObject> Powers = new List<GameObject>();
-    public GameObject playerPrefab, jefferyPrefab, healthPanelPrefab, canvasPanel;
+    public GameObject playerPrefab, jefferyPrefab, healthPanelPrefab, canvasPanel, powerUpPrefab;
 
     void Awake()
     {
@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         
     }
     public void SpawnPower(){
+        Powers.Add(Instantiate(powerUpPrefab, SpawnManager.singleton.RandomSpawn().position, Quaternion.identity));
         
     }
     public void AddPlayer(PlayerController player){

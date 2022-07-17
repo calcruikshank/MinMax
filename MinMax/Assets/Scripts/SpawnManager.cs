@@ -26,6 +26,4 @@ public class SpawnManager : MonoBehaviour
         spawns.Remove(t);
         return t;
     }
-
-
 }
