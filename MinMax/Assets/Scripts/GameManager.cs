@@ -29,12 +29,6 @@ public class GameManager : MonoBehaviour
             {
                 GameObject jeff = NewJeffery(jefferyPrefab, pc.GetComponent<Stats>());
                 jeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
-                // PlayerController jc = jeff.GetComponent<PlayerController>();
-                // Material hatMat = new Material(jc.hatRenderer.material);
-                // hatMat.EnableKeyword("_EMISSION");
-                // hatMat.SetColor("_Color", pc.playerImage.color);
-                // hatMat.SetColor("_EmissionColor", pc.playerImage.color);
-                // jc.hatRenderer.material = hatMat;
             }
             else
             {
@@ -78,12 +72,13 @@ public class GameManager : MonoBehaviour
         var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "PlayerInput", -1, playerDevices);
         Stats newPlayerStats = newPlayer.GetComponent<Stats>();
         newStats.CopyStatsToOtherComponent(newPlayerStats);
+        newPlayer.transform.position = SpawnManager.singleton.RandomSpawn().position;
         return newPlayer.gameObject;
     }
 
     GameObject NewJeffery(GameObject prefab, Stats newStats)
     {
-        GameObject newJeff = Instantiate(prefab);
+        GameObject newJeff = Instantiate(prefab, SpawnManager.singleton.RandomSpawn().position, Quaternion.identity);
         Stats jeffStats = newJeff.GetComponent<Stats>();
         newStats.CopyStatsToOtherComponent(jeffStats);
         return newJeff;
