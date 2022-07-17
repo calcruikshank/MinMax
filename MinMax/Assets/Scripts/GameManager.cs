@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         
         for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
         {
-            Destroy(SoundManager.singleton.pcs[i]);
+            Destroy(SoundManager.singleton.pcs[i].gameObject);
         }
 
         SoundManager.singleton.pcs.Clear();
