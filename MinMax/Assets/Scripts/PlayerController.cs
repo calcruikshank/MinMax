@@ -79,11 +79,15 @@ public class PlayerController : MonoBehaviour
         currentMana = stats.manaPool;
         FindLowestPoint();
 
+        if (thisHPS is null || thisHPS.healthSlider is null) return;
         thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
+
+        if (thisHPS.manaSlider is null) return;
         thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
         FindLowestPoint();
     }
+
     void FindLowestPoint()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
