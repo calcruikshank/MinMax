@@ -278,6 +278,7 @@ public class PlayerController : MonoBehaviour
         if (dispelDownPressed)
         {
             if (dispelAnimationIsPlaying) return;
+            if (gun.hasFiredForAnim && fireAnimationIsPlaying) return;
             if (fireDownPressed) return;
             dispelDownPressed = false;
             dispelEntryTime = Time.time;
