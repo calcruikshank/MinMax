@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public float entryTime;
     public float currentPercentage;
     public HealthPanelScript thisHPS;
+    public Image circleImage;
 
     bool fireAnimationIsPlaying = false;
     bool dispelAnimationIsPlaying = false;
@@ -371,5 +373,6 @@ public class PlayerController : MonoBehaviour
         Material cloakMat = new Material(cloakRenderer.material);
         cloakMat.color = c;
         cloakRenderer.material = cloakMat;
+        circleImage.color = new Color(c.r, c.g, c.b, 190.0f);
     }
 }
