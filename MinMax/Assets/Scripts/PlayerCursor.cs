@@ -14,7 +14,7 @@ public class PlayerCursor : MonoBehaviour
     public float speed = 100.0f;
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
-    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedNumber = false, usedProjSize = false, usedPlaSize = false, usedRange = false;
+    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false;
 
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
@@ -149,7 +149,6 @@ public class PlayerCursor : MonoBehaviour
         foreach(TMP_Text tmp in thisMSS.statTexts)
         {
             float thisDistance = Vector3.Distance(transform.position, tmp.transform.position);
-            // Debug.Log(thisDistance);
             if (thisDistance < closestDistance)
             {
                 closestDistance = thisDistance;
@@ -195,12 +194,6 @@ public class PlayerCursor : MonoBehaviour
                     thisMSS.thisStats.SetProjectileSpeed(int.Parse(closestText.text));
                     usedProjSpeed = true;
                 }
-                // else if (sc.statName.text.Contains("Number"))
-                // {
-                //     Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
-                //     thisMSS.thisStats.SetNumberOfProjectiles(int.Parse(closestText.text));
-                //     usedNumber = true;
-                // }
                 else if (sc.statName.text.Contains("Projectile Size"))
                 {
                     Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
@@ -251,9 +244,7 @@ public class PlayerCursor : MonoBehaviour
                 unusedStatTexts.Add(tt);
             }
         }
-        // Debug.Log(unusedStatTexts.Count);
         int randomText = Mathf.FloorToInt(Random.Range(0, unusedStatTexts.Count));
-        // Debug.Log(randomText);
         unusedStatTexts[randomText].text = rand.ToString();
         StatComponent sc = unusedStatTexts[randomText].GetComponent<StatComponent>();
         if (thisMSS.thisStats != null)
@@ -289,12 +280,6 @@ public class PlayerCursor : MonoBehaviour
                 thisMSS.thisStats.SetProjectileSpeed(rand);
                 usedProjSpeed = true;
             }
-            // else if (sc.statName.text.Contains("Number"))
-            // {
-            //     Debug.Log("Setting projectile number of " + thisMSS.thisStats.gameObject.name + " to " + rand);
-            //     thisMSS.thisStats.SetNumberOfProjectiles(rand);
-            //     usedNumber = true;
-            // }
             else if (sc.statName.text.Contains("Projectile Size"))
             {
                 Debug.Log("Setting projectile size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
@@ -323,38 +308,6 @@ public class PlayerCursor : MonoBehaviour
     {
         foreach(string statName in thisMSS.statStrings)
         {
-            // switch(statName)
-            // {
-            //     case "Movement Speed":
-            //         if (!usedMovement) thisMSS.thisStats.SetSpeed(3);
-            //         break;
-            //     case "Health":
-            //         if (!usedHealth) thisMSS.thisStats.SetHP(3);
-            //         break;
-            //     case "Attack Speed":
-            //         if (!usedAttackSpeed) thisMSS.thisStats.SetAttackCooldown(3);
-            //         break;
-            //     case "Attack Damage":
-            //         if (!usedDamage) thisMSS.thisStats.SetAttackDamage(3);
-            //         break;
-            //     case "Projectile Speed":
-            //         if (!usedProjSpeed) thisMSS.thisStats.SetProjectileSpeed(3);
-            //         break;
-            //     // case "Projectile Number":
-            //     //     if (!usedNumber) thisMSS.thisStats.SetNumberOfProjectiles(3);
-            //     //     break;
-            //     case "Projectile Size":
-            //         if (!usedProjSize) thisMSS.thisStats.SetProjectileSize(3);
-            //         break;
-            //     case "Player Size":
-            //         if (!usedPlaSize) thisMSS.thisStats.SetPlayerSize(3);
-            //         break;
-            //     case "Range":
-            //         if (!usedRange) thisMSS.thisStats.SetProjectileRange(3);
-            //         break;
-            //     default:
-            //         break;
-            // }
             if (statName.Contains("Movement") && !usedMovement)
             {
                 Debug.Log("setting movement of " + gameObject.name + " to 3");
@@ -401,7 +354,6 @@ public class PlayerCursor : MonoBehaviour
         usedAttackSpeed = false;
         usedDamage = false;
         usedProjSpeed = false;
-        usedNumber = false;
         usedProjSize = false;
         usedPlaSize = false;
         usedRange = false;
