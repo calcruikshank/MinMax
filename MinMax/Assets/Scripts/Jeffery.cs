@@ -85,6 +85,7 @@ public class Jeffery : MonoBehaviour
     }
     void SelectTarget(){
         var listOfClosest = OrderByClosest(GameManager.g.Players,transform.position);
+        listOfClosest.Reverse();
         foreach(var obj in listOfClosest){
             if(obj != gameObject){
                 if(target != obj){
