@@ -27,6 +27,7 @@ public class DieRoller : MonoBehaviour
     public GameObject botPrefab;
     bool isRemovingPlayer = false;
     bool isAddingPlayer = false;
+    public float dieSpawnSize = 0.75f;
 
     void Awake()
     {
@@ -60,7 +61,9 @@ public class DieRoller : MonoBehaviour
         rollButton.interactable = false;
         GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
         // currentDie = rolledDie.GetComponent<DieScript>();
-        rolledDie.GetComponent<DieScript>().thisRB.AddForce(Vector3.right * Random.Range(100, 300));
+        rolledDie.transform.localScale = new Vector3(dieSpawnSize, dieSpawnSize, dieSpawnSize);
+        rolledDie.GetComponent<DieScript>().thisRB.AddForce(new Vector3(Random.Range(-500, 500), Random.Range(-500, 500), Random.Range(-500, 500)));
+        rolledDie.GetComponent<DieScript>().thisRB.AddTorque(Vector3.right * Random.Range(-200000, 200000));
         rolledDie.GetComponent<DieScript>().thisDR = this;
         // currentDie.stopped = false;
         // currentDie.thisRB.isKinematic = false;
