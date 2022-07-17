@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     bool dispelAnimationIsPlaying = false;
 
     bool pressedFireWhileDispelling = false;
+
+    public GameObject dispellMesh;
+
     public enum State
     {
         Normal,
@@ -300,10 +303,12 @@ public class PlayerController : MonoBehaviour
             if (currentDispelPercentage > .2f && !wand.GetComponent<Collider>().enabled)
             {
                 wand.GetComponent<Collider>().enabled = true;
+                dispellMesh.SetActive(true);
             }
             if (currentDispelPercentage > .9f && wand.GetComponent<Collider>().enabled)
             {
                 wand.GetComponent<Collider>().enabled = false;
+                dispellMesh.SetActive(false);
             }
             
             if (currentDispelPercentage >= 1f)
