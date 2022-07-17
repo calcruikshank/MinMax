@@ -42,6 +42,7 @@ public class PlayerCursor : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
+        if (DieRoller.singleton is null) return;
         if (thisMSS is null || !thisMSS.gameObject.activeSelf) return;
         if (thisMSS.waitPanel.activeSelf || thisMSS.isBot) return;
         moveVal = value.Get<Vector2>();

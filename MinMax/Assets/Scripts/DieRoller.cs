@@ -105,9 +105,10 @@ public class DieRoller : MonoBehaviour
 
         foreach(PlayerCursor pc in pcs)
         {
-            GameObject newPC = Instantiate(pc.gameObject);
-            newPC.transform.SetParent(SoundManager.singleton.transform);
-            SoundManager.singleton.pcs.Add(newPC.GetComponent<PlayerCursor>());
+            // GameObject newPC = Instantiate(pc.gameObject);
+            // newPC.transform.SetParent(SoundManager.singleton.transform);
+            pc.transform.SetParent(SoundManager.singleton.transform);
+            SoundManager.singleton.pcs.Add(pc);
         }
 
         // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
