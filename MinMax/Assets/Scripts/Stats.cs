@@ -75,7 +75,7 @@ public class Stats : MonoBehaviour
     }
     public void SetManaRegenRate(int numSent)
     {
-        manaRegenRate = 20 + (numSent * 4f);
+        manaRegenRate = 25 + (numSent * 4f);
     }
     public void SetDispelSpeed(int numSent)
     {
