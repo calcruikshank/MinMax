@@ -15,7 +15,7 @@ public class ZoomScript : MonoBehaviour
     void FixedUpdate()
     {
 
-        this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, new Vector3(0f, 0f, pointBetweenPlayers.furthestDistanceBetweenPlayer * 3 / -10f), 25f * Time.deltaTime);
+        this.transform.localPosition = Vector3.MoveTowards(this.transform.localPosition, new Vector3(0f, pointBetweenPlayers.furthestDistanceBetweenPlayer / 2, 0f), 25f * Time.deltaTime);
 
     }
 }
