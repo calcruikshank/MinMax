@@ -77,7 +77,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -1686,23 +1686,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.006265252
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.091558866
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.002016544
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.99577796
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

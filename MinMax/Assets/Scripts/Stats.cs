@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     public float Speed = 10f;
-    public float HP;
+    public float HP = 10;
     public float AttackCooldown = 1f;
     public float AttackDamage = 1f;
     public float ProjectileSpeed = 30f;
@@ -61,5 +61,19 @@ public class Stats : MonoBehaviour
     public void SetSpeedReductionWhenFiring(int numSent)
     {
         
+    }
+
+    public void CopyStatsToOtherComponent(Stats otherStats)
+    {
+        otherStats.Speed = Speed;
+        otherStats.HP = HP;
+        otherStats.AttackCooldown = AttackCooldown;
+        otherStats.AttackDamage = AttackDamage;
+        otherStats.ProjectileSpeed = ProjectileSpeed;
+        otherStats.NumberOfProjectiles = NumberOfProjectiles;
+        otherStats.ProjectileSize = ProjectileSize;
+        otherStats.PlayerSize = PlayerSize;
+        otherStats.ProjectileRange = ProjectileRange;
+        otherStats.SpeedReductionWhenFiring = SpeedReductionWhenFiring;
     }
 }

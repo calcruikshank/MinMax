@@ -9,7 +9,7 @@ public class Jeffery : MonoBehaviour
     PlayerController target = null;
     GameObject dodgeTarget = null;
     Vector2 moveDirection;
-
+    public GameObject debugBall;
     float keepDistance = 10f;
     float keepRange = 2f;
     float keepFuzz = 0f;
@@ -91,8 +91,13 @@ public class Jeffery : MonoBehaviour
 
     void LookAt(){
         if(target != null){
+            var gun = controller.GetComponentInChildren<Gun>();
             var rb = target.GetComponent<Rigidbody>();
-            var dir = target.transform.position + rb.velocity - transform.position;
+            var dist = Vector3.Distance(target.transform.position,gun.transform.position);
+            var timeToTarget = dist / controller.stats.ProjectileSpeed;
+            var predictedPos  = target.transform.position + rb.velocity * timeToTarget;
+            debugBall.transform.position = predictedPos;
+            var dir = predictedPos - gun.transform.position;
             controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);
             Fire();
         }else{
@@ -108,9 +113,11 @@ public class Jeffery : MonoBehaviour
     }
 
     void Fire(){
-        if(!isFiring){
-            controller.OnFireDown();
-            isFiring = true;
+        if(state != State.Dodge){
+            if(!isFiring){
+                controller.OnFireDown();
+                isFiring = true;
+            }
         }
     }
 
@@ -120,7 +127,8 @@ public class Jeffery : MonoBehaviour
             var bullet = obj.GetComponent<Bullet>();
             if(bullet.playerOwningBullet != controller){
                 var distance = Vector3.Distance(bullet.transform.position, transform.position);
-                if(distance < 10 && RayCastBullet(bullet)){
+                if(distance < 10000 && RayCastBullet(bullet)){
+                    Debug.Log("DODGIN");
                     state = State.Dodge;
                     dodgeTarget = obj;
                     break;
@@ -134,10 +142,11 @@ public class Jeffery : MonoBehaviour
         RaycastHit hitRight;
         RaycastHit hitLeft;
         var collider = b.GetComponent<Collider>();
-        float speedCalc = b.velocity * Time.deltaTime * 15;
+        //float speedCalc = b.velocity * Time.deltaTime * 100;
+        float speedCalc = 10000;
         bool midHit = Physics.Raycast(b.transform.position, b.transform.TransformDirection(Vector3.forward), out hitMid, speedCalc);
-        bool rightHit = Physics.Raycast(b.transform.position + b.transform.TransformDirection(Vector3.right) * collider.bounds.size.x/2f, b.transform.TransformDirection(Vector3.forward), out hitRight, speedCalc);
-        bool leftHit = Physics.Raycast(b.transform.position + b.transform.TransformDirection(Vector3.left) * collider.bounds.size.x/2f, b.transform.TransformDirection(Vector3.forward), out hitLeft, speedCalc);
+        bool rightHit = Physics.Raycast(b.transform.position + b.transform.TransformDirection(Vector3.right) * collider.bounds.size.x, b.transform.TransformDirection(Vector3.forward), out hitRight, speedCalc);
+        bool leftHit = Physics.Raycast(b.transform.position + b.transform.TransformDirection(Vector3.left) * collider.bounds.size.x, b.transform.TransformDirection(Vector3.forward), out hitLeft, speedCalc);
         if((midHit && hitMid.transform.gameObject == gameObject) ||(rightHit && hitRight.transform.gameObject == gameObject) || (leftHit &&  hitLeft.transform.gameObject == gameObject)){
             return true;
         }

@@ -33,6 +33,7 @@ public class DieRoller : MonoBehaviour
         if (singleton is null)
         {
             singleton = this;
+            DontDestroyOnLoad(this);
         }
         else
         {
@@ -54,6 +55,7 @@ public class DieRoller : MonoBehaviour
         if (isRemovingPlayer || isAddingPlayer) return;
         if (PlayersAreReady()) return;
         if (currentDie != null && !EveryoneHasUsedCurrentDie()) return;
+        SoundManager.singleton.PlaySound(3, 0.5f, 0.5f);
         currentDie = null;
         rollButton.interactable = false;
         GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
@@ -77,7 +79,10 @@ public class DieRoller : MonoBehaviour
 
     public void Button_LoadGamesScene()
     {
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Additive);
+        // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
+        GetComponent<PlayerInputManager>().enabled = false;
+
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void Button_RollSameStats()
@@ -224,10 +229,11 @@ public class DieRoller : MonoBehaviour
     public IEnumerator Timer()
     {
         timerText.text = ":0" + time.ToString();
+        SoundManager.singleton.PlayRandomDieSound();
 
         while (time > 0)
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.35f);
             time--;
             timerText.text = ":0" + time.ToString();
 
@@ -239,6 +245,8 @@ public class DieRoller : MonoBehaviour
                 }
             }
         }
+
+        SoundManager.singleton.PlaySound(4, 0.3f, 0.2f);
 
         timerText.text = "";
 

@@ -144,7 +144,7 @@ public class PlayerCursor : MonoBehaviour
 
         if (usedCurrentDie || DieRoller.singleton.currentDie is null || string.IsNullOrEmpty(DieRoller.singleton.valueText.text)) return;
 
-        float closestDistance = 0.014f;
+        float closestDistance = 0.017f;
         TMP_Text closestText = null;
         foreach(TMP_Text tmp in thisMSS.statTexts)
         {
@@ -161,6 +161,7 @@ public class PlayerCursor : MonoBehaviour
             if (!string.IsNullOrEmpty(closestText.text)) return;
             closestText.text = DieRoller.singleton.valueText.text;
             StatComponent sc = closestText.GetComponent<StatComponent>();
+            SoundManager.singleton.PlaySound(0);
             if (thisMSS.thisStats != null)
             {
                 // Set selected stat to selected die roll
