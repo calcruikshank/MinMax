@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,14 +48,32 @@ public class GameManager : MonoBehaviour
             }
         }
         InvokeRepeating("SpawnPower", 5f, 10f);
-        Destroy(DieRoller.singleton.gameObject);
+        //Destroy(DieRoller.singleton.gameObject);
+        DieRoller.singleton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(!startedRestart){
+        if(Players.Count == 1){
+            Debug.Log("Winner winner");
+            StartCoroutine(Restart());
+            startedRestart = true;
+        }
+        }
+
     }
+    bool startedRestart = false;
+    IEnumerator Restart()
+    {
+
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("Main Menu");
+        DieRoller.singleton.gameObject.SetActive(true);
+        DieRoller.singleton.ResetAllThings();
+    }
+
     public void SpawnPower(){
         GameObject rolledDie = Instantiate(powerUpPrefab, new Vector3(Random.Range(-15, 15),Random.Range(0,30),Random.Range(-15, 15)), Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
         Powers.Add(rolledDie);

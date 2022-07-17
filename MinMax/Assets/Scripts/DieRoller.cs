@@ -337,7 +337,13 @@ public class DieRoller : MonoBehaviour
         ResetAllStats();
         Invoke("SetRemovingPlayerToFalse", 0.1f);
     }
-
+    public void ResetAllThings(){
+        foreach(var mss in playerPanels){
+            RemovePlayer(mss);
+        }
+        playButton.gameObject.SetActive(false);
+        ResetAllStats();
+    }
     public bool PlayersAreReady()
     {
         if (pcs.Count < 1) return false;
