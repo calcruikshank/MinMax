@@ -42,7 +42,7 @@ public class PowerUp : MonoBehaviour
                 case PowerT.ice:
                     stats.ProjectileRange += 10;
                     stats.AttackDamage += 30;
-                    stats.ProjectileSize += 1;
+                    stats.ProjectileSize += 2;
                     stats.ProjectileSpeed -= 15;
                     if(stats.ProjectileSpeed < 15f)
                         stats.ProjectileSpeed = 15;

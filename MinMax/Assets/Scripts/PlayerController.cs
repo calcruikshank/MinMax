@@ -242,6 +242,11 @@ public class PlayerController : MonoBehaviour
         targetColor = faceColors[currentFaceIndex];
     }
 
+    public void PickRandomFace(){
+        currentFaceIndex = Random.Range(0,faceRotations.Count);
+        ChangeFace();
+    }
+    
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
         if (fireDownPressed)
