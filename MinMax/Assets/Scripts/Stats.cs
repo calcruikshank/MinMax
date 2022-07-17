@@ -29,7 +29,7 @@ public class Stats : MonoBehaviour
         player = playerSent;
         manaPool = 300;
         SetManaRegenRate(3);
-        manaCost = 50f; SetPlayerSize(6);
+        manaCost = 50f; 
     }
 
     public void SetSpeed(int numSent)
@@ -47,7 +47,7 @@ public class Stats : MonoBehaviour
     }
     public void SetAttackDamage(int numSent)
     {
-        AttackDamage = numSent * 10;
+        AttackDamage = numSent * 10f;
     }
     public void SetProjectileSpeed(int numSent)
     {
@@ -75,7 +75,7 @@ public class Stats : MonoBehaviour
     }
     public void SetManaRegenRate(int numSent)
     {
-        manaRegenRate = 25 + (numSent * 4f);
+        manaRegenRate = 20 + (numSent * 4f);
     }
     public void SetDispelSpeed(int numSent)
     {
