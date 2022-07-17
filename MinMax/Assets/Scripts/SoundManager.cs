@@ -26,7 +26,7 @@ public class SoundManager : MonoBehaviour
         if (audioClips.Length < 1) audioClips = Resources.LoadAll<AudioClip>("Sounds") as AudioClip[];
     }
 
-    void PlaySound(int soundIndex, float volume = 0.5f, float variance = 0.1f)
+    public void PlaySound(int soundIndex, float volume = 0.5f, float variance = 0.1f)
     {
         if (soundIndex < 0 || soundIndex > audioClips.Length) return;
         AudioClip foundClip = audioClips[soundIndex];
@@ -38,7 +38,7 @@ public class SoundManager : MonoBehaviour
         newAC.PlayOneShot(foundClip);
     }
 
-    void PlaySound(string soundName, float volume = 0.5f, float variance = 0.1f)
+    public void PlaySound(string soundName, float volume = 0.5f, float variance = 0.1f)
     {
         if (string.IsNullOrEmpty(soundName)) return;
         AudioClip foundClip = null;
@@ -52,5 +52,10 @@ public class SoundManager : MonoBehaviour
         newAC.volume = volume;
         newAC.pitch += Random.Range(-variance, variance);
         newAC.PlayOneShot(foundClip);
+    }
+
+    public void PlayRandomDieSound()
+    {
+        PlaySound(Mathf.FloorToInt(Random.Range(1, 3)), 0.5f, 0.5f);
     }
 }

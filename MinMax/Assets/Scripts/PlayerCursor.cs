@@ -161,6 +161,7 @@ public class PlayerCursor : MonoBehaviour
             if (!string.IsNullOrEmpty(closestText.text)) return;
             closestText.text = DieRoller.singleton.valueText.text;
             StatComponent sc = closestText.GetComponent<StatComponent>();
+            SoundManager.singleton.PlaySound(0);
             if (thisMSS.thisStats != null)
             {
                 // Set selected stat to selected die roll
