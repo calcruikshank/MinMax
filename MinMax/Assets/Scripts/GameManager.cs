@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public readonly List<GameObject> Players = new List<GameObject>();
     public readonly List<GameObject> Bullets = new List<GameObject>();
     public readonly List<GameObject> Powers = new List<GameObject>();
-    public GameObject playerPrefab, jefferyPrefab, healthPanelPrefab, canvasPanel;
+    public GameObject playerPrefab, jefferyPrefab, healthPanelPrefab, canvasPanel, powerUpPrefab;
 
     void Awake()
     {
@@ -21,16 +21,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // foreach(PlayerCursor pc in DieRoller.singleton.pcs)
-        for (int i = DieRoller.singleton.pcs.Count - 1; i >= 0; i--)
+        foreach(PlayerCursor pc in DieRoller.singleton.pcs)
+        // for (int i = DieRoller.singleton.pcs.Count - 1; i >= 0; i--)
         {
-            PlayerCursor pc = DieRoller.singleton.pcs[i];
+            // PlayerCursor pc = DieRoller.singleton.pcs[i];
             pc.SetUnusedStatsToThree();
             
             GameObject hp = Instantiate(healthPanelPrefab, canvasPanel.transform);
             HealthPanelScript hps = hp.GetComponent<HealthPanelScript>();
             hps.playerName.text = pc.playerLabel.text;
-            hps.sliderFill.color = pc.playerImage.color;
+            hps.sliderFill.color = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
 
             if (pc.thisMSS.isBot)
             {
@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         
     }
     public void SpawnPower(){
+        Powers.Add(Instantiate(powerUpPrefab, SpawnManager.singleton.RandomSpawn().position, Quaternion.identity));
         
     }
     public void AddPlayer(PlayerController player){

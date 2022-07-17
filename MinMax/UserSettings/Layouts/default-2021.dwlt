@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 1377
     height: 589
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 921
+  controlID: 132
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 950
+  controlID: 130
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -171,8 +171,8 @@ MonoBehaviour:
     y: 0
     width: 851
     height: 710
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -253,7 +253,7 @@ MonoBehaviour:
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
-  m_LastLoadedLayoutName: Onygox
+  m_LastLoadedLayoutName: 
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 951
+  controlID: 131
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 952
+  controlID: 86
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -393,22 +393,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scenes
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\lione\Documents\GitHub\MinMax\MinMax
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b8620000
-    m_LastClickedID: 25272
-    m_ExpandedIDs: 0000000078620000b862000000ca9a3bffffff7f
+    m_SelectedIDs: de610000
+    m_LastClickedID: 25054
+    m_ExpandedIDs: 0000000076610000da61000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -436,7 +436,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007862000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000076610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -564,23 +564,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 96870000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: cea6ffffd8a6ffffe0a6ffff6eadffff2cb3ffff36b3ffffb8c0ffff8cc3ffffc4c3ffffc8c3ffffcec3ffffdcc3ffff46c4ffff8ec4ffff92c4ffff98c4ffffa6c4ffffe4c5ffffc2e0ffffd2e0ffffdae0ffff12e1ffff16e1ffff1ce1ffff2ae1ffff7ae2ffff8ae2ffff92e2ffffcae2ffffcee2ffffd4e2ffff38e3ffff22f7ffff16faffffb8680000
+      m_ExpandedIDs: 1a0fffff9814ffffb014ffffc81fffff1c24ffff2841ffff3441ffff3c41ffff4241ffff4c41ffff8a43ffffa243ffff425effff4a5effff505effff5a5effff4a5fffff565fffff5e5fffff645fffff6e5fffffac61ffffc461ffffe86bffffe070fffff270ffffd67bffffee7bffffae86ffff1097ffffae9bffff309fffff1aaaffffceacffffd8acffff5ac3ffff3ae1ffff32fbffff1e870000f0880000bc97000026a5000036b800007ace0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: HealthPanel (0)(Clone)
+        m_OriginalName: HealthPanel (0)(Clone)
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -61670
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 7}
       m_SearchString: 
@@ -815,9 +815,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 140.94093, y: 66.53874, z: -138.17741}
+    m_Target: {x: 846, y: 50, z: 0}
     speed: 2
-    m_Value: {x: 140.94093, y: 66.53874, z: -138.17741}
+    m_Value: {x: 846, y: 50, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -868,9 +868,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.04379375, y: -0.0059972173, z: 0.0002829812, w: 0.9990226}
   m_Size:
-    m_Target: 33.941124
+    m_Target: 128.16005
     speed: 2
-    m_Value: 33.941124
+    m_Value: 128.16005
   m_Ortho:
     m_Target: 0
     speed: 2

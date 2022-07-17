@@ -73,6 +73,7 @@ public class Stats : MonoBehaviour
     {
         otherStats.Speed = Speed;
         otherStats.HP = HP;
+        otherStats.maxHP = maxHP;
         otherStats.AttackCooldown = AttackCooldown;
         otherStats.AttackDamage = AttackDamage;
         otherStats.ProjectileSpeed = ProjectileSpeed;

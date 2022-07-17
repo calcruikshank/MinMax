@@ -27,8 +27,8 @@ public class PlayerCursor : MonoBehaviour
         thisMSS.backgroundPanel.gameObject.SetActive(true);
         thisMSS.addBotButton.gameObject.SetActive(false);
         playerLabel.text = newMenuStats.playerName;
-        playerImage.color = bot ? new Color(0,0,0,0) : newMenuStats.playerColor;
-        playerLabel.color = bot ? new Color(0,0,0,0) : newMenuStats.playerColor;
+        playerImage.color = bot ? new Color(newMenuStats.playerColor.r,newMenuStats.playerColor.g,newMenuStats.playerColor.b,0) : newMenuStats.playerColor;
+        playerLabel.color = bot ? new Color(newMenuStats.playerColor.r,newMenuStats.playerColor.g,newMenuStats.playerColor.b,0) : newMenuStats.playerColor;
         newMenuStats.thisPC = this;
         newMenuStats.thisStats = GetComponent<Stats>();
         transform.position = newMenuStats.transform.position;
@@ -229,7 +229,7 @@ public class PlayerCursor : MonoBehaviour
     void FixedUpdate()
     {
         thisRT.anchoredPosition += moveVal * speed * Time.deltaTime;
-        thisRT.anchoredPosition = new Vector3(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 80, (Screen.width/2) - 80), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2)+40, (Screen.height/2)-40));
+        thisRT.anchoredPosition = new Vector3(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 40, (Screen.width/2) - 40), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2) + 40, (Screen.height/2) - 40));
     }
 
     void OnDisable()

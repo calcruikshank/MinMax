@@ -41,14 +41,14 @@ public class Jeffery : MonoBehaviour
                     var dir = target.transform.position - transform.position;
                     if( distance > keepDistance + (keepRange + keepFuzz)){
                         moveDirection = new Vector2(dir.x,dir.z);
-                        speed = .2f;     
+                        speed = .8f;     
                     }else if(distance < keepDistance - (keepRange + keepFuzz)){
                         moveDirection = new Vector2(dir.x*-1,dir.z*-1);
-                        speed = .2f;     
+                        speed = .8f;     
                     }else{
                         var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
                         moveDirection = new Vector2(strafe.x,strafe.z);
-                        speed = .4f;
+                        speed = .8f;
                     }
                 }else{
                     moveDirection = new Vector2(0,0);
@@ -76,6 +76,7 @@ public class Jeffery : MonoBehaviour
                 }
                 break;
         }
+        moveDirection.Normalize();
         controller.inputMovement = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
     }
     void SelectTarget(){
