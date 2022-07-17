@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         for (int i = DieRoller.singleton.pcs.Count - 1; i >= 0; i--)
         {
             PlayerCursor pc = DieRoller.singleton.pcs[i];
+            pc.SetUnusedStatsToThree();
             if (pc.thisMSS.isBot)
             {
                 NewJeffery(jefferyPrefab, pc.GetComponent<Stats>());
