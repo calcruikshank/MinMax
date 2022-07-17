@@ -171,41 +171,28 @@ public class PlayerController : MonoBehaviour
     {
         lookDirection = value.Get<Vector2>();
     }
+
+    bool fireDownPressed = false;
     public void OnFireDown()
     {
-        if (dispelAnimationIsPlaying)
-        {
-            pressedFireWhileDispelling = true;
-        }
-        if (fireAnimationIsPlaying) return;
-        if (dispelAnimationIsPlaying == true) return;
-        fireAnimationIsPlaying = true;
-        entryTime = Time.time;
-        if (gun != null)
-        {
-            gun.fire = true;
-        }
-        currentSpeed /= stats.SpeedReductionWhenFiring;
-        armsAnim.SetBool("cast", true);
-        StartCoroutine("ResetCast");
+        fireDownPressed = true;
     }
 
     public void OnFireUp()
     {
+        fireDownPressed = false;
         gun.fire = false;
         armsAnim.SetBool("cast", false);
     }
-
+    bool dispelDownPressed = false;
     void OnDispelDown()
     {
-        if (dispelAnimationIsPlaying) return;
-        dispelEntryTime = Time.time;
-        dispelAnimationIsPlaying = true;
-        currentSpeed /= stats.SpeedReductionWhenFiring;
-        armsAnim.SetBool("dispel", true);
-        StartCoroutine("ResetDispel");
+        dispelDownPressed = true;
     }
-
+    void OnDispelUp()
+    {
+        dispelDownPressed = false;
+    }
     public void TakeDamage(float damageSent)
     {
         stats.HP -= damageSent;
@@ -246,7 +233,22 @@ public class PlayerController : MonoBehaviour
 
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
-
+        if (fireDownPressed)
+        {
+            if (fireAnimationIsPlaying) return;
+            if (dispelAnimationIsPlaying == true) return;
+            if (dispelDownPressed) return;
+            fireDownPressed = false;
+            fireAnimationIsPlaying = true;
+            entryTime = Time.time;
+            if (gun != null)
+            {
+                gun.fire = true;
+            }
+            currentSpeed /= stats.SpeedReductionWhenFiring;
+            armsAnim.SetBool("cast", true);
+            StartCoroutine("ResetCast");
+        }
         if(fireAnimationIsPlaying)
         {
             currentPercentage = (Time.time - entryTime) / stateInfo.length;
@@ -273,6 +275,17 @@ public class PlayerController : MonoBehaviour
 
     private void HandleDispelAnimation(AnimatorStateInfo stateInfo)
     {
+        if (dispelDownPressed)
+        {
+            if (dispelAnimationIsPlaying) return;
+            if (fireDownPressed) return;
+            dispelDownPressed = false;
+            dispelEntryTime = Time.time;
+            dispelAnimationIsPlaying = true;
+            currentSpeed /= stats.SpeedReductionWhenFiring;
+            armsAnim.SetBool("dispel", true);
+            StartCoroutine("ResetDispel");
+        }
         float currentDispelPercentage;
         if (dispelAnimationIsPlaying)
         {
