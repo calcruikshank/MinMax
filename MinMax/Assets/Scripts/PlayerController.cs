@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Animator capeAnim;
     [SerializeField] List<Vector3> faceRotations;
     [SerializeField] List<Color> faceColors;
+
+    [SerializeField] WandDispel wand;
     int currentFaceIndex = 0;
     Vector3 targetFaceRot;
     Color targetColor;
@@ -38,7 +40,9 @@ public class PlayerController : MonoBehaviour
     public float entryTime;
     public float currentPercentage;
 
+
     bool fireAnimationIsPlaying = false;
+    bool dispelAnimationIsPlaying = false;
 
     public enum State
     {
@@ -71,6 +75,7 @@ public class PlayerController : MonoBehaviour
                 FaceLookDirection();
                 HandleMovement();
                 TrackAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
+                HandleDispelAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
                 break;
         }
     }
@@ -91,7 +96,7 @@ public class PlayerController : MonoBehaviour
         movement.z = inputMovement.y;
         if(movement.normalized != Vector3.zero)
         {
-            playerLegs.transform.forward = Vector3.Lerp(playerLegs.transform.forward, movement.normalized, 20f * Time.deltaTime);
+            playerLegs.transform.forward = Vector3.Lerp(playerLegs.transform.forward, movement, 20f * Time.deltaTime);
         }
 
         legsAnim.speed = currentSpeed / stats.Speed; 
@@ -165,6 +170,8 @@ public class PlayerController : MonoBehaviour
     }
     void OnFireDown()
     {
+        if (fireAnimationIsPlaying) return;
+        if (dispelAnimationIsPlaying == true) return;
         fireAnimationIsPlaying = true;
         entryTime = Time.time;
         if (gun != null)
@@ -179,6 +186,16 @@ public class PlayerController : MonoBehaviour
     {
         gun.fire = false;
         armsAnim.SetBool("cast", false);
+    }
+
+    void OnDispelDown()
+    {
+        if (dispelAnimationIsPlaying) return;
+        dispelEntryTime = Time.time;
+        dispelAnimationIsPlaying = true;
+        currentSpeed /= stats.SpeedReductionWhenFiring;
+        armsAnim.SetBool("dispel", true);
+        StartCoroutine("ResetDispel");
     }
 
     public void TakeDamage(float damageSent)
@@ -257,6 +274,32 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    float dispelEntryTime;
+    private void HandleDispelAnimation(AnimatorStateInfo stateInfo)
+    {
+        float currentDispelPercentage;
+        if (dispelAnimationIsPlaying)
+        {
+            currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
+
+            if (currentDispelPercentage > .2f && !wand.GetComponent<Collider>().enabled)
+            {
+                wand.GetComponent<Collider>().enabled = true;
+            }
+
+            if (currentDispelPercentage >= 1)
+            {
+                currentSpeed = stats.Speed;
+                dispelAnimationIsPlaying = false;
+                wand.GetComponent<Collider>().enabled = false;
+            }
+
+            if (!stateInfo.IsName("dispel"))
+            {
+            }
+            Debug.Log(currentDispelPercentage);
+        }
+    }
 
     IEnumerator ResetCast()
     {
@@ -264,6 +307,13 @@ public class PlayerController : MonoBehaviour
 
         armsAnim.SetBool("cast", false);
         gun.hasFiredForAnim = false;
+
+    }
+    IEnumerator ResetDispel()
+    {
+        yield return new WaitForSeconds(.001f);
+
+        armsAnim.SetBool("dispel", false);
 
     }
 }
