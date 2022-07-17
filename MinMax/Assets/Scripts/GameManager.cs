@@ -28,11 +28,19 @@ public class GameManager : MonoBehaviour
             pc.SetUnusedStatsToThree();
             if (pc.thisMSS.isBot)
             {
-                NewJeffery(jefferyPrefab, pc.GetComponent<Stats>());
+                GameObject jeff = NewJeffery(jefferyPrefab, pc.GetComponent<Stats>());
+                jeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
+                // PlayerController jc = jeff.GetComponent<PlayerController>();
+                // Material hatMat = new Material(jc.hatRenderer.material);
+                // hatMat.EnableKeyword("_EMISSION");
+                // hatMat.SetColor("_Color", pc.playerImage.color);
+                // hatMat.SetColor("_EmissionColor", pc.playerImage.color);
+                // jc.hatRenderer.material = hatMat;
             }
             else
             {
-                NewPlayerInput(playerPrefab, pc.GetComponent<PlayerInput>(), pc.GetComponent<Stats>());
+                GameObject notJeff = NewPlayerInput(playerPrefab, pc.GetComponent<PlayerInput>(), pc.GetComponent<Stats>());
+                notJeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
             }
         }
         InvokeRepeating("SpawnPower", 10f, 10f);
@@ -67,30 +75,24 @@ public class GameManager : MonoBehaviour
         Bullets.Remove(bullet.gameObject);
     }
 
-    public void NewPlayerInput(GameObject prefab, PlayerInput newPI, Stats newStats)
+    GameObject NewPlayerInput(GameObject prefab, PlayerInput newPI, Stats newStats)
     {
-        // Debug.Log(newPI.devices);
         InputDevice[] playerDevices = new InputDevice[newPI.user.pairedDevices.Count];
-        // foreach(var v in newPI.devices)
-        // {
-        //     Debug.Log("device " + v);
-        // }
-        // foreach(var v in newPI.user.pairedDevices)
         for(int i = 0; i < newPI.user.pairedDevices.Count; i++)
         {
-            // Debug.Log("paired device " + newPI.user.pairedDevices[i]);
             playerDevices[i] = newPI.user.pairedDevices[i];
         }
-        // GameObject prefab, int playerIndex = -1, string controlScheme = null, int splitScreenIndex = -1, params InputDevice[] pairWithDevices
         var newPlayer = PlayerInput.Instantiate(prefab, newPI.playerIndex, "PlayerInput", -1, playerDevices);
         Stats newPlayerStats = newPlayer.GetComponent<Stats>();
         newStats.CopyStatsToOtherComponent(newPlayerStats);
+        return newPlayer.gameObject;
     }
 
-    public void NewJeffery(GameObject prefab, Stats newStats)
+    GameObject NewJeffery(GameObject prefab, Stats newStats)
     {
         GameObject newJeff = Instantiate(prefab);
         Stats jeffStats = newJeff.GetComponent<Stats>();
         newStats.CopyStatsToOtherComponent(jeffStats);
+        return newJeff;
     }
 }

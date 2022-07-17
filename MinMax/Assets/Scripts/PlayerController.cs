@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour
     public float entryTime;
     public float currentPercentage;
 
-
     bool fireAnimationIsPlaying = false;
     bool dispelAnimationIsPlaying = false;
 
@@ -59,6 +58,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GameManager.g.AddPlayer(this);
+        
         rb = this.GetComponent<Rigidbody>();
 
         state = State.Normal;
@@ -331,5 +331,17 @@ public class PlayerController : MonoBehaviour
 
         armsAnim.SetBool("dispel", false);
 
+    }
+
+    public MeshRenderer hatRenderer, cloakRenderer;
+
+    public void ChangeColor(Color c)
+    {
+        Material hatMat = new Material(hatRenderer.material);
+        hatMat.color = c;
+        hatRenderer.material = hatMat;
+        Material cloakMat = new Material(cloakRenderer.material);
+        cloakMat.color = c;
+        cloakRenderer.material = cloakMat;
     }
 }
