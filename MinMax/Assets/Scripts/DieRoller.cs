@@ -82,6 +82,13 @@ public class DieRoller : MonoBehaviour
 
     public void Button_LoadGamesScene()
     {
+        SoundManager.singleton.pcs = new List<PlayerCursor>();
+        foreach(PlayerCursor pc in pcs)
+        {
+            GameObject newPC = Instantiate(pc.gameObject);
+            newPC.transform.SetParent(SoundManager.singleton.transform);
+            SoundManager.singleton.pcs.Add(newPC.GetComponent<PlayerCursor>());
+        }
         // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
         GetComponent<PlayerInputManager>().enabled = false;
 

@@ -22,8 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        foreach(PlayerCursor pc in DieRoller.singleton.pcs)
-        // for (int i = DieRoller.singleton.pcs.Count - 1; i >= 0; i--)
+        foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             // PlayerCursor pc = DieRoller.singleton.pcs[i];
             pc.SetUnusedStatsToThree();
@@ -50,6 +49,13 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("SpawnPower", 5f, 10f);
         //Destroy(DieRoller.singleton.gameObject);
         // DieRoller.singleton.gameObject.SetActive(false);
+        
+        for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
+        {
+            Destroy(SoundManager.singleton.pcs[i]);
+        }
+
+        SoundManager.singleton.pcs.Clear();
     }
 
     // Update is called once per frame

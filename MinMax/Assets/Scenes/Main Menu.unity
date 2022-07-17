@@ -725,8 +725,8 @@ RectTransform:
   - {fileID: 1946354325}
   - {fileID: 2143885420}
   - {fileID: 626206477}
-  m_Father: {fileID: 1939277370}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6549,11 +6549,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!4 &1939277370 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2732353352750873573, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
-  m_PrefabInstance: {fileID: 2732353351710022504}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1946354324
 GameObject:
   m_ObjectHideFlags: 0

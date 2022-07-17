@@ -8,6 +8,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip[] audioClips;
     public GameObject soundPrefab;
+    public List<PlayerCursor> pcs;
 
     void Awake()
     {
