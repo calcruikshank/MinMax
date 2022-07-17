@@ -95,5 +95,6 @@ public class Stats : MonoBehaviour
         otherStats.ProjectileRange = ProjectileRange;
         otherStats.SpeedReductionWhenFiring = SpeedReductionWhenFiring;
         otherStats.DispelSpeed = DispelSpeed;
+        otherStats.manaRegenRate = manaRegenRate;
     }
 }
