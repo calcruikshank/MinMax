@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public readonly List<GameObject> Players = new List<GameObject>();
     public readonly List<GameObject> Bullets = new List<GameObject>();
     public readonly List<GameObject> Powers = new List<GameObject>();
-    public GameObject playerPrefab, jefferyPrefab;
+    public GameObject playerPrefab, jefferyPrefab, healthPanelPrefab, canvasPanel;
 
     void Awake()
     {
@@ -26,15 +26,23 @@ public class GameManager : MonoBehaviour
         {
             PlayerCursor pc = DieRoller.singleton.pcs[i];
             pc.SetUnusedStatsToThree();
+            
+            GameObject hp = Instantiate(healthPanelPrefab, canvasPanel.transform);
+            HealthPanelScript hps = hp.GetComponent<HealthPanelScript>();
+            hps.playerName.text = pc.playerLabel.text;
+            hps.sliderFill.color = pc.playerImage.color;
+
             if (pc.thisMSS.isBot)
             {
                 GameObject jeff = NewJeffery(jefferyPrefab, pc.GetComponent<Stats>());
                 jeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
+                jeff.GetComponent<PlayerController>().thisHPS = hps;
             }
             else
             {
                 GameObject notJeff = NewPlayerInput(playerPrefab, pc.GetComponent<PlayerInput>(), pc.GetComponent<Stats>());
                 notJeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
+                notJeff.GetComponent<PlayerController>().thisHPS = hps;
             }
         }
         InvokeRepeating("SpawnPower", 10f, 10f);
@@ -90,4 +98,10 @@ public class GameManager : MonoBehaviour
         newStats.CopyStatsToOtherComponent(jeffStats);
         return newJeff;
     }
+
+    public float Remap (float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+    }
+    
 }

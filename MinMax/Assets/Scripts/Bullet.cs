@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     private Vector3 startPosition;
     private float distMoved;
-    private float attackDamage;
+    public float attackDamage;
     private float projectileSize;
     public PlayerController playerOwningBullet;
     // Start is called before the first frame update
