@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   HP: 0
+  maxHP: 10
   AttackCooldown: 1
   AttackDamage: 1
   ProjectileSpeed: 30
@@ -122,6 +123,7 @@ MonoBehaviour:
   PlayerSize: 1
   ProjectileRange: 30
   SpeedReductionWhenFiring: 2
+  DispelSpeed: 2
 --- !u!1 &5355895894337139575
 GameObject:
   m_ObjectHideFlags: 0

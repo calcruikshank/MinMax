@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   HP: 0
+  maxHP: 10
   AttackCooldown: 1
   AttackDamage: 1
   ProjectileSpeed: 30
@@ -120,6 +121,7 @@ MonoBehaviour:
   PlayerSize: 1
   ProjectileRange: 30
   SpeedReductionWhenFiring: 2
+  DispelSpeed: 2
 --- !u!1 &5355895894337139575
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,8 +190,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: P1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6316749a4d8b7c14c80b4b1960fc5660, type: 2}
+  m_sharedMaterial: {fileID: -2571999503398361853, guid: 6316749a4d8b7c14c80b4b1960fc5660, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
