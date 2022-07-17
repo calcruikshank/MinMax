@@ -833,9 +833,10 @@ MonoBehaviour:
   - Attack Damage
   - Projectile Speed
   - Projectile Size
-  - Player Shrinkage
+  - Shrinkage
   - Range
   - Reflect Speed
+  - Mana Collection
   readyPanel: {fileID: 6313741420140079876}
   waitPanel: {fileID: 1164712040148897515}
   backgroundPanel: {fileID: 7710775947279664096}

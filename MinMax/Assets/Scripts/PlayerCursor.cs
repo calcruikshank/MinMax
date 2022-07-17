@@ -14,7 +14,7 @@ public class PlayerCursor : MonoBehaviour
     public float speed = 100.0f;
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
-    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false;
+    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false, usedMana = false;
 
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
@@ -205,7 +205,7 @@ public class PlayerCursor : MonoBehaviour
                     thisMSS.thisStats.SetProjectileSize(int.Parse(closestText.text));
                     usedProjSize = true;
                 }
-                else if (sc.statName.text.Contains("Player Shrinkage"))
+                else if (sc.statName.text.Contains("Shrinkage"))
                 {
                     // Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetPlayerSize(int.Parse(closestText.text));
@@ -222,6 +222,12 @@ public class PlayerCursor : MonoBehaviour
                     // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetDispelSpeed(int.Parse(closestText.text));
                     usedReflect = true;
+                }
+                else if (sc.statName.text.Contains("Collection"))
+                {
+                    // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
+                    thisMSS.thisStats.SetManaRegenRate(int.Parse(closestText.text));
+                    usedMana = true;
                 }
             }
 
@@ -297,7 +303,7 @@ public class PlayerCursor : MonoBehaviour
                 thisMSS.thisStats.SetProjectileSize(rand);
                 usedProjSize = true;
             }
-            else if (sc.statName.text.Contains("Player Shrinkage"))
+            else if (sc.statName.text.Contains("Shrinkage"))
             {
                 // Debug.Log("Setting player size of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetPlayerSize(rand);
@@ -314,6 +320,12 @@ public class PlayerCursor : MonoBehaviour
                 // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetDispelSpeed(rand);
                 usedReflect = true;
+            }
+            else if (sc.statName.text.Contains("Collection"))
+            {
+                // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
+                thisMSS.thisStats.SetManaRegenRate(rand);
+                usedMana = true;
             }
         }
         usedCurrentDie = true;
@@ -355,7 +367,7 @@ public class PlayerCursor : MonoBehaviour
                 // Debug.Log("setting projectile size of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetProjectileSize(2);
             }
-            if (statName.Contains("Player Shrinkage") && !usedPlaSize)
+            if (statName.Contains("Shrinkage") && !usedPlaSize)
             {
                 // Debug.Log("setting size of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetPlayerSize(2);
@@ -370,6 +382,11 @@ public class PlayerCursor : MonoBehaviour
                 // Debug.Log("setting range of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetDispelSpeed(2);
             }
+            if (statName.Contains("Collection") && !usedMana)
+            {
+                // Debug.Log("setting range of " + gameObject.name + " to 3");
+                thisMSS.thisStats.SetManaRegenRate(2);
+            }
         }
         usedMovement = false;
         usedHealth = false;
@@ -380,5 +397,6 @@ public class PlayerCursor : MonoBehaviour
         usedPlaSize = false;
         usedRange = false;
         usedReflect = false;
+        usedMana = false;
     }
 }
