@@ -8,5 +8,5 @@ public class HealthPanelScript : MonoBehaviour
 {
     public Slider healthSlider, manaSlider;
     public TMP_Text playerName, playerHealthText;
-    public Image sliderFill;
+    public Image sliderFill, playerBackground;
 }

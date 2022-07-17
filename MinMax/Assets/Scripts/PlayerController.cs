@@ -79,6 +79,10 @@ public class PlayerController : MonoBehaviour
         currentMana = stats.manaPool;
         float yToSnapTo = FindLowestPoint();
         SnapToLowestPoint(yToSnapTo);
+
+        thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
+        thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
+        thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
     }
     void SnapToLowestPoint(float yToSnapTo)
     {
@@ -235,7 +239,7 @@ public class PlayerController : MonoBehaviour
         if (thisHPS is null) return;
         if (thisHPS.healthSlider is null) return;
         thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
-        thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
+        thisHPS.playerHealthText.text = Mathf.Clamp(stats.HP, 0, stats.maxHP).ToString() + "/" + stats.maxHP;
     }
     public void Die()
     {
@@ -275,11 +279,9 @@ public class PlayerController : MonoBehaviour
 
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
-        if (currentMana < stats.manaPool)
-        {
-            currentMana += Time.deltaTime * stats.manaRegenRate;
-        }
-
+        currentMana = Mathf.Clamp(currentMana + (Time.deltaTime * stats.manaRegenRate), 0, 100);
+        thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
+        
         if (currentMana < stats.manaCost)
         {
             return;
