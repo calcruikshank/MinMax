@@ -6,6 +6,7 @@ public class Stats : MonoBehaviour
 {
     public float Speed = 10f;
     public float HP = 10;
+    public float maxHP = 10;
     public float AttackCooldown = 1f;
     public float AttackDamage = 1f;
     public float ProjectileSpeed = 30f;
@@ -29,6 +30,7 @@ public class Stats : MonoBehaviour
     public void SetHP(int numSent)
     {
         HP = 200 + numSent * 50;
+        maxHP = HP;
     }
     public void SetAttackCooldown(int numSent)
     {
