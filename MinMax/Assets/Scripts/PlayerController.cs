@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
     private void FixedHandleMovement()
     {
         //rb.AddForce(movement.normalized * moveSpeed);
-        rb.velocity = movement * currentSpeed;
+        rb.velocity = new Vector3(movement.x * currentSpeed, rb.velocity.y, movement.z * currentSpeed);
 
         if (rb.velocity.magnitude != 0f)
         {
