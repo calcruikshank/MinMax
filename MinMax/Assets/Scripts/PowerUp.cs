@@ -59,6 +59,7 @@ public class PowerUp : MonoBehaviour
                 break;
                     
             }
+            GameManager.g.RemovePower(this);
             Destroy(this.gameObject);
         }
     }
