@@ -201,6 +201,7 @@ public class PlayerController : MonoBehaviour
         {
            Die();
         }
+        if (thisHPS.healthSlider is null) return;
         thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
     }
@@ -281,7 +282,6 @@ public class PlayerController : MonoBehaviour
         if (dispelDownPressed)
         {
             if (dispelAnimationIsPlaying) return;
-            if (fireDownPressed) return;
             dispelDownPressed = false;
             dispelEntryTime = Time.time;
             dispelAnimationIsPlaying = true;
