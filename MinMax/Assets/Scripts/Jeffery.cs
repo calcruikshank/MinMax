@@ -56,7 +56,8 @@ public class Jeffery : MonoBehaviour
                         Fire();     
                     }else{
                         var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
-                        moveDirection = new Vector2(strafe.x,strafe.z);
+                        //moveDirection = new Vector2(strafe.x,strafe.z);
+                        moveDirection = new Vector2(0,0);
                         Fire();
                     }
                 }else{
