@@ -16,6 +16,7 @@ public class Jeffery : MonoBehaviour
     float keepFuzz = 2f;
     float moveFuzzX;
     float moveFuzzZ;
+    float dispelCoolDown;
     bool isFiring;
 
     private Vector3 lastPos = new Vector3();
@@ -98,6 +99,17 @@ public class Jeffery : MonoBehaviour
                     Vector3 vec;
                     var leftDistance = Vector3.Distance(bullet.transform.position + bullet.transform.TransformDirection(Vector3.left)*2, transform.position);
                     var rightDistance = Vector3.Distance(bullet.transform.position + bullet.transform.TransformDirection(Vector3.right)*2, transform.position);
+                    
+                    if(Time.time >= dispelCoolDown){
+                        if(leftDistance<15f || rightDistance<15f){
+                            controller.dispelDownPressed = true;
+                            dispelCoolDown = Time.time + 10f;
+                        }else{
+                            controller.dispelDownPressed = false;
+                        }
+                    }else{
+                        controller.dispelDownPressed = false;
+                    }
                     if(leftDistance<rightDistance){
                         vec = bullet.transform.TransformDirection(Vector3.left);
                     }
@@ -108,9 +120,11 @@ public class Jeffery : MonoBehaviour
                     speed = 1f;
                     if(!RayCastBullet(bullet)){
                         state = State.Chasing;
+                        controller.dispelDownPressed = false;
                     }
                 }else{
                     state = State.Chasing;
+                    controller.dispelDownPressed = false;
                 }
                 break;
             case State.Grabbing:

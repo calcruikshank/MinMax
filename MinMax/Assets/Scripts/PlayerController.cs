@@ -217,7 +217,7 @@ public class PlayerController : MonoBehaviour
         gun.fire = false;
         armsAnim.SetBool("cast", false);
     }
-    bool dispelDownPressed = false;
+    public bool dispelDownPressed = false;
     void OnDispelDown()
     {
         dispelDownPressed = true;
