@@ -24,7 +24,7 @@ public class DieScript : MonoBehaviour
         if (Mathf.Approximately(thisRB.velocity.magnitude, 0))
         {
             stopped = true;
-            thisDR.valueText.text = CurrentValue().ToString();
+            thisDR.valueText.text = CurrentValue() == 0 ? "-" : CurrentValue().ToString();
             DieRoller.singleton.currentDie = this;
             // thisRB.isKinematic = true;
             // thisDR.SetPlayersMovement();
@@ -36,8 +36,19 @@ public class DieScript : MonoBehaviour
     {
         foreach(DieCollider dc in dieColliders)
         {
-            if (dc.isContacted) return dc.value;
+            if (dc.isContacted) 
+            {
+                return dc.value;
+            }
         }
+        
+        thisDR.time = 0;
+        thisDR.timerText.text = "";
+        thisDR.valueText.text = "-";
+        DieRoller.singleton.currentDie = null;
+        stopped = false;
+        thisRB.AddForce(transform.right * 100);
+        StopCoroutine(thisDR.Timer());
         return 0;
     }
 
