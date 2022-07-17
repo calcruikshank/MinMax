@@ -60,4 +60,9 @@ public class SoundManager : MonoBehaviour
     {
         PlaySound(Mathf.FloorToInt(Random.Range(1, 3)), 0.5f, 0.5f);
     }
+
+    public void PlayRandomStepSound()
+    {
+        PlaySound(Mathf.FloorToInt(Random.Range(7, 9)), 0.3f, 0.5f);
+    }
 }
