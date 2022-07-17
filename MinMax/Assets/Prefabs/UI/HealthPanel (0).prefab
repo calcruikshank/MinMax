@@ -488,6 +488,7 @@ MonoBehaviour:
   healthSlider: {fileID: 2175903571890947566}
   playerName: {fileID: 2175903573033528355}
   playerHealthText: {fileID: 2175903573214437301}
+  sliderFill: {fileID: 2175903571425214371}
 --- !u!1 &2175903573033528381
 GameObject:
   m_ObjectHideFlags: 0
