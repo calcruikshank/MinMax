@@ -15,7 +15,7 @@ public class WandDispel : MonoBehaviour
         {
             Bullet bullet = other.GetComponent<Bullet>();
             bullet.playerOwningBullet = playerOwningWand;
-            bullet.ShootAt(transform.position + this.transform.root.forward * playerOwningWand.stats.ProjectileRange);
+            bullet.ShootAt(this.transform.root.position + playerOwningWand.gun.transform.forward * playerOwningWand.stats.ProjectileRange);
             Debug.Log("Trigger enter");
         }
     }
