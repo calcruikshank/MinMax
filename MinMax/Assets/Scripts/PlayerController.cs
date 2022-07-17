@@ -251,8 +251,14 @@ public class PlayerController : MonoBehaviour
     
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
-        currentMana += Time.deltaTime * stats.manaRegenRate;
-        if (currentMana < stats.manaCost) return;
+        if (currentMana < stats.manaPool)
+        {
+            currentMana += Time.deltaTime * stats.manaRegenRate;
+        }
+        if (currentMana < stats.manaCost)
+        {
+            return;
+        }
         if (fireDownPressed && (currentMana > stats.manaCost))
         {
             if (fireAnimationIsPlaying) return;
