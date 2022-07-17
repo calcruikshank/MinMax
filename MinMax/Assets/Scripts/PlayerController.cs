@@ -77,12 +77,17 @@ public class PlayerController : MonoBehaviour
 
         targetColor = faceColors[0];
         currentMana = stats.manaPool;
-        
         FindLowestPoint();
+
+        if (thisHPS is null || thisHPS.healthSlider is null) return;
         thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
+
+        if (thisHPS.manaSlider is null) return;
         thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
+        FindLowestPoint();
     }
+
     void FindLowestPoint()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
@@ -90,10 +95,9 @@ public class PlayerController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            Debug.Log(hit);
             if (hit.collider != null)
             {
-                this.transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, hit.collider.transform.position.y + this.GetComponent<Collider>().bounds.size.y / 4.3f, transform.position.z);
                 Debug.Log(hit.transform);
             }
         }
