@@ -833,8 +833,9 @@ MonoBehaviour:
   - Attack Damage
   - Projectile Speed
   - Projectile Size
-  - Player Size
+  - Player Shrinkage
   - Range
+  - Reflect Speed
   readyPanel: {fileID: 6313741420140079876}
   waitPanel: {fileID: 1164712040148897515}
   backgroundPanel: {fileID: 7710775947279664096}
