@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
     bool fireAnimationIsPlaying = false;
     bool dispelAnimationIsPlaying = false;
 
+    bool pressedFireWhileDispelling = false;
     public enum State
     {
         Normal,
@@ -172,6 +173,10 @@ public class PlayerController : MonoBehaviour
     }
     public void OnFireDown()
     {
+        if (dispelAnimationIsPlaying)
+        {
+            pressedFireWhileDispelling = true;
+        }
         if (fireAnimationIsPlaying) return;
         if (dispelAnimationIsPlaying == true) return;
         fireAnimationIsPlaying = true;
@@ -242,12 +247,6 @@ public class PlayerController : MonoBehaviour
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
 
-        //Debug.Log(currentPercentage % stateInfo.length * stateInfo.speed);
-        //currentPercentage = (Time.time - entryTime) / stateInfo.length;
-        /*if(currentPercentage % stateInfo.length * stateInfo.speed <= .45f)
-        {
-            gun.hasFiredForAnim = false;
-        }*/
         if(fireAnimationIsPlaying)
         {
             currentPercentage = (Time.time - entryTime) / stateInfo.length;
@@ -267,36 +266,31 @@ public class PlayerController : MonoBehaviour
                     fireAnimationIsPlaying = false;
                 }
             }
-            /*if (!armsAnim.runtimeAnimatorController.animationClips[0].length * ("Arms_Cast 1"))
-            {
-                armsAnim.Play("Arms_Cast 1");
-                gun.hasFiredForAnim = false;
-                entryTime = Time.time;
-            }
-            */
 
         }
     }
     float dispelEntryTime;
+
     private void HandleDispelAnimation(AnimatorStateInfo stateInfo)
     {
         float currentDispelPercentage;
         if (dispelAnimationIsPlaying)
         {
+            fireAnimationIsPlaying = false;
             currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
 
             if (currentDispelPercentage > .3f && !wand.GetComponent<Collider>().enabled)
             {
                 wand.GetComponent<Collider>().enabled = true;
-                wand.GetComponent<MeshRenderer>().enabled = true;
             }
             if (currentDispelPercentage > .7f && wand.GetComponent<Collider>().enabled)
             {
                 wand.GetComponent<Collider>().enabled = false;
-                wand.GetComponent<MeshRenderer>().enabled = false;
             }
-
-
+            
+            if (currentDispelPercentage >= 1f)
+            {
+            }
             if (currentDispelPercentage >= 1.4f)
             {
                 currentSpeed = stats.Speed;
@@ -307,7 +301,6 @@ public class PlayerController : MonoBehaviour
             if (!stateInfo.IsName("dispel"))
             {
             }
-            Debug.Log(currentDispelPercentage);
         }
     }
 
