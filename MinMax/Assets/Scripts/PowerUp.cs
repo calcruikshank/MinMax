@@ -53,9 +53,9 @@ public class PowerUp : MonoBehaviour
                     stats.ProjectileRange += 10;
                     stats.AttackDamage += 30;
                     stats.ProjectileSize += 0.5f;
-                    stats.ProjectileSpeed -= 30;
-                    if(stats.ProjectileSpeed < 10f)
-                        stats.ProjectileSpeed = 10;
+                    stats.ProjectileSpeed -= 40;
+                    if(stats.ProjectileSpeed < 5f)
+                        stats.ProjectileSpeed = 5;
                     playerHit.gun.bullet = icePrefab;
                 break;
                 case PowerT.lightning:
