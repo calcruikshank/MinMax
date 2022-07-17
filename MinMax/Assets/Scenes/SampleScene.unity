@@ -336,6 +336,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2a56efb1ab897a499b6176598c1b73b, type: 3}
+--- !u!114 &36794037 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5757367952481560841, guid: e2a56efb1ab897a499b6176598c1b73b, type: 3}
+  m_PrefabInstance: {fileID: 36794036}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187da279de8d94f4ba7b614563dffbb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &97091454
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1187,6 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfb46900dd1ae34485beead111d6bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sManager: {fileID: 36794037}
   playerPrefab: {fileID: 215145169884454497, guid: 802bc2921118cf9408adf5be82c054a9, type: 3}
   jefferyPrefab: {fileID: 8208515157465726771, guid: 7175f9a48fa5d0149a24e239d1261b0f, type: 3}
   healthPanelPrefab: {fileID: 2175903572498422995, guid: 7527d0fba815bc9488a8f26aac0dff06, type: 3}
