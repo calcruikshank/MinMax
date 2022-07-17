@@ -122,6 +122,7 @@ MonoBehaviour:
   wand: {fileID: 5370026483510068232}
   entryTime: 0
   currentPercentage: 0
+  thisHPS: {fileID: 0}
   hatRenderer: {fileID: 6656775143725793235}
   cloakRenderer: {fileID: 9125506614056855743}
 --- !u!54 &3569663969878693508
@@ -154,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   HP: 100
+  maxHP: 10
   AttackCooldown: 1
   AttackDamage: 10
   ProjectileSpeed: 15
@@ -162,6 +164,7 @@ MonoBehaviour:
   PlayerSize: 1
   ProjectileRange: 30
   SpeedReductionWhenFiring: 2
+  DispelSpeed: 2
 --- !u!1 &280016767781650806
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +229,7 @@ Transform:
   - {fileID: 5629923991953757748}
   - {fileID: 1970027438439640900}
   - {fileID: 7993716948029002704}
+  - {fileID: 2036379884526602852}
   m_Father: {fileID: 4782029145770003272}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1390,6 +1394,88 @@ Transform:
   m_Father: {fileID: 7682008884589591761}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -19.832933, y: -15.478748, z: 0.00000045380375}
+--- !u!1001 &2001873992805838223
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4717567798356453125}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0108
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0057
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99999994
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00038745507
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e86d1bbd9775df4458179c0cc11331e8, type: 2}
+    - target: {fileID: 919132149155446097, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_Name
+      value: DispellSheild
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+--- !u!4 &2036379884526602852 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02bc46979c094fe499b0f51719b28f79, type: 3}
+  m_PrefabInstance: {fileID: 2001873992805838223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2079617366505474223
 PrefabInstance:
   m_ObjectHideFlags: 0
