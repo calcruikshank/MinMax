@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpawnLightning : MonoBehaviour
 {
     public GameObject lightingGraphic;
-    private GameObject spawnedGraphic;
 
     private Bullet bullet;
 
@@ -20,21 +19,17 @@ public class SpawnLightning : MonoBehaviour
         for(int i=0; i<20; i++)
         {
             Vector3 newPos = bullet.startPosition + (dir * posMod * i);
-            newPos = newPos + new Vector3(Random.Range(-20,20), Random.Range(-20, 20), Random.Range(-20, 20));
+            newPos = newPos + new Vector3(Random.Range(-1,1), Random.Range(-1, 1), Random.Range(-1, 1));
             lightningKinks[i] = newPos;
         }
 
         var newLightningGraphic = Instantiate(lightingGraphic, bullet.startPosition, Quaternion.identity, null);
-        newLightningGraphic.GetComponent<LineRenderer>().SetPositions(lightningKinks);
-        spawnedGraphic = newLightningGraphic;
+        newLightningGraphic.GetComponent<UnityEngine.LineRenderer>().positionCount = 20;
+        newLightningGraphic.GetComponent<UnityEngine.LineRenderer>().SetPositions(lightningKinks);
 
         //if bullet diff is lees than threshold kill the lightning;
+        newLightningGraphic.GetComponent<DeleteObject>().DestroyObject();
     }
 
-    private IEnumerator KillLighting()
-    {
-        yield return new WaitForSeconds(.25f);
-        Destroy(spawnedGraphic);
-    }
 
 }

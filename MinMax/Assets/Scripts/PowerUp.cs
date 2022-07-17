@@ -5,6 +5,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     public GameObject icePrefab;
+    public GameObject lightningPrefab;
     [SerializeField] List<Color> colors = new List<Color>();
 
     private enum PowerT{
@@ -66,7 +67,8 @@ public class PowerUp : MonoBehaviour
                     stats.ProjectileSize -= .5f;
                     stats.ProjectileSpeed += 20f;
                     stats.AttackCooldown += 2f;
-                break;
+                    playerHit.gun.bullet = lightningPrefab;
+                    break;
                     
             }
             GameManager.g.RemovePower(this);

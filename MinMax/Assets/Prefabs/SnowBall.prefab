@@ -920,8 +920,8 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
-      minScalar: 0.65
+      scalar: 0.65
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4913,6 +4913,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   attackDamage: 0
   playerOwningBullet: {fileID: 0}
 --- !u!135 &4284677988815735257
@@ -4926,8 +4928,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.45
+  m_Center: {x: 0, y: 0.06734401, z: 0}
 --- !u!54 &8423016048537835175
 Rigidbody:
   m_ObjectHideFlags: 0

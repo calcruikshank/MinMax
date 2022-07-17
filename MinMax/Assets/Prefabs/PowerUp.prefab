@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icePrefab: {fileID: 8125971820830103854, guid: 612506393e394e340bbc59055f33da42, type: 3}
+  lightningPrefab: {fileID: 8125971820830103854, guid: c72b0359ddab5d14990975f917257777, type: 3}
   colors:
   - {r: 0.98039216, g: 0.45346794, b: 0.36470586, a: 1}
   - {r: 0.58786047, g: 0.9245283, b: 0.6680215, a: 1}
