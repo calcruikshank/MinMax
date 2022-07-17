@@ -134,8 +134,9 @@ PlayerSettings:
     16:10: 0
     16:9: 1
     Others: 1
-  bundleVersion: 0.3
+  bundleVersion: 0.4
   preloadedAssets:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   metroInputSource: 0
@@ -159,7 +160,7 @@ PlayerSettings:
   applicationIdentifier:
     Standalone: com.Jeffery.Min-Max
   buildNumber:
-    Standalone: 3
+    Standalone: 4
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0

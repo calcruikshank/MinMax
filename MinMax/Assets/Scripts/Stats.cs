@@ -94,5 +94,6 @@ public class Stats : MonoBehaviour
         otherStats.PlayerSize = PlayerSize;
         otherStats.ProjectileRange = ProjectileRange;
         otherStats.SpeedReductionWhenFiring = SpeedReductionWhenFiring;
+        otherStats.DispelSpeed = DispelSpeed;
     }
 }

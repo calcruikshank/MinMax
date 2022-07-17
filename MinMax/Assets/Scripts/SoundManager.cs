@@ -14,6 +14,7 @@ public class SoundManager : MonoBehaviour
         if (singleton is null)
         {
             singleton = this;
+            DontDestroyOnLoad(this);
         }
         else
         {
