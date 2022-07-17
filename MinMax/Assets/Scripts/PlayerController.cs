@@ -51,13 +51,15 @@ public class PlayerController : MonoBehaviour
         Diving,
         WithPuck
     }
-
+    void Awake(){
+        stats = this.GetComponent<Stats>();
+        stats.Init(this);
+    }
     void Start()
     {
         GameManager.g.AddPlayer(this);
         rb = this.GetComponent<Rigidbody>();
-        stats = this.GetComponent<Stats>();
-        stats.Init(this);
+
         state = State.Normal;
         gun = GetComponentInChildren<Gun>();
         gun.Init(this);
@@ -168,7 +170,7 @@ public class PlayerController : MonoBehaviour
     {
         lookDirection = value.Get<Vector2>();
     }
-    void OnFireDown()
+    public void OnFireDown()
     {
         if (fireAnimationIsPlaying) return;
         if (dispelAnimationIsPlaying == true) return;
@@ -182,7 +184,8 @@ public class PlayerController : MonoBehaviour
         armsAnim.SetBool("cast", true);
         StartCoroutine("ResetCast");
     }
-    void OnFireUp()
+
+    public void OnFireUp()
     {
         gun.fire = false;
         armsAnim.SetBool("cast", false);

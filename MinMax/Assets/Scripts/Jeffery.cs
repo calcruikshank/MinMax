@@ -13,6 +13,7 @@ public class Jeffery : MonoBehaviour
     float keepDistance = 10f;
     float keepRange = 2f;
     float keepFuzz = 0f;
+    bool isFiring;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,8 @@ public class Jeffery : MonoBehaviour
                         moveDirection = new Vector2(0,0);
                     }
                     speed = .2f;
+                }else{
+                    moveDirection = new Vector2(0,0);
                 }
             break;
             case State.Dodge:
@@ -88,10 +91,27 @@ public class Jeffery : MonoBehaviour
 
     void LookAt(){
         if(target != null){
-            var dir = target.transform.position - transform.position;
-            controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);       
+            var rb = target.GetComponent<Rigidbody>();
+            var dir = target.transform.position + rb.velocity - transform.position;
+            controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);
+            Fire();
+        }else{
+            StopFire();
         }
 
+    }
+    void StopFire(){
+        if(isFiring){
+            controller.OnFireUp();
+            isFiring = false;
+        }
+    }
+
+    void Fire(){
+        if(!isFiring){
+            controller.OnFireDown();
+            isFiring = true;
+        }
     }
 
     void CheckDodge(){
