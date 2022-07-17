@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GameManager.g.AddPlayer(this);
+        
         rb = this.GetComponent<Rigidbody>();
 
         state = State.Normal;
