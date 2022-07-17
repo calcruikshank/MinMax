@@ -165,7 +165,7 @@ MonoBehaviour:
   ProjectileSpeed: 15
   NumberOfProjectiles: 1
   ProjectileSize: 1
-  PlayerSize: 6
+  PlayerSize: 1
   ProjectileRange: 30
   SpeedReductionWhenFiring: 2
   DispelSpeed: 2
