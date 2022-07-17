@@ -33,6 +33,7 @@ public class Gun : MonoBehaviour
             {
                 playerOwningGun.currentMana -= playerOwningGun.stats.manaCost;
                 hasFiredForAnim = true;
+                SoundManager.singleton.PlaySound(5, 0.4f, 0.4f);
                 switch (playerOwningGun.stats.NumberOfProjectiles)
                 {
                     case 1:

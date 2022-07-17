@@ -210,6 +210,7 @@ public class DieRoller : MonoBehaviour
             currentDie = null;
         }
         valueText.text = "-";
+        timerText.text = "";
         rollButton.interactable = true;
 
         foreach(PlayerCursor pc in pcs)
@@ -217,6 +218,15 @@ public class DieRoller : MonoBehaviour
             pc.speed = 200;
             pc.usedCurrentDie = false;
         }
+
+        StopCoroutine(Timer());
+
+        if (currentDie != null)
+        {
+            Destroy(currentDie.gameObject);
+        }
+
+        currentDie = null;
     }
 
     public void RerollAllStats()

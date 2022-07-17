@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
 
         if (thisHPS.manaSlider is null) return;
         thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
-        FindLowestPoint();
     }
 
     void FindLowestPoint()
@@ -97,7 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                this.transform.position = new Vector3(transform.position.x, hit.collider.transform.position.y + this.GetComponent<Collider>().bounds.size.y / 4.3f, transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, 0 + 0.09f, transform.position.z);
                 Debug.Log(hit.transform);
             }
         }
@@ -334,6 +333,7 @@ public class PlayerController : MonoBehaviour
         if (dispelDownPressed)
         {
             if (dispelAnimationIsPlaying) return;
+            SoundManager.singleton.PlaySound(6, 0.4f, 0.4f);
             dispelDownPressed = false;
             dispelEntryTime = Time.time;
             dispelAnimationIsPlaying = true;

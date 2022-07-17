@@ -8,6 +8,8 @@ public class Jeffery : MonoBehaviour
     PlayerController controller;
     PlayerController target = null;
     GameObject dodgeTarget = null;
+    GameObject grabTarget = null;
+    Vector3 moveTarget;
     Vector2 moveDirection;
     float keepDistance = 15f;
     float keepRange = 5f;
@@ -19,16 +21,19 @@ public class Jeffery : MonoBehaviour
     {
         controller = gameObject.GetComponent<PlayerController>();
         state = State.Chasing;
-        InvokeRepeating("SelectTarget", .5f, 2f);
+        InvokeRepeating("SelectTarget", .5f, 1f);
         InvokeRepeating("Fuzz", 2.0f, 2f);
         InvokeRepeating("Face", 10f, 10f);
+        InvokeRepeating("LookForPower", 1f, 1f);
         keepDistance = controller.stats.ProjectileRange * .75f;
         keepRange = controller.stats.ProjectileRange * .10f;
     }
     private enum State
     {
         Chasing,
-        Dodge
+        Dodge,
+        Grabbing,
+        Goto
     }
     State state;
     // Update is called once per frame
@@ -44,14 +49,13 @@ public class Jeffery : MonoBehaviour
                     var dir = target.transform.position - transform.position;
                     if( distance > keepDistance + (keepRange + keepFuzz)){
                         moveDirection = new Vector2(dir.x,dir.z);
-                        speed = .8f;     
+                        StopFire();
                     }else if(distance < keepDistance - (keepRange + keepFuzz)){
                         moveDirection = new Vector2(dir.x*-1,dir.z*-1);
-                        speed = .8f;     
+                        Fire();     
                     }else{
                         var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
                         moveDirection = new Vector2(strafe.x,strafe.z);
-                        speed = .8f;
                         Fire();
                     }
                 }else{
@@ -79,22 +83,31 @@ public class Jeffery : MonoBehaviour
                     state = State.Chasing;
                 }
                 break;
+            case State.Grabbing:
+                if(grabTarget != null && Vector3.Distance(grabTarget.transform.position,transform.position)<=60){
+
+                    var dir = grabTarget.transform.position - transform.position;
+                    moveDirection = new Vector2(dir.x,dir.z); 
+                }else{
+                    state = State.Chasing;
+                }
+                break;
+            case State.Goto:
+                var direction = moveTarget - transform.position;
+                break;
         }
+        speed = 1f;
         moveDirection.Normalize();
         controller.inputMovement = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
     }
     void SelectTarget(){
         var listOfClosest = OrderByClosest(GameManager.g.Players,transform.position);
-        listOfClosest.Reverse();
         foreach(var obj in listOfClosest){
             if(obj != gameObject){
-                if(target != obj){
+                if(target != obj)
                     StopFire();
-                    target = obj.GetComponent<PlayerController>();                    
-                }
-                else{
-                    break;
-                }
+                    target = obj.GetComponent<PlayerController>();
+                    break;                    
             }
         }
     }
@@ -105,6 +118,19 @@ public class Jeffery : MonoBehaviour
 
     void Face(){
         controller.PickRandomFace();
+    }
+
+    void LookForPower(){
+        var listOfClosest = OrderByClosest(GameManager.g.Powers,transform.position);
+        foreach(var obj in listOfClosest){
+            if(Vector3.Distance(obj.transform.position,transform.position)>60 || obj.transform.position.y<.2 || obj.transform.position.y>1){
+                break;
+            }
+            grabTarget = obj;
+            StopFire();
+            state = State.Grabbing;
+            break;
+        }
     }
     void LookAt(){
         if(target != null){

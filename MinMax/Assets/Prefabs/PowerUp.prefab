@@ -112,6 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a650d62d48588c4d3865af5ded6f1bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icePrefab: {fileID: 8125971820830103854, guid: 612506393e394e340bbc59055f33da42, type: 3}
+  colors:
+  - {r: 0.98039216, g: 0.45346794, b: 0.36470586, a: 1}
+  - {r: 0.58786047, g: 0.9245283, b: 0.6680215, a: 1}
+  - {r: 0.37582767, g: 0.55346984, b: 0.9622642, a: 1}
+  - {r: 1, g: 0.972293, b: 0.6924528, a: 1}
 --- !u!54 &5011030074470374934
 Rigidbody:
   m_ObjectHideFlags: 0

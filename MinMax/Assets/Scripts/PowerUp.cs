@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    public GameObject icePrefab;
+    [SerializeField] List<Color> colors = new List<Color>();
+
     private enum PowerT{
         projectiles = 0,
         hp,
@@ -15,13 +18,19 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        type = (PowerT) Random.Range(0,5);
+        type = (PowerT) Random.Range(0,4);
+        SetColor(type);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void SetColor(PowerT type)
+    {
+        transform.GetComponent<MeshRenderer>().material.SetColor("_Color", colors[(int)type]);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,10 +51,11 @@ public class PowerUp : MonoBehaviour
                 case PowerT.ice:
                     stats.ProjectileRange += 10;
                     stats.AttackDamage += 30;
-                    stats.ProjectileSize += 2;
-                    stats.ProjectileSpeed -= 15;
-                    if(stats.ProjectileSpeed < 15f)
-                        stats.ProjectileSpeed = 15;
+                    stats.ProjectileSize += 0.5f;
+                    stats.ProjectileSpeed -= 30;
+                    if(stats.ProjectileSpeed < 10f)
+                        stats.ProjectileSpeed = 10;
+                    playerHit.gun.bullet = icePrefab;
                 break;
                 case PowerT.lightning:
                     stats.ProjectileRange -= 10;
@@ -59,6 +69,7 @@ public class PowerUp : MonoBehaviour
                 break;
                     
             }
+            GameManager.g.RemovePower(this);
             Destroy(this.gameObject);
         }
     }
