@@ -22,6 +22,8 @@ public class Jeffery : MonoBehaviour
         InvokeRepeating("SelectTarget", .5f, 2f);
         InvokeRepeating("Fuzz", 2.0f, 2f);
         InvokeRepeating("Face", 10f, 10f);
+        keepRange = controller.stats.ProjectileRange * .75f;
+        keepFuzz = controller.stats.ProjectileRange * .10f;
     }
     private enum State
     {
