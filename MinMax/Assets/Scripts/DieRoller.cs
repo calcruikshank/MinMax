@@ -45,14 +45,20 @@ public class DieRoller : MonoBehaviour
         Toggle_UseBots(true);
         botsToggle.isOn = useBots;
         sameStatsToggle.isOn = useSameStats;
-        foreach(PlayerCursor pc in SoundManager.singleton.pcs)
+        // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
+        for(int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
         {
             // GameObject newPC = Instantiate(pc.gameObject);
             // newPC.transform.SetParent(SoundManager.singleton.transform);
             // pc.transform.SetParent(placePlayersHere.transform);
             // SoundManager.singleton.pcs.Add(pc);
+            PlayerCursor pc = SoundManager.singleton.pcs[i];
             if (pc.GetComponent<PlayerInput>()) {
                 OnPlayerJoined(pc.GetComponent<PlayerInput>());
+            }
+            else {
+                SoundManager.singleton.pcs.Remove(pc);
+                Destroy(pc.gameObject);
             }
         }
     }
@@ -115,6 +121,10 @@ public class DieRoller : MonoBehaviour
             // GameObject newPC = Instantiate(pc.gameObject);
             // newPC.transform.SetParent(SoundManager.singleton.transform);
             pc.transform.SetParent(SoundManager.singleton.transform);
+            if (pc.gameObject.GetComponent<PlayerInput>())
+            {
+                OnPlayerLeft(pc.gameObject.GetComponent<PlayerInput>());
+            }
             // SoundManager.singleton.pcs.Add(pc);
         }
 
@@ -152,6 +162,7 @@ public class DieRoller : MonoBehaviour
         if (SoundManager.singleton.pcs.Count < 1) return false;
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
+            if (pc is null) continue;
             if (!pc.gameObject.activeSelf) continue;
             if (pc.thisMSS.waitPanel.activeSelf) return true;
         }
@@ -196,8 +207,8 @@ public class DieRoller : MonoBehaviour
         // playerIndex--;
         // playerCursors[playerIndex].SetActive(false);
         PlayerCursor leftPlayer = pi.GetComponent<PlayerCursor>();
-        SoundManager.singleton.pcs.Remove(leftPlayer);
-        // leftPlayer.thisMSS.backgroundPanel.gameObject.SetActive(false);
+        // SoundManager.singleton.pcs.Remove(leftPlayer);
+        leftPlayer.thisMSS.backgroundPanel.gameObject.SetActive(false);
         joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
         rollButton.interactable = !PlayersAreRollingStats() && !PlayersAreReady();
         resetButton.interactable = SoundManager.singleton.pcs.Count > 0;
