@@ -26,8 +26,8 @@ public class Stats : MonoBehaviour
     public void Init(PlayerController playerSent)
     {
         player = playerSent;
-        manaPool = 100;
-        SetManaRegenRate(3);
+        manaPool = 200;
+        SetManaRegenRate(2);
         manaCost = 40f;
     }
 

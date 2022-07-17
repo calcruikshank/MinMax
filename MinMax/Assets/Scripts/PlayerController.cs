@@ -21,8 +21,8 @@ public class PlayerController : MonoBehaviour
     //float currentSpeed;
 
     public Gun gun;
-  
-    [SerializeField] private Animator legsAnim; 
+
+    [SerializeField] private Animator legsAnim;
     public Animator armsAnim;
 
     [SerializeField] Transform playerTorso;
@@ -58,14 +58,15 @@ public class PlayerController : MonoBehaviour
         Diving,
         WithPuck
     }
-    void Awake(){
+    void Awake()
+    {
         stats = this.GetComponent<Stats>();
         stats.Init(this);
     }
     void Start()
     {
         GameManager.g.AddPlayer(this);
-        
+
         rb = this.GetComponent<Rigidbody>();
 
         state = State.Normal;
@@ -76,8 +77,30 @@ public class PlayerController : MonoBehaviour
 
         targetColor = faceColors[0];
         currentMana = stats.manaPool;
+        float yToSnapTo = FindLowestPoint();
+        SnapToLowestPoint(yToSnapTo);
     }
+    void SnapToLowestPoint(float yToSnapTo)
+    {
+        this.transform.position = new Vector3(this.transform.position.x, yToSnapTo, this.transform.position.z);
+    }
+    float FindLowestPoint()
+    {
+        Collider colliderHit = transform.GetComponentInChildren<Collider>();
+        RaycastHit hit;
+        bool hitDetected = Physics.BoxCast(this.transform.GetComponent<Collider>().bounds.center, new Vector3(this.transform.GetComponent<Collider>().bounds.extents.x, this.transform.GetComponent<Collider>().bounds.extents.y, this.transform.GetComponent<Collider>().bounds.extents.z), Vector3.down, out hit, Quaternion.identity, Mathf.Infinity);
 
+        if (hitDetected)
+        {
+            if (hit.transform.GetComponent<Collider>() != null && this.transform.GetComponentInChildren<Collider>() != null)
+            {
+                return hit.transform.GetComponent<Collider>().bounds.extents.y + hit.transform.position.y + this.transform.GetComponentInChildren<Collider>().bounds.extents.y;
+            }
+
+        }
+        return 0f;
+
+    }
     void Update()
     {
         switch (state)
@@ -106,12 +129,12 @@ public class PlayerController : MonoBehaviour
         movement.x = inputMovement.x;
         movement.y = 0;
         movement.z = inputMovement.y;
-        if(movement.normalized != Vector3.zero)
+        if (movement.normalized != Vector3.zero)
         {
             playerLegs.transform.forward = Vector3.Lerp(playerLegs.transform.forward, movement, 20f * Time.deltaTime);
         }
 
-        legsAnim.speed = currentSpeed / stats.Speed; 
+        legsAnim.speed = currentSpeed / stats.Speed;
         /*if (movement.magnitude != 0)
         {
             currentSpeed += 165 * Time.deltaTime;
@@ -127,13 +150,13 @@ public class PlayerController : MonoBehaviour
         //rb.AddForce(movement.normalized * moveSpeed);
         rb.velocity = new Vector3(movement.x * currentSpeed, rb.velocity.y, movement.z * currentSpeed);
 
-        if (Mathf.Abs( rb.velocity.magnitude) >= .02f)
+        if (Mathf.Abs(rb.velocity.magnitude) >= .02f)
         {
             legsAnim.SetBool("isMoving", true);
-        } 
+        }
         else
         {
-           legsAnim.SetBool("isMoving", false);
+            legsAnim.SetBool("isMoving", false);
         }
         /*if (rb.velocity.magnitude > stats.Speed)
         {
@@ -150,7 +173,7 @@ public class PlayerController : MonoBehaviour
         if (lookTowards.magnitude != 0f)
         {
             lastLookedPosition = lookTowards;
-        } 
+        }
         else
         {
             //if you aren't actively looking anywhere look where you are going. 
@@ -160,13 +183,13 @@ public class PlayerController : MonoBehaviour
         playerTorso.transform.forward = Vector3.Lerp(playerTorso.transform.forward, lastLookedPosition, 20f * Time.deltaTime);
 
         //player face spin
-        if(dieBody.localRotation != Quaternion.Euler(targetFaceRot))
+        if (dieBody.localRotation != Quaternion.Euler(targetFaceRot))
         {
             dieBody.localRotation = Quaternion.Lerp(dieBody.localRotation, Quaternion.Euler(targetFaceRot), 10f * Time.deltaTime);
         }
         //player face color
         Material mat = dieBody.GetComponent<MeshRenderer>().material;
-        if(mat.GetColor("_Color") != targetColor)
+        if (mat.GetColor("_Color") != targetColor)
         {
             mat.SetColor("_Color", Color.Lerp(mat.GetColor("_Color"), targetColor, 10f * Time.deltaTime));
         }
@@ -207,7 +230,7 @@ public class PlayerController : MonoBehaviour
         stats.HP -= damageSent;
         if (stats.HP <= 0)
         {
-           Die();
+            Die();
         }
         if (thisHPS is null) return;
         if (thisHPS.healthSlider is null) return;
@@ -233,22 +256,23 @@ public class PlayerController : MonoBehaviour
         {
             currentFaceIndex = faceRotations.Count - 1;
         }
-        if(currentFaceIndex > faceRotations.Count - 1)
+        if (currentFaceIndex > faceRotations.Count - 1)
         {
             currentFaceIndex = 0;
         }
 
         capeAnim.Play("CapeAnim");
-    
+
         targetFaceRot = faceRotations[currentFaceIndex];
         targetColor = faceColors[currentFaceIndex];
     }
 
-    public void PickRandomFace(){
-        currentFaceIndex = Random.Range(0,faceRotations.Count);
+    public void PickRandomFace()
+    {
+        currentFaceIndex = Random.Range(0, faceRotations.Count);
         ChangeFace();
     }
-    
+
     private void TrackAnimation(AnimatorStateInfo stateInfo)
     {
         if (currentMana < stats.manaPool)
@@ -276,7 +300,7 @@ public class PlayerController : MonoBehaviour
             armsAnim.SetBool("cast", true);
             StartCoroutine("ResetCast");
         }
-        if(fireAnimationIsPlaying)
+        if (fireAnimationIsPlaying)
         {
             currentPercentage = (Time.time - entryTime) / stateInfo.length;
 
@@ -329,7 +353,7 @@ public class PlayerController : MonoBehaviour
                 wand.GetComponent<Collider>().enabled = false;
                 dispellMesh.SetActive(false);
             }
-            
+
             if (currentDispelPercentage >= 1f)
             {
             }
@@ -356,7 +380,7 @@ public class PlayerController : MonoBehaviour
         {
             armsAnim.speed = stats.AttackCooldown;
         }
-        if(!dispelAnimationIsPlaying && !fireAnimationIsPlaying)
+        if (!dispelAnimationIsPlaying && !fireAnimationIsPlaying)
         {
             armsAnim.speed = 1;
         }
@@ -365,7 +389,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ResetCast()
     {
-        yield return new WaitForSeconds(.001f) ;
+        yield return new WaitForSeconds(.001f);
 
         armsAnim.SetBool("cast", false);
         gun.hasFiredForAnim = false;
