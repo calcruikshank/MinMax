@@ -16,6 +16,8 @@ public class Bullet : MonoBehaviour
     private GameObject homingTarget;
     public PlayerController playerOwningBullet;
     public bool isHoming;
+
+    public GameObject puffParticles;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,15 +80,17 @@ public class Bullet : MonoBehaviour
                 objectHit.TakeDamage(attackDamage);
                 Die();
             }
-        } else
-        {
-            if(other.transform.tag == "object")
-            {
-                Die();
-            }
-        }
+        } 
     }
-    private void Die(){
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+
+    }
+
+    public void Die(){
+        Instantiate(puffParticles,transform.position,Quaternion.identity,null);
         GameManager.g.RemoveBullet(this);
         Destroy(this.gameObject);
     }
