@@ -72,7 +72,7 @@ public class MenuStatScript : MonoBehaviour
 
     public void Toggle_IsBot(bool b)
     {
-        Debug.Log("setting is bot to " + b + " on " + gameObject.name);
+        // Debug.Log("setting is bot to " + b + " on " + gameObject.name);
         isBot = b;
         thisPC.playerImage.enabled = !b;
         thisPC.playerLabel.enabled = !b;

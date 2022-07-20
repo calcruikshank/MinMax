@@ -9,22 +9,20 @@ using UnityEngine.SceneManagement;
 public class DieRoller : MonoBehaviour
 {
     public static DieRoller singleton;
-    public GameObject diePrefab;
+    public GameObject diePrefab, botPrefab, timerPanel, dieValuePanel, joinText;
     public Transform placeDiceHere, placePlayersHere;
-    public DieScript currentDie;
+    [HideInInspector] public DieScript currentDie;
     public TMP_Text valueText, timerText;
     // public int playerIndex = 0;
     public Button rollButton, resetButton, optionsButton, xButton, playButton;
     // public GameObject[] playerCursors;
     public MenuStatScript[] playerPanels;
     // public List<PlayerCursor> pcs = new List<PlayerCursor>();
-    public GameObject joinText;
     public bool useBots = true, useSameStats = true;
     public Toggle botsToggle, sameStatsToggle;
     public List<string> sameStats = new List<string>();
     public List<string> statStrings = new List<string>();
     // public Button[] addBotButtons;
-    public GameObject botPrefab;
     bool isRemovingPlayer = false;
     bool isAddingPlayer = false;
     public float dieSpawnSize = 0.75f;
@@ -70,6 +68,8 @@ public class DieRoller : MonoBehaviour
         if (isRemovingPlayer || isAddingPlayer) return;
         if (PlayersAreReady()) return;
         if (currentDie != null && !EveryoneHasUsedCurrentDie()) return;
+        timerPanel.SetActive(false);
+        dieValuePanel.SetActive(false);
         SoundManager.singleton.PlaySound(3, 0.5f, 0.5f);
         currentDie = null;
         rollButton.interactable = false;
@@ -205,6 +205,7 @@ public class DieRoller : MonoBehaviour
     public void OnPlayerLeft(PlayerInput pi)
     {
         if (isAddingPlayer) return;
+        if (pi.currentControlScheme == "Keyboard&Mouse") Cursor.visible = true;
         isRemovingPlayer = true;
         // playerIndex--;
         // playerCursors[playerIndex].SetActive(false);
@@ -275,6 +276,7 @@ public class DieRoller : MonoBehaviour
         }
 
         currentDie = null;
+        joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
     }
 
     public void RerollAllStats()
@@ -408,6 +410,7 @@ public class DieRoller : MonoBehaviour
         if (isAddingPlayer) return;
         isRemovingPlayer = true;
         PlayerCursor leftPlayer = mss.thisPC;
+        if (leftPlayer.playerInput != null && leftPlayer.playerInput.currentControlScheme == "Keyboard&Mouse") Cursor.visible = true;
         SoundManager.singleton.pcs.Remove(leftPlayer);
         int mssIndex = System.Array.IndexOf(playerPanels, leftPlayer.thisMSS);
         leftPlayer.thisMSS.backgroundPanel.gameObject.SetActive(false);

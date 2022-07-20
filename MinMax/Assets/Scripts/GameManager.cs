@@ -40,9 +40,12 @@ public class GameManager : MonoBehaviour
             
             GameObject hp = Instantiate(healthPanelPrefab, canvasPanel.transform);
             HealthPanelScript hps = hp.GetComponent<HealthPanelScript>();
+            Color playerColor = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
             hps.playerName.text = pc.playerLabel.text;
-            hps.sliderFill.color = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
-            hps.playerBackground.color = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
+            // hps.playerName.color = playerColor;
+            hps.sliderFill.color = playerColor;
+            hps.playerBackground.color = playerColor;
+            hps.playerHealthName.color = playerColor;
 
             if (pc.GetComponent<PlayerInput>())
             {

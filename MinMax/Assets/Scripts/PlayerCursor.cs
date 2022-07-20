@@ -35,6 +35,7 @@ public class PlayerCursor : MonoBehaviour
         newMenuStats.ResetTexts();
         // newMenuStats.isBot = bot;
         newMenuStats.botToggle.isOn = bot;
+        newMenuStats.botToggle.gameObject.SetActive(bot);
         StartCoroutine(newMenuStats.RollStats());
         transform.localScale = Vector3.one;
         transform.localEulerAngles = Vector3.zero;

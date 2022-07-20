@@ -6514,6 +6514,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1708858176}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1926139810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8221,9 +8233,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1926139809}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
+      propertyPath: timerPanel
+      value: 
+      objectReference: {fileID: 2143885419}
+    - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: resetButton
       value: 
       objectReference: {fileID: 562175611}
+    - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
+      propertyPath: dieValuePanel
+      value: 
+      objectReference: {fileID: 142410864}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: optionsButton
       value: 

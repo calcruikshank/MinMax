@@ -29,6 +29,8 @@ public class DieScript : MonoBehaviour
             // thisRB.isKinematic = true;
             // thisDR.SetPlayersMovement();
             StartCoroutine(thisDR.Timer());
+            thisDR.timerPanel.SetActive(true);
+            thisDR.dieValuePanel.SetActive(true);
         }
     }
 
