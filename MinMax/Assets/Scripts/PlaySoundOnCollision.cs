@@ -6,6 +6,7 @@ public class PlaySoundOnCollision : MonoBehaviour
 {
     void OnTriggerEnter()
     {
+        if (SoundManager.singleton == null) return;
         SoundManager.singleton.PlayRandomStepSound();
     }
 }

@@ -27,9 +27,7 @@ public class Stats : MonoBehaviour
     public void Init(PlayerController playerSent)
     {
         player = playerSent;
-        manaPool = 300;
         SetManaRegenRate(3);
-        manaCost = 50f; 
     }
 
     public void SetSpeed(int numSent)
@@ -38,7 +36,7 @@ public class Stats : MonoBehaviour
     }
     public void SetHP(int numSent)
     {
-        HP = 200 + numSent * 50;
+        HP = (200 + numSent * 50 ) * 10;
         maxHP = HP;
     }
     public void SetAttackCooldown(int numSent)

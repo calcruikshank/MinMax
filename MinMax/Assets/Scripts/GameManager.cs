@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DieRoller.singleton = null;
+        if (SoundManager.singleton == null) return;
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             // PlayerCursor pc = DieRoller.singleton.pcs[i];
@@ -83,7 +84,7 @@ public class GameManager : MonoBehaviour
                 winnerCg.alpha = 1f;
                 winnerCg.GetComponent<TMP_Text>().text = Players[0].GetComponentInChildren<Jeffery>() ? "BOTS WIN" : "YOU WIN";
 
-                StartCoroutine(Restart());
+                //StartCoroutine(Restart());
                 startedRestart = true;
             }
         }

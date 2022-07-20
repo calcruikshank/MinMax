@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     private GameObject homingTarget;
     public PlayerController playerOwningBullet;
     public bool isHoming;
-
+    bool hasHitPlayer = false;
     public GameObject puffParticles;
     // Start is called before the first frame update
     void Start()
@@ -73,9 +73,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (hasHitPlayer) return;
         if (other.GetComponent<PlayerController>() != null)
         {
-            var objectHit = other.GetComponent<PlayerController>();
+            hasHitPlayer = true;
+               var objectHit = other.GetComponent<PlayerController>();
             if(objectHit != playerOwningBullet){
                 objectHit.TakeDamage(attackDamage);
                 Die();

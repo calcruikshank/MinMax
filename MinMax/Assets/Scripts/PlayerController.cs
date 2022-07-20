@@ -57,9 +57,9 @@ public class PlayerController : MonoBehaviour
     public enum State
     {
         Normal,
-        Knockback,
-        Diving,
-        WithPuck
+        Firing,
+        Rolling,
+        Dispelling
     }
     void Awake()
     {
@@ -114,8 +114,21 @@ public class PlayerController : MonoBehaviour
             case State.Normal:
                 FaceLookDirection();
                 HandleMovement();
-                TrackAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
+                HandleInput();
+                HandleAnimationSpeeds();
+                break;
+            case State.Firing:
+                FaceLookDirection();
+                HandleMovement();
+                HandleInput();
+                FireAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
+                HandleAnimationSpeeds();
+                break;
+            case State.Dispelling:
                 HandleDispelAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
+                FaceLookDirection();
+                HandleMovement();
+                HandleInput();
                 HandleAnimationSpeeds();
                 break;
         }
@@ -125,6 +138,12 @@ public class PlayerController : MonoBehaviour
         switch (state)
         {
             case State.Normal:
+                FixedHandleMovement();
+                break;
+            case State.Firing:
+                FixedHandleMovement();
+                break;
+            case State.Dispelling:
                 FixedHandleMovement();
                 break;
         }
@@ -222,22 +241,22 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
                 lookDirection = new Vector2(hit.point.x - transform.position.x, hit.point.z - transform.position.z);
-                Debug.Log(lookDirection);
             }
         }
     }
 
     bool fireDownPressed = false;
+    bool fireStillPressed = false;
     public void OnFireDown()
     {
         fireDownPressed = true;
+        fireStillPressed = true;
     }
 
     public void OnFireUp()
     {
         fireDownPressed = false;
-        gun.fire = false;
-        armsAnim.SetBool("cast", false);
+        fireStillPressed = false;
     }
     public bool dispelDownPressed = false;
     void OnDispelDown()
@@ -256,7 +275,8 @@ public class PlayerController : MonoBehaviour
             SoundManager.singleton.PlaySound(10, 0.8f, 0.4f);
             Die();
         }
-        else{
+        else
+        {
             SoundManager.singleton.PlaySound(9, 0.4f, 0.4f);
         }
         if (thisHPS is null) return;
@@ -300,15 +320,24 @@ public class PlayerController : MonoBehaviour
         ChangeFace();
     }
 
-    private void TrackAnimation(AnimatorStateInfo stateInfo)
+    void HandleInput()
     {
+        if (dispelDownPressed)
+        {
+            if (dispelAnimationIsPlaying) return;
+            dispelDownPressed = false;
+            currentSpeed /= stats.SpeedReductionWhenFiring;
+            StartDispelAnimation();
+        }
 
+
+        //anything past this point requires mana to cast
         currentMana = Mathf.Clamp(currentMana + (Time.deltaTime * stats.manaRegenRate), 0, stats.manaPool);
         if (thisHPS != null)
         {
             thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
         }
-        
+
         if (currentMana < stats.manaCost)
         {
             return;
@@ -319,86 +348,75 @@ public class PlayerController : MonoBehaviour
             if (dispelAnimationIsPlaying == true) return;
             if (dispelDownPressed) return;
             fireDownPressed = false;
-            fireAnimationIsPlaying = true;
-            entryTime = Time.time;
-            if (gun != null)
-            {
-                gun.fire = true;
-            }
             currentSpeed /= stats.SpeedReductionWhenFiring;
-            armsAnim.SetBool("cast", true);
-            StartCoroutine("ResetCast");
-        }
-        if (fireAnimationIsPlaying)
-        {
-            currentPercentage = (Time.time - entryTime) / stateInfo.length;
-
-            if (!stateInfo.IsName("Arms_Cast 1"))
-            {
-                if (gun.fire)
-                {
-                    armsAnim.SetBool("cast", true);
-                    dispelAnimationIsPlaying = false;
-                    StartCoroutine("ResetCast");
-
-                    entryTime = Time.time;
-                }
-                if (!gun.fire && gun.hasFiredForAnim)
-                {
-                    currentSpeed = stats.Speed;
-                    fireAnimationIsPlaying = false;
-                }
-            }
-
+            ChangeStateToFire();
         }
     }
-    float dispelEntryTime;
 
+    void StartDispelAnimation()
+    {
+        if (SoundManager.singleton != null)
+        {
+            SoundManager.singleton.PlaySound(6, 0.4f, 0.4f);
+        }
+        dispelEntryTime = Time.time;
+        ChangeStateToDispel();
+
+    }
+
+    public float currentDispelPercentage;
+
+    [SerializeField] Transform dispelPoint;
+    GameObject newDispelObject;
     private void HandleDispelAnimation(AnimatorStateInfo stateInfo)
     {
-        if (dispelDownPressed)
+        currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
+        if (stateInfo.IsName("Dispel") && currentDispelPercentage > .4f && currentDispelPercentage <= 1.2f && newDispelObject == null)
         {
-            if (dispelAnimationIsPlaying) return;
-            SoundManager.singleton.PlaySound(6, 0.4f, 0.4f);
-            dispelDownPressed = false;
-            dispelEntryTime = Time.time;
-            dispelAnimationIsPlaying = true;
-            currentSpeed /= stats.SpeedReductionWhenFiring;
-            armsAnim.SetBool("dispel", true);
-            StartCoroutine("ResetDispel");
+            newDispelObject = Instantiate(dispellMesh, dispelPoint.position, dispelPoint.rotation);
+            newDispelObject.GetComponent<WandDispel>().Init(this);
+            //newDispelObject.transform.parent = gun.transform;
+            newDispelObject.SetActive(true);
         }
-        float currentDispelPercentage;
-        if (dispelAnimationIsPlaying)
+        if (newDispelObject != null)
         {
-            fireAnimationIsPlaying = false;
-            currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
+            newDispelObject.transform.position = dispelPoint.position;
+            newDispelObject.transform.rotation = dispelPoint.rotation;
+        }
+        if (stateInfo.IsName("Dispel") && currentDispelPercentage > 1.2f)
+        {
+            Destroy(newDispelObject);
+        }
+        if (!stateInfo.IsName("Dispel") && currentDispelPercentage > .4f)
+        {
+            ChangeStateToNormal();
+        }
+    }
+    private void FireAnimation(AnimatorStateInfo stateInfo)
+    {
+        currentPercentage = (Time.time - entryTime) / stateInfo.length;
 
-            if (currentDispelPercentage > .2f && !wand.GetComponent<Collider>().enabled && currentDispelPercentage < .9f)
+        if (stateInfo.IsName("Arms_Cast 1") && currentPercentage > .4f && !gun.hasFiredForAnim)
+        {
+            gun.Fire();
+        }
+        Debug.Log(stateInfo.length);
+        if (!stateInfo.IsName("Arms_Cast 1") && currentPercentage > .4f)
+        {
+            if (fireStillPressed == true && gun.hasFiredForAnim)
             {
-                wand.GetComponent<Collider>().enabled = true;
-                dispellMesh.SetActive(true);
-            }
-            if (currentDispelPercentage > .9f && wand.GetComponent<Collider>().enabled)
-            {
-                wand.GetComponent<Collider>().enabled = false;
-                dispellMesh.SetActive(false);
-            }
-
-            if (currentDispelPercentage >= 1f)
-            {
-            }
-            if (currentDispelPercentage >= 1.4f)
-            {
-                currentSpeed = stats.Speed;
-                dispelAnimationIsPlaying = false;
-                wand.GetComponent<Collider>().enabled = false;
+                ChangeStateToFire();
             }
 
-            if (!stateInfo.IsName("dispel"))
+            if (!fireStillPressed == true && gun.hasFiredForAnim)
             {
+                ChangeStateToNormal();
             }
         }
     }
+    
+    float dispelEntryTime;
+
 
     void HandleAnimationSpeeds()
     {
@@ -415,24 +433,6 @@ public class PlayerController : MonoBehaviour
             armsAnim.speed = 1;
         }
     }
-
-
-    IEnumerator ResetCast()
-    {
-        yield return new WaitForSeconds(.001f);
-
-        armsAnim.SetBool("cast", false);
-        gun.hasFiredForAnim = false;
-
-    }
-    IEnumerator ResetDispel()
-    {
-        yield return new WaitForSeconds(.001f);
-
-        armsAnim.SetBool("dispel", false);
-
-    }
-
     public MeshRenderer hatRenderer, cloakRenderer;
 
     public void ChangeColor(Color c)
@@ -445,4 +445,37 @@ public class PlayerController : MonoBehaviour
         cloakRenderer.material = cloakMat;
         circleImage.color = new Color(c.r, c.g, c.b, 190.0f);
     }
+
+
+    #region changingOfStates
+    void ChangeStateToNormal()
+    {
+        Debug.Log(currentDispelPercentage);
+        currentSpeed = stats.Speed;
+        dispelAnimationIsPlaying = false;
+        //wand.GetComponent<Collider>().enabled = false;
+        armsAnim.SetBool("dispel", false);
+        armsAnim.SetBool("cast", false);
+        fireAnimationIsPlaying = false;
+        state = State.Normal;
+    }
+    void ChangeStateToFire()
+    {
+        gun.hasFiredForAnim = false;
+        entryTime = Time.time;
+        dispelAnimationIsPlaying = false;
+        fireAnimationIsPlaying = true;
+        armsAnim.SetBool("cast", true);
+        armsAnim.SetBool("dispel", false);
+        state = State.Firing;
+    }
+    void ChangeStateToDispel()
+    {
+        fireAnimationIsPlaying = false;
+        dispelAnimationIsPlaying = true;
+        armsAnim.SetBool("dispel", true);
+        armsAnim.SetBool("cast", false);
+        state = State.Dispelling;
+    }
+    #endregion
 }
