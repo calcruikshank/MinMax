@@ -67,7 +67,7 @@ MonoBehaviour:
   playerImage: {fileID: 6400631242843168144}
   thisRT: {fileID: 5355895893515492342}
   moveVal: {x: 0, y: 0}
-  speed: 150
+  speed: 2.7
   usedCurrentDie: 0
   thisMSS: {fileID: 0}
 --- !u!114 &5355895893515492337
@@ -124,6 +124,11 @@ MonoBehaviour:
   ProjectileRange: 30
   SpeedReductionWhenFiring: 2
   DispelSpeed: 2
+  manaPool: 100
+  manaRegenRate: 1
+  manaCost: 20
+  critChance: 1
+  Homing: 0
 --- !u!1 &5355895894337139575
 GameObject:
   m_ObjectHideFlags: 0

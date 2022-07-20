@@ -400,7 +400,7 @@ public class PlayerController : MonoBehaviour
         {
             gun.Fire();
         }
-        Debug.Log(stateInfo.length);
+        // Debug.Log(stateInfo.length);
         if (!stateInfo.IsName("Arms_Cast 1") && currentPercentage > .4f)
         {
             
@@ -452,7 +452,7 @@ public class PlayerController : MonoBehaviour
     #region changingOfStates
     void ChangeStateToNormal()
     {
-        Debug.Log(currentDispelPercentage);
+        // Debug.Log(currentDispelPercentage);
         currentSpeed = stats.Speed;
         dispelAnimationIsPlaying = false;
         //wand.GetComponent<Collider>().enabled = false;

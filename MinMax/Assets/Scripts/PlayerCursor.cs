@@ -15,7 +15,7 @@ public class PlayerCursor : MonoBehaviour
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
     bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false, usedMana = false;
-    PlayerInput playerInput;
+    public PlayerInput playerInput;
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
         if (newMenuStats is null) 
@@ -39,6 +39,7 @@ public class PlayerCursor : MonoBehaviour
         transform.localScale = Vector3.one;
         transform.localEulerAngles = Vector3.zero;
         playerInput = this.GetComponent<PlayerInput>();
+        Cursor.visible = true;
     }
 
     public void OnMove(InputValue value)
@@ -50,8 +51,15 @@ public class PlayerCursor : MonoBehaviour
             moveVal = value.Get<Vector2>();
     }
 
+    void OnConfirm()
+    {
+        if (DieRoller.singleton is null) return;
+        OnFire();
+    }
+
     public void OnFire()
     {
+        if (DieRoller.singleton is null) return;
         if (Vector3.Distance(transform.position, DieRoller.singleton.playButton.transform.position) < 0.12f && DieRoller.singleton.playButton.interactable && !DieRoller.singleton.xButton.gameObject.activeSelf && DieRoller.singleton.playButton.gameObject.activeSelf)
         {
             DieRoller.singleton.playButton.onClick.Invoke();
@@ -241,10 +249,34 @@ public class PlayerCursor : MonoBehaviour
         }
     }
 
+    float Remap (float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+    }
+
     void FixedUpdate()
     {
-        thisRT.anchoredPosition += moveVal * speed * Time.deltaTime;
-        thisRT.anchoredPosition = new Vector3(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 40, (Screen.width/2) - 40), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2) + 40, (Screen.height/2) - 40));
+
+        // transform.position = new Vector3(Mathf.Clamp(transform.position.x + moveVal.x, -480, 480), 0, Mathf.Clamp(transform.position.z + moveVal.y, -360, 360));
+        // transform.position += (new Vector3(moveVal.x, moveVal.y, 0) * speed * Time.deltaTime);
+        // transform.position = new Vector3(Mathf.Clamp(transform.position.x, -470, 470), Mathf.Clamp(transform.position.y, -350, 350));
+
+        if (playerInput != null && playerInput.enabled && playerInput.currentControlScheme == "Keyboard&Mouse" && thisMSS != null && !thisMSS.isBot)
+        {
+            Cursor.visible = false;
+            Vector2 mousePos = Mouse.current.position.ReadValue();
+            thisRT.anchoredPosition = new Vector2(Remap(mousePos.x, 0, Screen.width, -450, 450), Remap(mousePos.y, 0, Screen.height, -260, 260));
+            // thisRT.anchoredPosition = new Vector2(Mathf.Clamp(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()).x, -450, 450);
+        }
+        else
+        {
+            thisRT.anchoredPosition = new Vector2(Mathf.Clamp(thisRT.anchoredPosition.x + moveVal.x * speed, -450, 450), Mathf.Clamp(thisRT.anchoredPosition.y + moveVal.y * speed, -245, 245));
+        }
+
+        // thisRT.anchoredPosition = new Vector2(Mathf.Clamp(thisRT.anchoredPosition.x + moveVal.x * speed, -450, 450), Mathf.Clamp(thisRT.anchoredPosition.y + moveVal.y * speed, -245, 245));
+
+        // thisRT.anchoredPosition += moveVal * speed * Time.deltaTime;
+        // thisRT.anchoredPosition = new Vector3(Mathf.Clamp(thisRT.anchoredPosition.x, (-Screen.width/2) + 40, (Screen.width/2) - 40), Mathf.Clamp(thisRT.anchoredPosition.y, (-Screen.height/2) + 40, (Screen.height/2) - 40));
     }
 
     void OnDisable()

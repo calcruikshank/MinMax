@@ -119,13 +119,14 @@ public class DieRoller : MonoBehaviour
 
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
+            pc.SetUnusedStatsToThree();
             // GameObject newPC = Instantiate(pc.gameObject);
             // newPC.transform.SetParent(SoundManager.singleton.transform);
             pc.transform.SetParent(SoundManager.singleton.transform);
-            if (pc.gameObject.GetComponent<PlayerInput>())
-            {
-                OnPlayerLeft(pc.gameObject.GetComponent<PlayerInput>());
-            }
+            // if (pc.gameObject.GetComponent<PlayerInput>())
+            // {
+            //     OnPlayerLeft(pc.gameObject.GetComponent<PlayerInput>());
+            // }
             // SoundManager.singleton.pcs.Add(pc);
         }
 
@@ -262,7 +263,7 @@ public class DieRoller : MonoBehaviour
 
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
-            pc.speed = 200;
+            // pc.speed = 2.7f;
             pc.usedCurrentDie = false;
         }
 

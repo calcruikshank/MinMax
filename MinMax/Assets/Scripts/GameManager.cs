@@ -31,11 +31,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DieRoller.singleton = null;
+        startedRestart = false;
         if (SoundManager.singleton == null) return;
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             // PlayerCursor pc = DieRoller.singleton.pcs[i];
-            pc.SetUnusedStatsToThree();
+            // pc.SetUnusedStatsToThree();
             
             GameObject hp = Instantiate(healthPanelPrefab, canvasPanel.transform);
             HealthPanelScript hps = hp.GetComponent<HealthPanelScript>();
@@ -43,17 +44,22 @@ public class GameManager : MonoBehaviour
             hps.sliderFill.color = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
             hps.playerBackground.color = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
 
-            if (pc.thisMSS.isBot)
+            if (pc.GetComponent<PlayerInput>())
+            {
+                GameObject notJeff = NewPlayerInput(playerPrefab, pc.playerInput, pc.GetComponent<Stats>());
+                notJeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
+                notJeff.GetComponent<PlayerController>().thisHPS = hps;
+                if (pc.playerInput.currentControlScheme == "Keyboard&Mouse")
+                {
+                    pc.playerInput.enabled = false;
+                    Cursor.visible = true;
+                }
+            }
+            else
             {
                 GameObject jeff = NewJeffery(jefferyPrefab, pc.GetComponent<Stats>());
                 jeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
                 jeff.GetComponent<PlayerController>().thisHPS = hps;
-            }
-            else
-            {
-                GameObject notJeff = NewPlayerInput(playerPrefab, pc.GetComponent<PlayerInput>(), pc.GetComponent<Stats>());
-                notJeff.GetComponent<PlayerController>().ChangeColor(pc.playerImage.color);
-                notJeff.GetComponent<PlayerController>().thisHPS = hps;
             }
         }
         InvokeRepeating("SpawnPower", 5f, 10f);
@@ -73,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         if(!startedRestart)
         {
-            if(Players.Count == 1 && !startedRestart)
+            if(Players.Count == 1)
             {
                 Debug.Log("Winner winner");
                 follow.enabled = false;
@@ -84,8 +90,7 @@ public class GameManager : MonoBehaviour
                 winnerCg.alpha = 1f;
                 winnerCg.GetComponent<TMP_Text>().text = Players[0].GetComponentInChildren<Jeffery>() ? "BOTS WIN" : "YOU WIN";
 
-                //StartCoroutine(Restart());
-                startedRestart = true;
+                StartCoroutine(Restart());
             }
         }
 
@@ -93,20 +98,24 @@ public class GameManager : MonoBehaviour
     bool startedRestart = false;
     IEnumerator Restart()
     {
-        // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
-        for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
+        if (!startedRestart)
         {
-            Destroy(SoundManager.singleton.pcs[i].gameObject);
+            startedRestart = true;
+            // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
+            for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
+            {
+                Destroy(SoundManager.singleton.pcs[i].gameObject);
+            }
+            SoundManager.singleton.pcs.Clear();
+            // Destroy(SpawnManager.singleton.gameObject);
+            // SpawnManager.singleton = null;
+            yield return new WaitForSeconds(7f);
+            SceneManager.LoadScene("Main Menu");
+            // DieRoller.singleton.gameObject.SetActive(true);
+            // DieRoller.singleton.ResetAllThings();
+            // GameObject dr = GameObject.Find("DieRoller");
+            // if (dr != null) DieRoller.singleton = dr.GetComponent<DieRoller>();
         }
-        SoundManager.singleton.pcs.Clear();
-        // Destroy(SpawnManager.singleton.gameObject);
-        // SpawnManager.singleton = null;
-        yield return new WaitForSeconds(7f);
-        SceneManager.LoadScene("Main Menu");
-        // DieRoller.singleton.gameObject.SetActive(true);
-        // DieRoller.singleton.ResetAllThings();
-        // GameObject dr = GameObject.Find("DieRoller");
-        // if (dr != null) DieRoller.singleton = dr.GetComponent<DieRoller>();
     }
 
     public void SpawnPower(){
