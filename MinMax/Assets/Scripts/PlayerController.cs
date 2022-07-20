@@ -403,12 +403,14 @@ public class PlayerController : MonoBehaviour
         Debug.Log(stateInfo.length);
         if (!stateInfo.IsName("Arms_Cast 1") && currentPercentage > .4f)
         {
-            if (fireStillPressed == true && gun.hasFiredForAnim)
+            
+            
+            if (fireStillPressed == true && gun.hasFiredForAnim && currentMana >= stats.manaCost)
             {
                 ChangeStateToFire();
             }
 
-            if (!fireStillPressed == true && gun.hasFiredForAnim)
+            if (!fireStillPressed == true && gun.hasFiredForAnim || currentMana < stats.manaCost)
             {
                 ChangeStateToNormal();
             }
