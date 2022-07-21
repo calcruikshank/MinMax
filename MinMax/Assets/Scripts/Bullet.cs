@@ -6,6 +6,7 @@ using System.Linq;
 
 public class Bullet : MonoBehaviour
 {
+    public bool isCrit = false;
     public float velocity;
     public Vector3 targetPosition;
 
@@ -45,7 +46,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    internal void Init(PlayerController playerOwningGun, Vector3 endPosition)
+    internal void Init(PlayerController playerOwningGun, Vector3 endPosition, bool isCrit = false)
     {
         playerOwningBullet = playerOwningGun;
         var s = playerOwningBullet.stats;
@@ -54,6 +55,11 @@ public class Bullet : MonoBehaviour
         velocity = s.ProjectileSpeed;
         attackDamage = s.AttackDamage;
         projectileSize = s.ProjectileSize;
+        this.isCrit = true;
+        if(isCrit){
+            attackDamage = attackDamage * 2;
+            projectileSize = projectileSize * 1.5f;
+        }
         transform.localScale = new Vector3(projectileSize,projectileSize,projectileSize);
     }
 
