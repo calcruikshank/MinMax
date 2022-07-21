@@ -43,9 +43,6 @@ public class PlayerController : MonoBehaviour
     public HealthPanelScript thisHPS;
     public Image circleImage;
 
-    bool fireAnimationIsPlaying = false;
-    bool dispelAnimationIsPlaying = false;
-
     bool pressedFireWhileDispelling = false;
 
     public GameObject dispellMesh;
@@ -101,7 +98,7 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                this.transform.position = new Vector3(transform.position.x, 0 + this.transform.localScale.y, transform.position.z);
+                this.transform.position = new Vector3(transform.position.x, 0, transform.position.z);
                 Debug.Log(hit.transform);
             }
         }
@@ -114,17 +111,16 @@ public class PlayerController : MonoBehaviour
             case State.Normal:
                 FaceLookDirection();
                 HandleMovement();
-                HandleRollInput();
-                HandleDispelInput();
                 HandleFireInput();
+                HandleDispelInput();
+                HandleRollInput();
                 HandleAnimationSpeeds();
                 break;
             case State.Firing:
                 FaceLookDirection();
                 HandleMovement();
-                HandleRollInput();
                 HandleDispelInput();
-                HandleFireInput();
+                HandleRollInput();
                 FireAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
                 HandleAnimationSpeeds();
                 break;
@@ -133,9 +129,9 @@ public class PlayerController : MonoBehaviour
                 FaceLookDirection();
                 HandleMovement();
                 HandleRollInput();
-                HandleDispelInput();
-                HandleFireInput();
                 HandleAnimationSpeeds();
+                break;
+            case State.Rolling:
                 break;
         }
     }
@@ -274,8 +270,6 @@ public class PlayerController : MonoBehaviour
         dispelDownPressed = false;
     }
 
-    bool rollDownPressed;
-    bool isRolling = false;
     void OnRollDown()
     {
         
@@ -304,10 +298,19 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
+        SpawnPlayerBody();
         GameManager.g.RemovePlayer(this);
         Destroy(this.gameObject);
     }
-
+    void SpawnPlayerBody()
+    {
+        dieBody.transform.parent = null;
+        dieBody.GetComponent<MeshCollider>().enabled = true;
+        Rigidbody rb = dieBody.GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.None;
+        rb.AddForce(Vector3.up * 500f);
+        rb.AddTorque(dieBody.transform.right * Random.Range(-500f, 500f));
+    }
     void OnFaceSelect(InputValue value)
     {
         inputFace = value.Get<Vector2>();
@@ -338,18 +341,8 @@ public class PlayerController : MonoBehaviour
         ChangeFace();
     }
 
-    void HandleInput()
+    void HandleFireInput()
     {
-        if (dispelDownPressed)
-        {
-            if (dispelAnimationIsPlaying) return;
-            dispelDownPressed = false;
-            currentSpeed /= stats.SpeedReductionWhenFiring;
-            StartDispelAnimation();
-        }
-
-
-        //anything past this point requires mana to cast
         currentMana = Mathf.Clamp(currentMana + (Time.deltaTime * stats.manaRegenRate), 0, stats.manaPool);
         if (thisHPS != null)
         {
@@ -362,12 +355,22 @@ public class PlayerController : MonoBehaviour
         }
         if (fireDownPressed)
         {
-            if (state != State.Normal) return;
-            if (dispelDownPressed) return;
             fireDownPressed = false;
             currentSpeed /= stats.SpeedReductionWhenFiring;
             ChangeStateToFire();
         }
+    }
+    void HandleDispelInput()
+    {
+        if (dispelDownPressed)
+        {
+            dispelDownPressed = false;
+            currentSpeed /= stats.SpeedReductionWhenFiring;
+            StartDispelAnimation();
+        }
+    }
+    void HandleRollInput()
+    {
     }
 
     void StartDispelAnimation()
@@ -439,15 +442,15 @@ public class PlayerController : MonoBehaviour
 
     void HandleAnimationSpeeds()
     {
-        if (dispelAnimationIsPlaying)
+        if (state == State.Dispelling)
         {
             armsAnim.speed = stats.DispelSpeed;
         }
-        if (fireAnimationIsPlaying)
+        if (state == State.Firing)
         {
             armsAnim.speed = stats.AttackCooldown;
         }
-        if (!dispelAnimationIsPlaying && !fireAnimationIsPlaying)
+        if (state == State.Firing)
         {
             armsAnim.speed = 1;
         }
@@ -471,30 +474,37 @@ public class PlayerController : MonoBehaviour
     {
         // Debug.Log(currentDispelPercentage);
         currentSpeed = stats.Speed;
-        dispelAnimationIsPlaying = false;
         //wand.GetComponent<Collider>().enabled = false;
         armsAnim.SetBool("dispel", false);
         armsAnim.SetBool("cast", false);
-        fireAnimationIsPlaying = false;
+        armsAnim.SetBool("roll", false);
         state = State.Normal;
     }
     void ChangeStateToFire()
     {
         gun.hasFiredForAnim = false;
         entryTime = Time.time;
-        dispelAnimationIsPlaying = false;
-        fireAnimationIsPlaying = true;
         armsAnim.SetBool("cast", true);
         armsAnim.SetBool("dispel", false);
+        armsAnim.SetBool("roll", false);
         state = State.Firing;
     }
     void ChangeStateToDispel()
     {
-        fireAnimationIsPlaying = false;
-        dispelAnimationIsPlaying = true;
         armsAnim.SetBool("dispel", true);
         armsAnim.SetBool("cast", false);
+        armsAnim.SetBool("roll", false);
         state = State.Dispelling;
+    }
+    void ChangeStateToRoll()
+    {
+        // Debug.Log(currentDispelPercentage);
+        currentSpeed = stats.Speed;
+        //wand.GetComponent<Collider>().enabled = false;
+        armsAnim.SetBool("dispel", false);
+        armsAnim.SetBool("cast", false);
+        armsAnim.SetBool("roll", true);
+        state = State.Rolling;
     }
     #endregion
 }
