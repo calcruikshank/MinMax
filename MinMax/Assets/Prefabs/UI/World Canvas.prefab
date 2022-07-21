@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 7615822678341631534}
   - component: {fileID: 431482182062636851}
   - component: {fileID: 4840295504074302104}
+  - component: {fileID: 6441155451147460364}
   m_Layer: 5
   m_Name: World Canvas
   m_TagString: Untagged
@@ -218,7 +219,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4840295504074302104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,3 +237,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6441155451147460364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6084861183508426760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c16480fd399fc449a8630838521be1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
