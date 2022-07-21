@@ -153,14 +153,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnEscape()
-    {
-        // GameManager.g.startingGame = !GameManager.g.startingGame;
-        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-        GameManager.g.winnerCg.alpha = 1 - Time.timeScale;
-        GameManager.g.winnerText.text = Time.timeScale == 0 ? "Paused" : "";
-    }
-
     private void HandleMovement()
     {
         movement.x = inputMovement.x;
