@@ -295,12 +295,12 @@ public class PlayerController : MonoBehaviour
         stats.HP -= damageSent;
         if (stats.HP <= 0)
         {
-            SoundManager.singleton.PlaySound(10, 0.8f, 0.4f);
+            SoundManager.singleton.PlaySound(10, 0.8f, 0.2f, basePitch:1*stats.PlayerSize);
             Die();
         }
         else
         {
-            SoundManager.singleton.PlaySound(9, 0.4f, 0.4f);
+            SoundManager.singleton.PlaySound(9, 0.8f, 0.2f, basePitch:1*stats.PlayerSize);
         }
         if (thisHPS is null) return;
         if (thisHPS.healthSlider is null) return;

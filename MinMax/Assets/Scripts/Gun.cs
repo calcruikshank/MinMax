@@ -70,6 +70,7 @@ public class Gun : MonoBehaviour
                 boom(-45);
                 boom(-90);
                 break;
+            default:
             case 7:
                 boom(0);
                 boom(90);
@@ -97,7 +98,6 @@ public class Gun : MonoBehaviour
         int didCrit = Random.Range(0, 100);
         if (didCrit <= playerOwningGun.stats.critChance)
         {
-            Debug.Log("crit!");
             if (critCanvas != null)
             {
                 GameObject c = Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
