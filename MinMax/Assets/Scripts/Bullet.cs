@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private float distMoved;
     public float attackDamage;
     private float projectileSize;
-    private GameObject homingTarget;
+    private GameObject homingTarget = null;
     public PlayerController playerOwningBullet;
     public bool isHoming;
     bool hasHitPlayer = false;
@@ -37,10 +37,10 @@ public class Bullet : MonoBehaviour
     public void SetHomingTarget(){
         var players = GameManager.g.Players.OrderBy(x => Vector3.Distance(x.transform.position, transform.position + transform.forward * 10)).ToList();
         foreach(var player in players){
-            if(player != playerOwningBullet && Vector3.Distance(transform.position + transform.forward * 10f,player.transform.position) < 15f){
+            if(player.GetComponent<PlayerController>() != playerOwningBullet && Vector3.Distance(transform.position + transform.forward * 10f,player.transform.position) < 15f){
                 homingTarget = player;
+                break;
             }
-            break;
         }
     }
 
