@@ -114,13 +114,17 @@ public class PlayerController : MonoBehaviour
             case State.Normal:
                 FaceLookDirection();
                 HandleMovement();
-                HandleInput();
+                HandleRollInput();
+                HandleDispelInput();
+                HandleFireInput();
                 HandleAnimationSpeeds();
                 break;
             case State.Firing:
                 FaceLookDirection();
                 HandleMovement();
-                HandleInput();
+                HandleRollInput();
+                HandleDispelInput();
+                HandleFireInput();
                 FireAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
                 HandleAnimationSpeeds();
                 break;
@@ -128,7 +132,9 @@ public class PlayerController : MonoBehaviour
                 HandleDispelAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
                 FaceLookDirection();
                 HandleMovement();
-                HandleInput();
+                HandleRollInput();
+                HandleDispelInput();
+                HandleFireInput();
                 HandleAnimationSpeeds();
                 break;
         }
@@ -267,6 +273,18 @@ public class PlayerController : MonoBehaviour
     {
         dispelDownPressed = false;
     }
+
+    bool rollDownPressed;
+    bool isRolling = false;
+    void OnRollDown()
+    {
+        
+    }
+    void OnRollUp()
+    {
+
+    }
+
     public void TakeDamage(float damageSent)
     {
         stats.HP -= damageSent;
@@ -344,8 +362,7 @@ public class PlayerController : MonoBehaviour
         }
         if (fireDownPressed)
         {
-            if (fireAnimationIsPlaying) return;
-            if (dispelAnimationIsPlaying == true) return;
+            if (state != State.Normal) return;
             if (dispelDownPressed) return;
             fireDownPressed = false;
             currentSpeed /= stats.SpeedReductionWhenFiring;

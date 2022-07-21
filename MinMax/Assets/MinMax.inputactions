@@ -85,6 +85,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RollDown",
+                    "type": "Button",
+                    "id": "d67c961b-6cfa-4140-b90a-9a4d6b99583d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RollUp",
+                    "type": "Button",
+                    "id": "27de9bef-54ab-4cc2-a166-5a32045db4af",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -811,6 +829,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ec9b9f6-283f-4823-b353-71b531d7946e",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RollDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6d470572-bd7d-4e79-8ccc-1994f9ba53e6",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RollUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
