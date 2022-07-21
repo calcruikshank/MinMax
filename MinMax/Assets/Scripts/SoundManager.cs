@@ -52,6 +52,7 @@ public class SoundManager : MonoBehaviour
         GameObject newSound = Instantiate(soundPrefab);
         AudioSource newAC = newSound.GetComponent<AudioSource>();
         newAC.volume = volume;
+        newAC.pitch = basePitch;
         newAC.pitch += Random.Range(-variance, variance);
         newAC.PlayOneShot(clip);
         Destroy(newSound, clip.length);
