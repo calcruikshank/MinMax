@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
         {
             startingGame = false;
             winnerText.text = "GO!";
-            Invoke("SetStartingFalse", 3);
+            Invoke("SetStartingFalse", 1);
         }
         else
         {

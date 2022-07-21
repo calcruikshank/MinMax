@@ -153,14 +153,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnEscape()
-    {
-        // GameManager.g.startingGame = !GameManager.g.startingGame;
-        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-        GameManager.g.winnerCg.alpha = 1 - Time.timeScale;
-        GameManager.g.winnerText.text = Time.timeScale == 0 ? "Paused" : "";
-    }
-
     private void HandleMovement()
     {
         movement.x = inputMovement.x;
@@ -402,7 +394,7 @@ public class PlayerController : MonoBehaviour
     private void HandleDispelAnimation(AnimatorStateInfo stateInfo)
     {
         currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
-        if (stateInfo.IsName("Dispel") && currentDispelPercentage > .4f && currentDispelPercentage <= 1.2f && newDispelObject == null)
+        if (stateInfo.IsName("Dispel") && currentDispelPercentage > .5f && currentDispelPercentage <= .9f && newDispelObject == null)
         {
             newDispelObject = Instantiate(dispellMesh, dispelPoint.position, dispelPoint.rotation);
             newDispelObject.GetComponent<WandDispel>().Init(this);
@@ -461,7 +453,11 @@ public class PlayerController : MonoBehaviour
         {
             armsAnim.speed = stats.AttackCooldown;
         }
-        if (state == State.Firing)
+        if (state == State.Normal)
+        {
+            armsAnim.speed = 1;
+        }
+        if (state == State.Rolling)
         {
             armsAnim.speed = 1;
         }
