@@ -156,6 +156,8 @@ public class DieRoller : MonoBehaviour
             // PlayerCursor pc = go.GetComponent<PlayerCursor>();
             if (!pc.usedCurrentDie) return false;
         }
+        timerPanel.SetActive(false);
+        dieValuePanel.SetActive(false);
         return true;
     }
 
