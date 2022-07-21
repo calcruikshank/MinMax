@@ -159,6 +159,9 @@ public class PlayerController : MonoBehaviour
             case State.Dispelling:
                 FixedHandleMovement();
                 break;
+            case State.Rolling:
+                FixedHandleRoll();
+                break;
         }
     }
 
@@ -204,6 +207,21 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity *= .97f;
         }*/
+    }
+    float currentRollSpeed;
+    private void FixedHandleRoll()
+    {
+        //rb.AddForce(movement.normalized * moveSpeed);
+        rb.velocity = new Vector3(playerTorso.transform.forward.x * currentRollSpeed, rb.velocity.y, playerTorso.transform.forward.z * currentRollSpeed);
+
+        if (Mathf.Abs(rb.velocity.magnitude) >= .02f)
+        {
+            legsAnim.SetBool("isMoving", true);
+        }
+        else
+        {
+            legsAnim.SetBool("isMoving", false);
+        }
     }
     void FaceLookDirection()
     {
@@ -401,6 +419,8 @@ public class PlayerController : MonoBehaviour
     void StartRollAnimation()
     {
         dispelEntryTime = Time.time;
+        playerTorso.transform.forward = lastLookedPosition;
+        currentRollSpeed = stats.initialRollSpeed;
         ChangeStateToRoll();
     }
 
@@ -434,7 +454,9 @@ public class PlayerController : MonoBehaviour
     }
     void HandleRollAnimation()
     {
-        //transform.localScale *= 1.01f;
+        float currentRollSpeedMulti = 3f;
+        currentRollSpeed -= currentRollSpeedMulti * Time.deltaTime;
+
     }
     private void FireAnimation(AnimatorStateInfo stateInfo)
     {
