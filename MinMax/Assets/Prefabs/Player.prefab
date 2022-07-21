@@ -1999,6 +1999,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 8125971820830103854, guid: fae5944b3ac4b2645a5b8e8e08ad3ad7, type: 3}
   hasFiredForAnim: 0
+  critCanvas: {fileID: 6084861183508426760, guid: 90a461ca64403ae4487024f5b27d30c7, type: 3}
 --- !u!4 &8980383816741080839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2205137809330503048, guid: 22ce99452d417d1428c9345ae34305af, type: 3}

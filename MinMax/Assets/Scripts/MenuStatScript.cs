@@ -12,7 +12,8 @@ public class MenuStatScript : MonoBehaviour
     public PlayerCursor thisPC;
     public TMP_Text[] statTexts;
     public GameObject[] statPanels;
-    public List<string> statStrings = new List<string>();
+    public GameObject[] stars;
+    // public List<string> statStrings = new List<string>();
     public GameObject readyPanel, waitPanel, backgroundPanel;
     public bool isBot = true;
     public Toggle botToggle;
@@ -52,7 +53,7 @@ public class MenuStatScript : MonoBehaviour
         }
         else
         {
-            List<string> statsCopy = new List<string>(statStrings);
+            List<string> statsCopy = new List<string>(DieRoller.singleton.statStrings);
             for (int i = 0; i < 6; i++)
             {
                 int randomStat = Mathf.FloorToInt(Random.Range(0, statsCopy.Count));
@@ -76,6 +77,10 @@ public class MenuStatScript : MonoBehaviour
         isBot = b;
         thisPC.playerImage.enabled = !b;
         thisPC.playerLabel.enabled = !b;
+        foreach(GameObject g in stars)
+        {
+            g.SetActive(!b);
+        }
     }
 
     public bool IsFull()

@@ -79,6 +79,10 @@ public class Stats : MonoBehaviour
     {
         DispelSpeed = ((float)numSent / 2f) * 1.0f;
     }
+    public void SetCritChance(int numSent)
+    {
+        critChance = numSent;
+    }
     public void CopyStatsToOtherComponent(Stats otherStats)
     {
         otherStats.Speed = Speed;
@@ -94,5 +98,6 @@ public class Stats : MonoBehaviour
         otherStats.SpeedReductionWhenFiring = SpeedReductionWhenFiring;
         otherStats.DispelSpeed = DispelSpeed;
         otherStats.manaRegenRate = manaRegenRate;
+        otherStats.critChance = critChance;
     }
 }
