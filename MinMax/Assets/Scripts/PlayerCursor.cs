@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class PlayerCursor : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerCursor : MonoBehaviour
     public MenuStatScript thisMSS;
     bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false, usedMana = false, usedCrit = false;
     public PlayerInput playerInput;
+    public bool isAnimating;
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
         if (newMenuStats is null) 
@@ -24,8 +26,14 @@ public class PlayerCursor : MonoBehaviour
             return;
         }
         thisMSS = newMenuStats;
+        RectTransform mssrt = thisMSS.backgroundPanel.GetComponent<RectTransform>();
+        mssrt.anchoredPosition = new Vector2(mssrt.anchoredPosition.x , -230);
         thisMSS.backgroundPanel.gameObject.SetActive(true);
         thisMSS.addBotButton.gameObject.SetActive(false);
+        isAnimating = true;
+        mssrt.DOAnchorPosY(10, 0.2f).OnComplete(() => {
+            isAnimating = false;
+        });
         playerLabel.text = newMenuStats.playerName;
         playerImage.color = bot ? new Color(newMenuStats.playerColor.r,newMenuStats.playerColor.g,newMenuStats.playerColor.b,0) : newMenuStats.playerColor;
         playerLabel.color = bot ? new Color(newMenuStats.playerColor.r,newMenuStats.playerColor.g,newMenuStats.playerColor.b,0) : newMenuStats.playerColor;
@@ -49,7 +57,7 @@ public class PlayerCursor : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        if (DieRoller.singleton is null) return;
+        if (DieRoller.singleton is null || isAnimating) return;
         if (thisMSS is null || !thisMSS.gameObject.activeSelf) return;
         if (thisMSS.waitPanel.activeSelf || thisMSS.isBot) return;
         
@@ -58,13 +66,13 @@ public class PlayerCursor : MonoBehaviour
 
     void OnConfirm()
     {
-        if (DieRoller.singleton is null) return;
+        if (DieRoller.singleton is null || isAnimating) return;
         OnFire();
     }
 
     public void OnFire()
     {
-        if (DieRoller.singleton is null) return;
+        if (DieRoller.singleton is null || isAnimating) return;
         if (Vector3.Distance(transform.position, DieRoller.singleton.playButton.transform.position) < 0.12f && DieRoller.singleton.playButton.interactable && !DieRoller.singleton.xButton.gameObject.activeSelf && DieRoller.singleton.playButton.gameObject.activeSelf)
         {
             DieRoller.singleton.playButton.onClick.Invoke();

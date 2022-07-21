@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class DieRoller : MonoBehaviour
 {
@@ -68,8 +69,12 @@ public class DieRoller : MonoBehaviour
         if (isRemovingPlayer || isAddingPlayer) return;
         if (PlayersAreReady()) return;
         if (currentDie != null && !EveryoneHasUsedCurrentDie()) return;
-        timerPanel.SetActive(false);
-        dieValuePanel.SetActive(false);
+        timerPanel.transform.DOScale(0, 0.2f).OnComplete(() => {
+            timerPanel.SetActive(false);
+        });
+        dieValuePanel.transform.DOScale(0, 0.2f).OnComplete(() => {
+            dieValuePanel.SetActive(false);
+        });
         // SoundManager.singleton.PlaySound(3, 0.5f, 0.5f);
         currentDie = null;
         rollButton.interactable = false;
@@ -155,8 +160,12 @@ public class DieRoller : MonoBehaviour
             // PlayerCursor pc = go.GetComponent<PlayerCursor>();
             if (!pc.usedCurrentDie) return false;
         }
-        timerPanel.SetActive(false);
-        dieValuePanel.SetActive(false);
+        timerPanel.transform.DOScale(0, 0.2f).OnComplete(() => {
+            timerPanel.SetActive(false);
+        });
+        dieValuePanel.transform.DOScale(0, 0.2f).OnComplete(() => {
+            dieValuePanel.SetActive(false);
+        });
         return true;
     }
 
@@ -394,6 +403,8 @@ public class DieRoller : MonoBehaviour
             if (!pc.thisMSS.IsFull()) return false;
         }
         playButton.gameObject.SetActive(true);
+        playButton.transform.localScale = Vector3.zero;
+        playButton.transform.DOScale(1, 0.2f);
         return true;
     }
 
@@ -402,11 +413,15 @@ public class DieRoller : MonoBehaviour
         if (isAddingPlayer) return;
         isRemovingPlayer = true;
         PlayerCursor leftPlayer = mss.thisPC;
+        leftPlayer.isAnimating = true;
         if (leftPlayer.playerInput != null && leftPlayer.playerInput.currentControlScheme == "Keyboard&Mouse") Cursor.visible = true;
         SoundManager.singleton.pcs.Remove(leftPlayer);
         int mssIndex = System.Array.IndexOf(playerPanels, leftPlayer.thisMSS);
-        leftPlayer.thisMSS.backgroundPanel.gameObject.SetActive(false);
-        leftPlayer.thisMSS.addBotButton.gameObject.SetActive(true);
+        leftPlayer.thisMSS.backgroundPanel.GetComponent<RectTransform>().DOAnchorPosY(-230, 0.2f).OnComplete( ()=> {
+            leftPlayer.isAnimating = false;
+            leftPlayer.thisMSS.backgroundPanel.gameObject.SetActive(false);
+            leftPlayer.thisMSS.addBotButton.gameObject.SetActive(true);
+        });
         joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
         rollButton.interactable = !PlayersAreRollingStats() && !PlayersAreReady();
         resetButton.interactable = SoundManager.singleton.pcs.Count > 0;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class DieScript : MonoBehaviour
 {
@@ -30,7 +31,9 @@ public class DieScript : MonoBehaviour
             // thisDR.SetPlayersMovement();
             StartCoroutine(thisDR.Timer());
             thisDR.timerPanel.SetActive(true);
+            thisDR.timerPanel.transform.DOScale(1, 0.2f);
             thisDR.dieValuePanel.SetActive(true);
+            thisDR.dieValuePanel.transform.DOScale(1, 0.2f);
         }
     }
 
