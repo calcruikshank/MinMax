@@ -14,7 +14,7 @@ public class PowerUp : MonoBehaviour
         hp,
         ice,
         lightning,
-        //homing
+        homing
     }
 
     PowerT type;
@@ -28,7 +28,9 @@ public class PowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(transform.position.y < -10f){
+            Destroy(this);
+        }
     }
 
     private void SetColor(PowerT type)
@@ -71,11 +73,11 @@ public class PowerUp : MonoBehaviour
                     stats.AttackCooldown += 2f;
                     playerHit.gun.bullet = lightningPrefab;
                     break;
-               /* case PowerT.homing:
+                case PowerT.homing:
                     stats.Homing = true;
                     stats.ProjectileRange *= 0.5f;
                     playerHit.gun.bullet = homingPrefab;
-                    break;*/
+                    break;
 
             }
             GameManager.g.RemovePower(this);

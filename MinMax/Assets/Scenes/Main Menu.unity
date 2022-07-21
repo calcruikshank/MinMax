@@ -8262,7 +8262,7 @@ PrefabInstance:
       objectReference: {fileID: 224643293}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: statStrings.Array.size
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: playerPanels.Array.size
@@ -8332,6 +8332,10 @@ PrefabInstance:
       propertyPath: playerPanels.Array.data[3]
       value: 
       objectReference: {fileID: 245853837}
+    - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
+      propertyPath: statStrings.Array.data[10]
+      value: Crit Chance
+      objectReference: {fileID: 0}
     - target: {fileID: 2732353352750873572, guid: ca084bc914e2ae546b36f221462e6a9d, type: 3}
       propertyPath: addBotButtons.Array.data[0]
       value: 

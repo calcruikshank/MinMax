@@ -14,7 +14,7 @@ public class PlayerCursor : MonoBehaviour
     public float speed = 100.0f;
     public bool usedCurrentDie = false;
     public MenuStatScript thisMSS;
-    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false, usedMana = false;
+    bool usedMovement = false, usedHealth = false, usedAttackSpeed = false, usedDamage = false, usedProjSpeed = false, usedProjSize = false, usedPlaSize = false, usedRange = false, usedReflect = false, usedMana = false, usedCrit = false;
     public PlayerInput playerInput;
     public void Initialize(MenuStatScript newMenuStats, bool bot = false)
     {
@@ -41,6 +41,10 @@ public class PlayerCursor : MonoBehaviour
         transform.localEulerAngles = Vector3.zero;
         playerInput = this.GetComponent<PlayerInput>();
         Cursor.visible = true;
+        foreach(GameObject g in newMenuStats.stars)
+        {
+            g.SetActive(!bot);
+        }
     }
 
     public void OnMove(InputValue value)
@@ -231,15 +235,18 @@ public class PlayerCursor : MonoBehaviour
                 }
                 else if (sc.statName.text.Contains("Reflect Speed"))
                 {
-                    // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetDispelSpeed(int.Parse(closestText.text));
                     usedReflect = true;
                 }
                 else if (sc.statName.text.Contains("Collection"))
                 {
-                    // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + int.Parse(closestText.text));
                     thisMSS.thisStats.SetManaRegenRate(int.Parse(closestText.text));
                     usedMana = true;
+                }
+                else if (sc.statName.text.Contains("Crit Chance"))
+                {
+                    thisMSS.thisStats.SetCritChance(int.Parse(closestText.text));
+                    usedCrit = true;
                 }
             }
 
@@ -353,15 +360,18 @@ public class PlayerCursor : MonoBehaviour
             }
             else if (sc.statName.text.Contains("Reflect Speed"))
             {
-                // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetDispelSpeed(rand);
                 usedReflect = true;
             }
             else if (sc.statName.text.Contains("Collection"))
             {
-                // Debug.Log("Setting range of " + thisMSS.thisStats.gameObject.name + " to " + rand);
                 thisMSS.thisStats.SetManaRegenRate(rand);
                 usedMana = true;
+            }
+            else if (sc.statName.text.Contains("Crit Chance"))
+            {
+                thisMSS.thisStats.SetCritChance(rand);
+                usedCrit = true;
             }
         }
         usedCurrentDie = true;
@@ -371,7 +381,7 @@ public class PlayerCursor : MonoBehaviour
 
     public void SetUnusedStatsToThree()
     {
-        foreach(string statName in thisMSS.statStrings)
+        foreach(string statName in DieRoller.singleton.statStrings)
         {
             if (statName.Contains("Movement") && !usedMovement)
             {
@@ -415,13 +425,15 @@ public class PlayerCursor : MonoBehaviour
             }
             if (statName.Contains("Reflect Speed") && !usedReflect)
             {
-                // Debug.Log("setting range of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetDispelSpeed(2);
             }
             if (statName.Contains("Collection") && !usedMana)
             {
-                // Debug.Log("setting range of " + gameObject.name + " to 3");
                 thisMSS.thisStats.SetManaRegenRate(2);
+            }
+            if (statName.Contains("Crit Chance") && !usedCrit)
+            {
+                thisMSS.thisStats.SetCritChance(2);
             }
         }
         usedMovement = false;
@@ -434,5 +446,6 @@ public class PlayerCursor : MonoBehaviour
         usedRange = false;
         usedReflect = false;
         usedMana = false;
+        usedCrit = false;
     }
 }
