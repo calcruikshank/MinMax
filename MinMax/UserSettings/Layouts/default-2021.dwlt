@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 3440
     height: 1349
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 973
+  controlID: 32286
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 974
+  controlID: 32287
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 975
+  controlID: 32272
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,8 +215,8 @@ MonoBehaviour:
     y: 0
     width: 863
     height: 710
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 917
+  controlID: 32288
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -319,8 +319,8 @@ MonoBehaviour:
     y: 0
     width: 744
     height: 589
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -477,7 +477,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 34fbffff
+      m_ExpandedIDs: d4ddfaffd0e4faffa831fbff1e33fbff6a35fbff9c89fbff8a95fbff7e98fbff189cfbff96b5fbff8ec1fbff12dbfbff36dbfbff9015fcff5621fcff7a21fcffc629fcffb673fcff7288fcff9688fcfffe03feff4c85feff8885fefffc85feff0086feff0686feff1486feff6088feff3c94feff0097feff20a8fefff6bbfefff837ffff728affffe6b2ffff32fbffff34fbfffff4ffffffac5e00002c5f0000307d010028af010038af0100f2af01003cb10100f26402000078020046790200c0b30200dab602005ab70200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -619,7 +619,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -767,9 +767,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.031449646, y: 8.82044, z: 0.33957973}
+    m_Target: {x: -4.1239824, y: 4.730384, z: 9.819969}
     speed: 2
-    m_Value: {x: 0.031449646, y: 8.82044, z: 0.33957973}
+    m_Value: {x: -4.1239824, y: 4.730384, z: 9.819969}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -816,13 +816,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.56871617, y: -0.34677416, z: 0.28641498, w: 0.68865985}
+    m_Target: {x: 0.21090755, y: 0.14165343, z: -0.030877907, w: 0.966676}
     speed: 2
-    m_Value: {x: -0.5687161, y: 0.34677416, z: -0.28641498, w: -0.6886598}
+    m_Value: {x: 0.21091138, y: 0.14165601, z: -0.030878467, w: 0.9666936}
   m_Size:
-    m_Target: 1.5696324
+    m_Target: 8.388525
     speed: 2
-    m_Value: 1.5696324
+    m_Value: 8.388525
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -840,7 +840,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: 0.56871617, y: -0.34677416, z: 0.28641498, w: 0.68865985}
+  m_LastSceneViewRotation: {x: 0.32555658, y: -0.53519166, z: 0.23442717, w: 0.743372}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
@@ -888,22 +888,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/UI
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/UI
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\lione\Documents\GitHub\MinMax\MinMax
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7e640000
-    m_LastClickedID: 25726
-    m_ExpandedIDs: 000000002e6400004a64000000ca9a3bffffff7f
+    m_SelectedIDs: 48640000
+    m_LastClickedID: 25672
+    m_ExpandedIDs: 000000002e640000426400004464000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -919,7 +919,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 12}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -931,7 +931,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002e64000000ca9a3bffffff7f
+    m_ExpandedIDs: 000000002e640000426400004464000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -958,7 +958,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -975,7 +975,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 0}
+      m_ClientGUIView: {fileID: 12}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0

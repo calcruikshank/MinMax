@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
                 winnerCg.alpha = 1f;
                 winnerText.text = Players[0].GetComponentInChildren<Jeffery>() ? "BOTS WIN" : "YOU WIN";
 
-                StartCoroutine(Restart());
+               StartCoroutine(Restart());
             }
         }
 

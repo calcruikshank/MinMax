@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     public bool isCrit = false;
     public float velocity;
     public Vector3 targetPosition;
+    public GameObject critCanvas;
 
     public Vector3 startPosition;
     private float distMoved;
@@ -87,6 +88,10 @@ public class Bullet : MonoBehaviour
                var objectHit = other.GetComponent<PlayerController>();
             if(objectHit != playerOwningBullet){
                 objectHit.TakeDamage(attackDamage);
+                if (isCrit)
+                {
+                    Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
+                }
                 Die();
             }
         }
