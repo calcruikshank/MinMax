@@ -461,7 +461,11 @@ public class PlayerController : MonoBehaviour
         {
             armsAnim.speed = stats.AttackCooldown;
         }
-        if (state == State.Firing)
+        if (state == State.Normal)
+        {
+            armsAnim.speed = 1;
+        }
+        if (state == State.Rolling)
         {
             armsAnim.speed = 1;
         }
