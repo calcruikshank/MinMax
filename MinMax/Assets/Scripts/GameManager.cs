@@ -13,12 +13,14 @@ public class GameManager : MonoBehaviour
     public readonly List<GameObject> Bullets = new List<GameObject>();
     public readonly List<GameObject> Powers = new List<GameObject>();
     public GameObject playerPrefab, jefferyPrefab, healthPanelPrefab, canvasPanel, powerUpPrefab;
+    public bool startingGame;
 
     //camera refs
     public ZoomScript zoom;
     public FollowScript follow;
     public PointBetweenPlayers pbp;
     public CanvasGroup winnerCg;
+    public TMP_Text winnerText;
 
     void Awake()
     {
@@ -30,6 +32,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        winnerText.text = "Get Ready...";
+        winnerCg.alpha = 1;
+        startingGame = true;
         DieRoller.singleton = null;
         startedRestart = false;
         if (SoundManager.singleton == null) return;
@@ -66,15 +71,22 @@ public class GameManager : MonoBehaviour
             }
         }
         InvokeRepeating("SpawnPower", 5f, 10f);
-        //Destroy(DieRoller.singleton.gameObject);
-        // DieRoller.singleton.gameObject.SetActive(false);
-        
-        // for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
-        // {
-        //     Destroy(SoundManager.singleton.pcs[i].gameObject);
-        // }
+        Invoke("SetStartingFalse", 3);
+    }
 
-        // SoundManager.singleton.pcs.Clear();
+    void SetStartingFalse()
+    {
+        if (startingGame)
+        {
+            startingGame = false;
+            winnerText.text = "GO!";
+            Invoke("SetStartingFalse", 3);
+        }
+        else
+        {
+            winnerText.text = "";
+            winnerCg.alpha = 0;
+        }
     }
 
     // Update is called once per frame
@@ -91,7 +103,7 @@ public class GameManager : MonoBehaviour
 
                 //show winner text here.
                 winnerCg.alpha = 1f;
-                winnerCg.GetComponent<TMP_Text>().text = Players[0].GetComponentInChildren<Jeffery>() ? "BOTS WIN" : "YOU WIN";
+                winnerText.text = Players[0].GetComponentInChildren<Jeffery>() ? "BOTS WIN" : "YOU WIN";
 
                 StartCoroutine(Restart());
             }
@@ -121,7 +133,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SpawnPower(){
+    public void SpawnPower()
+    {
         GameObject rolledDie = Instantiate(powerUpPrefab, new Vector3(Random.Range(-15, 15),Random.Range(0,30),Random.Range(-15, 15)), Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
         Powers.Add(rolledDie);
         rolledDie.GetComponent<Rigidbody>().AddForce(Vector3.right * Random.Range(100, 500));
