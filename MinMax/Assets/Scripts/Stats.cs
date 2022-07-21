@@ -21,12 +21,13 @@ public class Stats : MonoBehaviour
     public float manaCost = 20f;
     public float critChance = 1;
     public bool Homing = false;
+    [HideInInspector]public float initialRollSpeed;
 
     PlayerController player;
 
     public void Init(PlayerController playerSent)
     {
-        player = playerSent;
+        player = playerSent; initialRollSpeed = Speed * 2;
     }
 
     public void SetSpeed(int numSent)
