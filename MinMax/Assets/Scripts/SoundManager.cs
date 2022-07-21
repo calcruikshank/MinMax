@@ -28,20 +28,15 @@ public class SoundManager : MonoBehaviour
         if (audioClips.Length < 1) audioClips = Resources.LoadAll<AudioClip>("Sounds") as AudioClip[];
     }
 
-    public void PlaySound(int soundIndex, float volume = 0.5f, float variance = 0.1f)
+    public void PlaySound(int soundIndex, float volume = 0.5f, float variance = 0.1f, float basePitch = 1f)
     {
         if (soundIndex < 0 || soundIndex > audioClips.Length) return;
         AudioClip foundClip = audioClips[soundIndex];
         if (foundClip is null) return;
-        GameObject newSound = Instantiate(soundPrefab);
-        AudioSource newAC = newSound.GetComponent<AudioSource>();
-        newAC.volume = volume;
-        newAC.pitch += Random.Range(-variance, variance);
-        newAC.PlayOneShot(foundClip);
-        Destroy(newSound, foundClip.length);
+        playSound(foundClip, volume, variance, basePitch);
     }
 
-    public void PlaySound(string soundName, float volume = 0.5f, float variance = 0.1f)
+    public void PlaySound(string soundName, float volume = 0.5f, float variance = 0.1f, float basePitch = 1f)
     {
         if (string.IsNullOrEmpty(soundName)) return;
         AudioClip foundClip = null;
@@ -50,12 +45,16 @@ public class SoundManager : MonoBehaviour
             if (ac.name == soundName) foundClip = ac;
         }
         if (foundClip is null) return;
+        playSound(foundClip, volume, variance, basePitch);
+    }
+
+    private void playSound(AudioClip clip, float volume, float variance, float basePitch){
         GameObject newSound = Instantiate(soundPrefab);
         AudioSource newAC = newSound.GetComponent<AudioSource>();
         newAC.volume = volume;
         newAC.pitch += Random.Range(-variance, variance);
-        newAC.PlayOneShot(foundClip);
-        Destroy(newSound, foundClip.length);
+        newAC.PlayOneShot(clip);
+        Destroy(newSound, clip.length);
     }
 
     public void PlayRandomDieSound()
