@@ -31,7 +31,7 @@ public class PlayerCursor : MonoBehaviour
         playerLabel.color = bot ? new Color(newMenuStats.playerColor.r,newMenuStats.playerColor.g,newMenuStats.playerColor.b,0) : newMenuStats.playerColor;
         newMenuStats.thisPC = this;
         newMenuStats.thisStats = GetComponent<Stats>();
-        transform.position = newMenuStats.transform.position;
+        transform.position = new Vector2(newMenuStats.transform.position.x, newMenuStats.transform.position.y);
         newMenuStats.ResetTexts();
         // newMenuStats.isBot = bot;
         newMenuStats.botToggle.isOn = bot;
