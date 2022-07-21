@@ -402,7 +402,7 @@ public class PlayerController : MonoBehaviour
     private void HandleDispelAnimation(AnimatorStateInfo stateInfo)
     {
         currentDispelPercentage = (Time.time - dispelEntryTime) / stateInfo.length;
-        if (stateInfo.IsName("Dispel") && currentDispelPercentage > .4f && currentDispelPercentage <= 1.2f && newDispelObject == null)
+        if (stateInfo.IsName("Dispel") && currentDispelPercentage > .5f && currentDispelPercentage <= .9f && newDispelObject == null)
         {
             newDispelObject = Instantiate(dispellMesh, dispelPoint.position, dispelPoint.rotation);
             newDispelObject.GetComponent<WandDispel>().Init(this);
