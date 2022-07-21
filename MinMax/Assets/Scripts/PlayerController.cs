@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if (GameManager.g.startingGame) return;
         switch (state)
         {
             case State.Normal:
@@ -137,6 +138,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (GameManager.g.startingGame) return;
         switch (state)
         {
             case State.Normal:
@@ -149,6 +151,14 @@ public class PlayerController : MonoBehaviour
                 FixedHandleMovement();
                 break;
         }
+    }
+
+    void OnEscape()
+    {
+        // GameManager.g.startingGame = !GameManager.g.startingGame;
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        GameManager.g.winnerCg.alpha = 1 - Time.timeScale;
+        GameManager.g.winnerText.text = Time.timeScale == 0 ? "Paused" : "";
     }
 
     private void HandleMovement()
