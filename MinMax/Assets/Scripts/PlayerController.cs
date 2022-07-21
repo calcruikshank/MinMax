@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
         float calc = (200-(stats.maxHP/maxMaxHP)*200) + 10;
         thisHPS.healthSlider.GetComponent<RectTransform>().offsetMax = new Vector2(-1*calc, thisHPS.healthSlider.GetComponent<RectTransform>().offsetMax.y);
 
+        HandleAnimationSpeeds();
         if (thisHPS.manaSlider is null) return;
         thisHPS.manaSlider.value = Utils.Remap(currentMana, 0, stats.manaPool, 0, 1);
     }
@@ -124,7 +125,6 @@ public class PlayerController : MonoBehaviour
                 HandleFireInput();
                 HandleDispelInput();
                 HandleRollInput();
-                HandleAnimationSpeeds();
                 break;
             case State.Firing:
                 FaceLookDirection();
@@ -132,14 +132,12 @@ public class PlayerController : MonoBehaviour
                 HandleDispelInput();
                 HandleRollInput();
                 FireAnimation(anim.GetCurrentAnimatorStateInfo(1));
-                HandleAnimationSpeeds();
                 break;
             case State.Dispelling:
                 HandleDispelAnimation(anim.GetCurrentAnimatorStateInfo(1));
                 FaceLookDirection();
                 HandleMovement();
                 HandleRollInput();
-                HandleAnimationSpeeds();
                 break;
             case State.Rolling:
                 HandleRollAnimation(anim.GetCurrentAnimatorStateInfo(0));
