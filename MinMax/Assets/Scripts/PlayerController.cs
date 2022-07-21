@@ -84,6 +84,16 @@ public class PlayerController : MonoBehaviour
         if (thisHPS is null || thisHPS.healthSlider is null) return;
         thisHPS.healthSlider.value = Utils.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
+        //Lets calculate the max max hp, we're doing this 4x, sue me
+        float maxMaxHP = 0;
+        foreach(var player in GameManager.g.Players){
+            if(player.GetComponent<Stats>().maxHP > maxMaxHP){
+                maxMaxHP = player.GetComponent<Stats>().maxHP;
+            }
+        }
+        //I hate UI
+        float calc = (200-(stats.maxHP/maxMaxHP)*200) + 10;
+        thisHPS.healthSlider.GetComponent<RectTransform>().offsetMax = new Vector2(-1*calc, thisHPS.healthSlider.GetComponent<RectTransform>().offsetMax.y);
 
         if (thisHPS.manaSlider is null) return;
         thisHPS.manaSlider.value = Utils.Remap(currentMana, 0, stats.manaPool, 0, 1);
