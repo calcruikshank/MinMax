@@ -94,9 +94,8 @@ public class Gun : MonoBehaviour
         Bullet b;
         b = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
         b.transform.localEulerAngles = new Vector3(b.transform.localEulerAngles.x, b.transform.localEulerAngles.y + angleOffset, b.transform.localEulerAngles.z);
-        int didCrit = Random.Range(0, 100);
-        if (didCrit <= playerOwningGun.stats.critChance)
-        {
+        bool didCrit = Random.Range(0, 100) <= playerOwningGun.stats.critChance;
+        if (didCrit){
             if (critCanvas != null)
             {
                 GameObject c = Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
