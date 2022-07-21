@@ -21,8 +21,7 @@ public class PowerUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //type = (PowerT) Random.Range(0,5);
-        type = PowerT.homing;
+        type = (PowerT) Random.Range(0,5);
         SetColor(type);
     }
 
