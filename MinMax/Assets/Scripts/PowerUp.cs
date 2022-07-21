@@ -14,14 +14,15 @@ public class PowerUp : MonoBehaviour
         hp,
         ice,
         lightning,
-        //homing
+        homing
     }
 
     PowerT type;
     // Start is called before the first frame update
     void Start()
     {
-        type = (PowerT) Random.Range(0,5);
+        //type = (PowerT) Random.Range(0,5);
+        type = PowerT.homing;
         SetColor(type);
     }
 
@@ -71,11 +72,11 @@ public class PowerUp : MonoBehaviour
                     stats.AttackCooldown += 2f;
                     playerHit.gun.bullet = lightningPrefab;
                     break;
-               /* case PowerT.homing:
+                case PowerT.homing:
                     stats.Homing = true;
                     stats.ProjectileRange *= 0.5f;
                     playerHit.gun.bullet = homingPrefab;
-                    break;*/
+                    break;
 
             }
             GameManager.g.RemovePower(this);
