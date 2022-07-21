@@ -20,6 +20,10 @@ public class WandDispel : MonoBehaviour
             bullet.velocity = bullet.velocity * 1.5f;
             bullet.attackDamage = bullet.attackDamage * 1.5f;
             Debug.Log("Trigger enter");
+            if (SoundManager.singleton != null)
+            {
+                SoundManager.singleton.PlaySound(6, 0.4f, 0.4f);
+            }
         }
     }
 

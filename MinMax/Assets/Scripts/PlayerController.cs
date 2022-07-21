@@ -106,7 +106,6 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.g.startingGame) return;
         switch (state)
         {
             case State.Normal:
@@ -133,12 +132,12 @@ public class PlayerController : MonoBehaviour
                 HandleAnimationSpeeds();
                 break;
             case State.Rolling:
+                HandleRollAnimation();
                 break;
         }
     }
     void FixedUpdate()
     {
-        if (GameManager.g.startingGame) return;
         switch (state)
         {
             case State.Normal:
@@ -374,17 +373,25 @@ public class PlayerController : MonoBehaviour
     }
     void HandleRollInput()
     {
+        if (rollDownPressed)
+        {
+            dispelDownPressed = false;
+            currentSpeed /= stats.SpeedReductionWhenFiring;
+            StartRollAnimation();
+        }
     }
 
     void StartDispelAnimation()
     {
-        if (SoundManager.singleton != null)
-        {
-            SoundManager.singleton.PlaySound(6, 0.4f, 0.4f);
-        }
         dispelEntryTime = Time.time;
         ChangeStateToDispel();
+    }
 
+    float rollEntryTime;
+    void StartRollAnimation()
+    {
+        dispelEntryTime = Time.time;
+        ChangeStateToRoll();
     }
 
     public float currentDispelPercentage;
@@ -414,6 +421,10 @@ public class PlayerController : MonoBehaviour
         {
             ChangeStateToNormal();
         }
+    }
+    void HandleRollAnimation()
+    {
+        //transform.localScale *= 1.01f;
     }
     private void FireAnimation(AnimatorStateInfo stateInfo)
     {
