@@ -270,13 +270,14 @@ public class PlayerController : MonoBehaviour
         dispelDownPressed = false;
     }
 
+    bool rollDownPressed = false;
     void OnRollDown()
     {
-        
+        rollDownPressed = true;
     }
     void OnRollUp()
     {
-
+        rollDownPressed = false;
     }
 
     public void TakeDamage(float damageSent)
