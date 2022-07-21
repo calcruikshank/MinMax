@@ -55,7 +55,7 @@ public class Bullet : MonoBehaviour
         velocity = s.ProjectileSpeed;
         attackDamage = s.AttackDamage;
         projectileSize = s.ProjectileSize;
-        this.isCrit = true;
+        this.isCrit = isCrit;
         if(isCrit){
             attackDamage = attackDamage * 2;
             projectileSize = projectileSize * 1.5f;
