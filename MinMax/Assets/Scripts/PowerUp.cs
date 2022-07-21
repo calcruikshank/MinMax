@@ -28,7 +28,9 @@ public class PowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(transform.position.y < -10f){
+            Destroy(this);
+        }
     }
 
     private void SetColor(PowerT type)

@@ -27,7 +27,6 @@ public class Stats : MonoBehaviour
     public void Init(PlayerController playerSent)
     {
         player = playerSent;
-        SetManaRegenRate(3);
     }
 
     public void SetSpeed(int numSent)
