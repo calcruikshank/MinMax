@@ -67,18 +67,18 @@ public class DieScript : MonoBehaviour
         Instantiate(starParticles, transform.position, Quaternion.identity);
     }
 
-    bool isPlayingSound = false;
+    // bool isPlayingSound = false;
 
-    void OnTriggerEnter()
-    {
-        if (isPlayingSound) return;
-        SoundManager.singleton.PlayRandomDieHitSound();
-        isPlayingSound = true;
-        Invoke("SetIsPlayingToFalse", 0.1f);
-    }
+    // void OnTriggerEnter()
+    // {
+    //     if (isPlayingSound) return;
+    //     SoundManager.singleton.PlayRandomDieHitSound();
+    //     isPlayingSound = true;
+    //     Invoke("SetIsPlayingToFalse", 0.1f);
+    // }
 
-    void SetIsPlayingToFalse()
-    {
-        isPlayingSound = false;
-    }
+    // void SetIsPlayingToFalse()
+    // {
+    //     isPlayingSound = false;
+    // }
 }

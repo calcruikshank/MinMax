@@ -58,18 +58,18 @@ public class SoundManager : MonoBehaviour
         Destroy(newSound, clip.length);
     }
 
-    public void PlayRandomDieSound()
-    {
-        PlaySound(Mathf.FloorToInt(Random.Range(1, 3)), 0.5f, 0.5f);
-    }
+    // public void PlayRandomDieSound()
+    // {
+    //     PlaySound(Mathf.FloorToInt(Random.Range(1, 3)), 0.5f, 0.5f);
+    // }
 
     public void PlayRandomStepSound()
     {
-        PlaySound(Mathf.FloorToInt(Random.Range(7, 9)), 0.3f, 0.5f);
+        PlaySound(Mathf.FloorToInt(Random.Range(7, 9)), 0.1f, 0.5f);
     }
 
     public void PlayRandomDieHitSound()
     {
-        PlaySound(Mathf.FloorToInt(Random.Range(11, 15)), 0.4f, 0.5f);
+        PlaySound(Mathf.FloorToInt(Random.Range(11, 15)), Random.Range(0.2f, 0.5f), 0.5f);
     }
 }

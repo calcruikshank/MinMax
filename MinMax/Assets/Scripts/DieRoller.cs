@@ -70,7 +70,7 @@ public class DieRoller : MonoBehaviour
         if (currentDie != null && !EveryoneHasUsedCurrentDie()) return;
         timerPanel.SetActive(false);
         dieValuePanel.SetActive(false);
-        SoundManager.singleton.PlaySound(3, 0.5f, 0.5f);
+        // SoundManager.singleton.PlaySound(3, 0.5f, 0.5f);
         currentDie = null;
         rollButton.interactable = false;
         GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
