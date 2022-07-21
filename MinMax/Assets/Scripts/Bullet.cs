@@ -89,13 +89,11 @@ public class Bullet : MonoBehaviour
                 objectHit.TakeDamage(attackDamage);
                 Die();
             }
-        } 
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
-
     }
 
     public void Die(){
