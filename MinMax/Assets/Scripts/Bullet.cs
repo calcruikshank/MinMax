@@ -36,6 +36,7 @@ public class Bullet : MonoBehaviour
 
     public void SetHomingTarget(){
         var players = GameManager.g.Players.OrderBy(x => Vector3.Distance(x.transform.position, transform.position + transform.forward * 10)).ToList();
+        homingTarget = null;
         foreach(var player in players){
             if(player.GetComponent<PlayerController>() != playerOwningBullet && Vector3.Distance(transform.position + transform.forward * 10f,player.transform.position) < 15f){
                 homingTarget = player;

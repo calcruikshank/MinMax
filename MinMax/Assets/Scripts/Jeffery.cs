@@ -129,7 +129,7 @@ public class Jeffery : MonoBehaviour
                 }
                 break;
             case State.Grabbing:
-                if(grabTarget != null && Vector3.Distance(grabTarget.transform.position,transform.position)<=60 && !(grabTarget.transform.position.y<.2) || !(grabTarget.transform.position.y>.5)){
+                if(grabTarget != null && Vector3.Distance(grabTarget.transform.position,transform.position)<=60 && !(grabTarget.transform.position.y<.2) && !(grabTarget.transform.position.y>.5)){
                     var dir = grabTarget.transform.position - transform.position;
                     moveDirection = new Vector2(dir.x,dir.z); 
                 }else{
