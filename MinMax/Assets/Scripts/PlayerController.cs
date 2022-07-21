@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         playerInput = this.GetComponent<PlayerInput>();
         // Debug.Log(playerInput.currentControlScheme);
         if (thisHPS is null || thisHPS.healthSlider is null) return;
-        thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
+        thisHPS.healthSlider.value = Utils.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
 
         if (thisHPS.manaSlider is null) return;
