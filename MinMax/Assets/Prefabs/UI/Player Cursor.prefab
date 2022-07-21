@@ -67,9 +67,10 @@ MonoBehaviour:
   playerImage: {fileID: 6400631242843168144}
   thisRT: {fileID: 5355895893515492342}
   moveVal: {x: 0, y: 0}
-  speed: 2.7
+  speed: 3.5
   usedCurrentDie: 0
   thisMSS: {fileID: 0}
+  playerInput: {fileID: 0}
 --- !u!114 &5355895893515492337
 MonoBehaviour:
   m_ObjectHideFlags: 0

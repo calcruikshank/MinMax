@@ -86,7 +86,6 @@ public class DieRoller : MonoBehaviour
             if (!pc.gameObject.activeSelf) continue;
             // PlayerCursor pc = go.GetComponent<PlayerCursor>();
             pc.usedCurrentDie = false;
-            // pc.speed = 0;
             pc.thisMSS.readyPanel.SetActive(false);
             pc.thisMSS.addBotButton.gameObject.SetActive(false);
         }
@@ -227,14 +226,6 @@ public class DieRoller : MonoBehaviour
         isAddingPlayer = false;
     }
 
-    // public void SetPlayersMovement()
-    // {
-    //     foreach(PlayerCursor pc in pcs)
-    //     {
-    //         pc.speed = 200;
-    //     }
-    // }
-
     public MenuStatScript FirstUnusedMenuStatScript()
     {
         foreach(MenuStatScript mss in playerPanels)
@@ -266,7 +257,6 @@ public class DieRoller : MonoBehaviour
 
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
-            // pc.speed = 2.7f;
             pc.usedCurrentDie = false;
         }
 
@@ -294,7 +284,7 @@ public class DieRoller : MonoBehaviour
     public IEnumerator Timer()
     {
         timerText.text = ":0" + time.ToString();
-        SoundManager.singleton.PlayRandomDieSound();
+        // SoundManager.singleton.PlayRandomDieSound();
 
         while (time > 0)
         {
@@ -311,7 +301,7 @@ public class DieRoller : MonoBehaviour
             }
         }
 
-        SoundManager.singleton.PlaySound(4, 0.3f, 0.2f);
+        // SoundManager.singleton.PlaySound(4, 0.3f, 0.2f);
 
         timerText.text = "";
 
