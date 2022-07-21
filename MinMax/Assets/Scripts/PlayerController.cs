@@ -82,11 +82,11 @@ public class PlayerController : MonoBehaviour
         playerInput = this.GetComponent<PlayerInput>();
         // Debug.Log(playerInput.currentControlScheme);
         if (thisHPS is null || thisHPS.healthSlider is null) return;
-        thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
+        thisHPS.healthSlider.value = Utils.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = stats.HP.ToString() + "/" + stats.maxHP;
 
         if (thisHPS.manaSlider is null) return;
-        thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
+        thisHPS.manaSlider.value = Utils.Remap(currentMana, 0, stats.manaPool, 0, 1);
     }
 
     void FindLowestPoint()
@@ -313,7 +313,7 @@ public class PlayerController : MonoBehaviour
         }
         if (thisHPS is null) return;
         if (thisHPS.healthSlider is null) return;
-        thisHPS.healthSlider.value = GameManager.g.Remap(stats.HP, 0, stats.maxHP, 0, 1);
+        thisHPS.healthSlider.value = Utils.Remap(stats.HP, 0, stats.maxHP, 0, 1);
         thisHPS.playerHealthText.text = Mathf.Clamp(stats.HP, 0, stats.maxHP).ToString() + "/" + stats.maxHP;
     }
     public void Die()
@@ -366,7 +366,7 @@ public class PlayerController : MonoBehaviour
         currentMana = Mathf.Clamp(currentMana + (Time.deltaTime * stats.manaRegenRate), 0, stats.manaPool);
         if (thisHPS != null)
         {
-            thisHPS.manaSlider.value = GameManager.g.Remap(currentMana, 0, stats.manaPool, 0, 1);
+            thisHPS.manaSlider.value = Utils.Remap(currentMana, 0, stats.manaPool, 0, 1);
         }
 
         if (currentMana < stats.manaCost)
