@@ -6,8 +6,10 @@ using System.Linq;
 
 public class Bullet : MonoBehaviour
 {
+    public bool isCrit = false;
     public float velocity;
     public Vector3 targetPosition;
+    public GameObject critCanvas;
 
     public Vector3 startPosition;
     private float distMoved;
@@ -45,7 +47,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    internal void Init(PlayerController playerOwningGun, Vector3 endPosition)
+    internal void Init(PlayerController playerOwningGun, Vector3 endPosition, bool isCrit = false)
     {
         playerOwningBullet = playerOwningGun;
         var s = playerOwningBullet.stats;
@@ -54,6 +56,11 @@ public class Bullet : MonoBehaviour
         velocity = s.ProjectileSpeed;
         attackDamage = s.AttackDamage;
         projectileSize = s.ProjectileSize;
+        this.isCrit = isCrit;
+        if(isCrit){
+            attackDamage = attackDamage * 2;
+            projectileSize = projectileSize * 1.5f;
+        }
         transform.localScale = new Vector3(projectileSize,projectileSize,projectileSize);
     }
 
@@ -81,6 +88,10 @@ public class Bullet : MonoBehaviour
                var objectHit = other.GetComponent<PlayerController>();
             if(objectHit != playerOwningBullet){
                 objectHit.TakeDamage(attackDamage);
+                if (isCrit)
+                {
+                    Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
+                }
                 Die();
             }
         } 

@@ -6,7 +6,7 @@ public class Gun : MonoBehaviour
 {
     public GameObject bullet;
     public bool hasFiredForAnim = false;
-    public GameObject critCanvas;
+    // public GameObject critCanvas;
 
     PlayerController playerOwningGun;
 
@@ -94,17 +94,14 @@ public class Gun : MonoBehaviour
         Bullet b;
         b = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
         b.transform.localEulerAngles = new Vector3(b.transform.localEulerAngles.x, b.transform.localEulerAngles.y + angleOffset, b.transform.localEulerAngles.z);
-        b.Init(playerOwningGun, transform.position + b.transform.forward * playerOwningGun.stats.ProjectileRange);
-        int didCrit = Random.Range(0, 100);
-        if (didCrit <= playerOwningGun.stats.critChance)
-        {
-            if (critCanvas != null)
-            {
-                GameObject c = Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
-                Destroy(c, 2);
-            }
-            b.attackDamage = b.attackDamage * 2;
-            b.transform.localScale = new Vector3(b.transform.localScale.x * 1.5f, b.transform.localScale.y * 1.5f, b.transform.localScale.z * 1.5f);
-        }
+        bool didCrit = Random.Range(0, 100) <= playerOwningGun.stats.critChance;
+        // if (didCrit){
+        //     if (critCanvas != null)
+        //     {
+        //         GameObject c = Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
+        //         Destroy(c, 2);
+        //     }
+        // }
+        b.Init(playerOwningGun, transform.position + b.transform.forward * playerOwningGun.stats.ProjectileRange, isCrit: didCrit);
     }
 }
