@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEditor.Animations;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,8 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public Gun gun;
 
-    [SerializeField] private Animator legsAnim;
-    public Animator armsAnim;
+    [SerializeField] private Animator anim;
 
     [SerializeField] Transform playerTorso;
     [SerializeField] Transform playerLegs;
@@ -121,18 +121,18 @@ public class PlayerController : MonoBehaviour
                 HandleMovement();
                 HandleDispelInput();
                 HandleRollInput();
-                FireAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
+                FireAnimation(anim.GetCurrentAnimatorStateInfo(1));
                 HandleAnimationSpeeds();
                 break;
             case State.Dispelling:
-                HandleDispelAnimation(armsAnim.GetCurrentAnimatorStateInfo(0));
+                HandleDispelAnimation(anim.GetCurrentAnimatorStateInfo(1));
                 FaceLookDirection();
                 HandleMovement();
                 HandleRollInput();
                 HandleAnimationSpeeds();
                 break;
             case State.Rolling:
-                HandleRollAnimation();
+                HandleRollAnimation(anim.GetCurrentAnimatorStateInfo(0));
                 break;
         }
     }
@@ -164,8 +164,8 @@ public class PlayerController : MonoBehaviour
         {
             playerLegs.transform.forward = Vector3.Lerp(playerLegs.transform.forward, movement, 20f * Time.deltaTime);
         }
+        anim.SetFloat("LegsMoveSpeed", currentSpeed / stats.Speed);
 
-        legsAnim.speed = currentSpeed / stats.Speed;
         /*if (movement.magnitude != 0)
         {
             currentSpeed += 165 * Time.deltaTime;
@@ -183,11 +183,11 @@ public class PlayerController : MonoBehaviour
 
         if (Mathf.Abs(rb.velocity.magnitude) >= .02f)
         {
-            legsAnim.SetBool("isMoving", true);
+            anim.SetBool("isMoving", true);
         }
         else
         {
-            legsAnim.SetBool("isMoving", false);
+            anim.SetBool("isMoving", false);
         }
         /*if (rb.velocity.magnitude > stats.Speed)
         {
@@ -201,17 +201,19 @@ public class PlayerController : MonoBehaviour
     float currentRollSpeed;
     private void FixedHandleRoll()
     {
-        //rb.AddForce(movement.normalized * moveSpeed);
-        rb.velocity = new Vector3(playerTorso.transform.forward.x * currentRollSpeed, rb.velocity.y, playerTorso.transform.forward.z * currentRollSpeed);
+        if (startRolling)
+        {
+            rb.velocity = new Vector3(lastLookedPosition.normalized.x * currentRollSpeed, rb.velocity.y, lastLookedPosition.normalized.z * currentRollSpeed);
+        }
+        if (!startRolling)
+        {
+            rb.velocity = Vector3.zero;
+        }
 
-        if (Mathf.Abs(rb.velocity.magnitude) >= .02f)
-        {
-            legsAnim.SetBool("isMoving", true);
-        }
-        else
-        {
-            legsAnim.SetBool("isMoving", false);
-        }
+        //rb.AddForce(movement.normalized * moveSpeed);
+
+
+        anim.SetBool("isMoving", false);
     }
     void FaceLookDirection()
     {
@@ -223,7 +225,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             //if you aren't actively looking anywhere look where you are going. 
-            lastLookedPosition = movement.normalized;
+            if (movement.magnitude != 0)
+            {
+                lastLookedPosition = movement.normalized;
+            }
         }
 
         playerTorso.transform.forward = Vector3.Lerp(playerTorso.transform.forward, lastLookedPosition, 20f * Time.deltaTime);
@@ -304,12 +309,12 @@ public class PlayerController : MonoBehaviour
         stats.HP -= damageSent;
         if (stats.HP <= 0)
         {
-            SoundManager.singleton.PlaySound(10, 0.8f, 0.2f, basePitch:1*stats.PlayerSize);
+            SoundManager.singleton.PlaySound(10, 0.8f, 0.2f, basePitch: 1 * stats.PlayerSize);
             Die();
         }
         else
         {
-            SoundManager.singleton.PlaySound(9, 0.8f, 0.2f, basePitch:1*stats.PlayerSize);
+            SoundManager.singleton.PlaySound(9, 0.8f, 0.2f, basePitch: 1 * stats.PlayerSize);
         }
         if (thisHPS is null) return;
         if (thisHPS.healthSlider is null) return;
@@ -393,8 +398,7 @@ public class PlayerController : MonoBehaviour
     {
         if (rollDownPressed)
         {
-            dispelDownPressed = false;
-            currentSpeed /= stats.SpeedReductionWhenFiring;
+            rollDownPressed = false;
             StartRollAnimation();
         }
     }
@@ -408,8 +412,7 @@ public class PlayerController : MonoBehaviour
     float rollEntryTime;
     void StartRollAnimation()
     {
-        dispelEntryTime = Time.time;
-        playerTorso.transform.forward = lastLookedPosition;
+        rollEntryTime = Time.time;
         currentRollSpeed = stats.initialRollSpeed;
         ChangeStateToRoll();
     }
@@ -442,11 +445,27 @@ public class PlayerController : MonoBehaviour
             ChangeStateToNormal();
         }
     }
-    void HandleRollAnimation()
+    float currentRollPercentage;
+    bool startRolling;
+    void HandleRollAnimation(AnimatorStateInfo stateInfo)
     {
         float currentRollSpeedMulti = 3f;
         currentRollSpeed -= currentRollSpeedMulti * Time.deltaTime;
 
+        currentRollPercentage = (Time.time - rollEntryTime) / stateInfo.length;
+
+        if (stateInfo.IsName("Roll") && currentRollPercentage > .4f && currentRollPercentage <= .8f)
+        {
+            startRolling = true;
+        }
+        if (stateInfo.IsName("Roll") && currentRollPercentage > .8f)
+        {
+            startRolling = false;
+        }
+        if (!stateInfo.IsName("Roll") && currentRollPercentage > .8f)
+        {
+            ChangeStateToNormal();
+        }
     }
     private void FireAnimation(AnimatorStateInfo stateInfo)
     {
@@ -459,8 +478,8 @@ public class PlayerController : MonoBehaviour
         // Debug.Log(stateInfo.length);
         if (!stateInfo.IsName("Arms_Cast 1") && currentPercentage > .4f)
         {
-            
-            
+
+
             if (fireStillPressed == true && gun.hasFiredForAnim && currentMana >= stats.manaCost)
             {
                 ChangeStateToFire();
@@ -472,29 +491,16 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     float dispelEntryTime;
 
 
     void HandleAnimationSpeeds()
     {
-        if (state == State.Dispelling)
-        {
-            armsAnim.speed = stats.DispelSpeed;
-        }
-        if (state == State.Firing)
-        {
-            armsAnim.speed = stats.AttackCooldown;
-        }
-        if (state == State.Normal)
-        {
-            armsAnim.speed = 1;
-        }
-        if (state == State.Rolling)
-        {
-            armsAnim.speed = 1;
-        }
+        anim.SetFloat("ArmsDispelSpeed", stats.DispelSpeed);
+        anim.SetFloat("ArmsAttackSpeed", stats.AttackCooldown);
     }
+
     public MeshRenderer hatRenderer, cloakRenderer;
 
     public void ChangeColor(Color c)
@@ -515,35 +521,36 @@ public class PlayerController : MonoBehaviour
         // Debug.Log(currentDispelPercentage);
         currentSpeed = stats.Speed;
         //wand.GetComponent<Collider>().enabled = false;
-        armsAnim.SetBool("dispel", false);
-        armsAnim.SetBool("cast", false);
-        armsAnim.SetBool("roll", false);
+        anim.SetBool("dispel", false);
+        anim.SetBool("cast", false);
+        anim.SetBool("roll", false);
         state = State.Normal;
     }
     void ChangeStateToFire()
     {
         gun.hasFiredForAnim = false;
         entryTime = Time.time;
-        armsAnim.SetBool("cast", true);
-        armsAnim.SetBool("dispel", false);
-        armsAnim.SetBool("roll", false);
+        anim.SetBool("cast", true);
+        anim.SetBool("dispel", false);
+        anim.SetBool("roll", false);
         state = State.Firing;
     }
     void ChangeStateToDispel()
     {
-        armsAnim.SetBool("dispel", true);
-        armsAnim.SetBool("cast", false);
-        armsAnim.SetBool("roll", false);
+        anim.SetBool("dispel", true);
+        anim.SetBool("cast", false);
+        anim.SetBool("roll", false);
         state = State.Dispelling;
     }
     void ChangeStateToRoll()
     {
+        playerTorso.forward = lastLookedPosition;
         // Debug.Log(currentDispelPercentage);
         currentSpeed = stats.Speed;
         //wand.GetComponent<Collider>().enabled = false;
-        armsAnim.SetBool("dispel", false);
-        armsAnim.SetBool("cast", false);
-        armsAnim.SetBool("roll", true);
+        anim.SetBool("dispel", false);
+        anim.SetBool("cast", false);
+        anim.SetBool("roll", true);
         state = State.Rolling;
     }
     #endregion

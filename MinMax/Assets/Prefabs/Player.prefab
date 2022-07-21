@@ -98,11 +98,10 @@ MonoBehaviour:
   inputMovement: {x: 0, y: 0}
   state: 0
   stats: {fileID: 0}
-  gun: {fileID: 0}
-  legsAnim: {fileID: 0}
-  armsAnim: {fileID: 0}
-  playerTorso: {fileID: 0}
-  playerLegs: {fileID: 0}
+  gun: {fileID: 1485475521253859803}
+  anim: {fileID: 4898077068795973022}
+  playerTorso: {fileID: 7222650915636203415}
+  playerLegs: {fileID: 8859145773385965457}
   dieBody: {fileID: 1970027438439640900}
   capeAnim: {fileID: 4541141951256252230}
   faceRotations:
@@ -587,6 +586,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 6.32736
       objectReference: {fileID: 0}
+    - target: {fileID: 5528860797864257434, guid: 66a1102650f6dbb4ab1a60dd13f2afa9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5685404182001753192, guid: 66a1102650f6dbb4ab1a60dd13f2afa9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -2.3287315
@@ -705,6 +708,11 @@ Transform:
 --- !u!4 &8296800506845770490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7075281481611910124, guid: 66a1102650f6dbb4ab1a60dd13f2afa9, type: 3}
+  m_PrefabInstance: {fileID: 1230708787479980310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8859145773385965457 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7774999918915155591, guid: 66a1102650f6dbb4ab1a60dd13f2afa9, type: 3}
   m_PrefabInstance: {fileID: 1230708787479980310}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2079617366505474223
