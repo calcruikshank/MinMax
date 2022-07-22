@@ -67,10 +67,11 @@ MonoBehaviour:
   playerImage: {fileID: 6400631242843168144}
   thisRT: {fileID: 5355895893515492342}
   moveVal: {x: 0, y: 0}
-  speed: 3.5
+  speed: 5
   usedCurrentDie: 0
   thisMSS: {fileID: 0}
   playerInput: {fileID: 0}
+  isAnimating: 0
 --- !u!114 &5355895893515492337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +131,7 @@ MonoBehaviour:
   manaCost: 20
   critChance: 1
   Homing: 0
+  initialRollSpeed: 0
 --- !u!1 &5355895894337139575
 GameObject:
   m_ObjectHideFlags: 0

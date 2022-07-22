@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 66a1102650f6dbb4ab1a60dd13f2afa9
+guid: 57ef43d4d8ab48945a15b09e3161f15f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
@@ -31,9 +31,6 @@ ModelImporter:
       74: 1044633255360215623
     second: Armature|Arms_Idle
   - first:
-      74: -7256647748363230992
-    second: Armature|Arms_Roll
-  - first:
       74: 1117624815874498298
     second: Armature|Legs_Idle
   - first:
@@ -44,7 +41,7 @@ ModelImporter:
     second: Armature|Roll
   externalObjects: {}
   materials:
-    materialImportMode: 0
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -115,7 +112,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
-  importAnimation: 0
+  importAnimation: 1
   humanDescription:
     serializedVersion: 3
     human: []
@@ -128,7 +125,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: Root
+    rootMotionBoneName: RootRoot
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

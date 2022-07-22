@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Animator anim;
 
-    [SerializeField] Transform playerTorso;
-    [SerializeField] Transform playerLegs;
+    [SerializeField] Transform pelvis;
+    [SerializeField] Transform pelvisLegs;
+    [SerializeField] Transform rootRoot;
 
     [SerializeField] Transform dieBody;
     [SerializeField] Animator capeAnim;
@@ -170,7 +171,7 @@ public class PlayerController : MonoBehaviour
         movement.z = inputMovement.y;
         if (movement.normalized != Vector3.zero)
         {
-            playerLegs.transform.forward = Vector3.Lerp(playerLegs.transform.forward, movement, 20f * Time.deltaTime);
+            pelvisLegs.transform.forward = Vector3.Lerp(pelvisLegs.transform.forward, movement, 20f * Time.deltaTime);
         }
         anim.SetFloat("LegsMoveSpeed", currentSpeed / stats.Speed);
 
@@ -211,11 +212,11 @@ public class PlayerController : MonoBehaviour
     {
         if (startRolling)
         {
-            rb.velocity = new Vector3(lastLookedPosition.normalized.x * currentRollSpeed, rb.velocity.y, lastLookedPosition.normalized.z * currentRollSpeed);
+            rb.velocity = new Vector3(lastLookedPosition.normalized.x * currentRollSpeed / 1.75f, rb.velocity.y, lastLookedPosition.normalized.z * currentRollSpeed / 1.75f);
         }
         if (!startRolling)
         {
-            rb.velocity = Vector3.zero;
+            rb.velocity = Vector3.Lerp(rb.velocity,Vector3.zero, 20f * Time.deltaTime);
         }
 
         //rb.AddForce(movement.normalized * moveSpeed);
@@ -239,7 +240,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        playerTorso.transform.forward = Vector3.Lerp(playerTorso.transform.forward, lastLookedPosition, 20f * Time.deltaTime);
+        pelvis.transform.forward = Vector3.Lerp(pelvis.transform.forward, lastLookedPosition, 20f * Time.deltaTime);
 
         //player face spin
         if (dieBody.localRotation != Quaternion.Euler(targetFaceRot))
@@ -404,7 +405,7 @@ public class PlayerController : MonoBehaviour
     }
     void HandleRollInput()
     {
-        if (rollDownPressed)
+        if (rollDownPressed && !anim.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
         {
             rollDownPressed = false;
             StartRollAnimation();
@@ -462,17 +463,16 @@ public class PlayerController : MonoBehaviour
 
         currentRollPercentage = (Time.time - rollEntryTime) / stateInfo.length;
 
-        if (stateInfo.IsName("Roll") && currentRollPercentage > .4f && currentRollPercentage <= .8f)
+        if (stateInfo.IsName("Roll") && currentRollPercentage > .3f && currentRollPercentage <= .8f)
         {
             startRolling = true;
         }
         if (stateInfo.IsName("Roll") && currentRollPercentage > .8f)
         {
             startRolling = false;
-        }
-        if (!stateInfo.IsName("Roll") && currentRollPercentage > .8f)
-        {
+            anim.SetBool("roll", false);
             ChangeStateToNormal();
+
         }
     }
     private void FireAnimation(AnimatorStateInfo stateInfo)
@@ -552,7 +552,9 @@ public class PlayerController : MonoBehaviour
     }
     void ChangeStateToRoll()
     {
-        playerTorso.forward = lastLookedPosition;
+        rootRoot.forward = lastLookedPosition;
+        pelvis.forward = lastLookedPosition;
+        pelvisLegs.forward = lastLookedPosition;
         // Debug.Log(currentDispelPercentage);
         currentSpeed = stats.Speed;
         //wand.GetComponent<Collider>().enabled = false;
