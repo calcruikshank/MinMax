@@ -123,6 +123,7 @@ MonoBehaviour:
   currentPercentage: 0
   thisHPS: {fileID: 0}
   circleImage: {fileID: 640957127616621353}
+  critCanvas: {fileID: 6084861183508426760, guid: 90a461ca64403ae4487024f5b27d30c7, type: 3}
   dispellMesh: {fileID: 4871874021401815009, guid: f47a697b9e1a18b48b1fdd690b968b77, type: 3}
   currentMana: 0
   groundLayer:

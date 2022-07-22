@@ -49,8 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8270d8e371693c848877e70fdb3ec5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCrit: 0
   velocity: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  critCanvas: {fileID: 6084861183508426760, guid: 90a461ca64403ae4487024f5b27d30c7, type: 3}
   startPosition: {x: 0, y: 0, z: 0}
   attackDamage: 0
   playerOwningBullet: {fileID: 0}

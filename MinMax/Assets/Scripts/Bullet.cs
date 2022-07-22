@@ -89,12 +89,20 @@ public class Bullet : MonoBehaviour
         if (other.GetComponent<PlayerController>() != null)
         {
             hasHitPlayer = true;
-               var objectHit = other.GetComponent<PlayerController>();
+            var objectHit = other.GetComponent<PlayerController>();
             if(objectHit != playerOwningBullet){
                 objectHit.TakeDamage(attackDamage);
-                if (isCrit)
+                if (critCanvas != null)
                 {
-                    Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
+                    GameObject oof = Instantiate(critCanvas, transform.position, Camera.main.transform.rotation);
+                    if (isCrit)
+                    {
+                        oof.GetComponent<DestroyWorldCanvas>().oofText.text = "critical oof!";
+                    }
+                    else
+                    {
+                        oof.GetComponent<DestroyWorldCanvas>().oofText.text = "oof x" + Mathf.RoundToInt(attackDamage).ToString();
+                    }
                 }
                 Die();
             }
