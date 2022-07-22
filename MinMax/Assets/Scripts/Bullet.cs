@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     private float distMoved;
     public float attackDamage;
     private float projectileSize;
+    private float projectileRange;
     private GameObject homingTarget = null;
     public PlayerController playerOwningBullet;
     public bool isHoming;
@@ -47,10 +48,13 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    internal void Init(PlayerController playerOwningGun, Vector3 endPosition, bool isCrit = false)
+    internal void Init(PlayerController playerOwningGun, Vector3 target, bool isCrit = false)
     {
+        
         playerOwningBullet = playerOwningGun;
         var s = playerOwningBullet.stats;
+        projectileRange = s.ProjectileRange;
+        Vector3 endPosition = target +transform.forward * projectileRange;
         isHoming = s.Homing;
         ShootAt(endPosition);
         velocity = s.ProjectileSpeed;
@@ -71,10 +75,10 @@ public class Bullet : MonoBehaviour
             targetPosition = homingTarget.transform.position;
         }
         distMoved += Time.deltaTime * velocity ;
-        float percentMoved = distMoved/Vector3.Distance(targetPosition,startPosition);
-        transform.localPosition = Vector3.Lerp(startPosition, targetPosition, percentMoved);
-
-        if(transform.localPosition == targetPosition){
+        //float percentMoved = distMoved/Vector3.Distance(targetPosition,startPosition);
+        //transform.localPosition = Vector3.Lerp(startPosition, targetPosition, percentMoved);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, Time.deltaTime * velocity);
+        if(Vector3.Distance(transform.localPosition, targetPosition) < 0.001f || distMoved >= projectileRange){
             Die();
         }
     }
