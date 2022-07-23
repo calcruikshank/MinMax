@@ -175,7 +175,7 @@ MonoBehaviour:
   SpeedReductionWhenFiring: 2
   DispelSpeed: 1
   manaPool: 100
-  manaRegenRate: 1
+  manaRegenRate: 80
   manaCost: 20
   critChance: 1
   Homing: 0

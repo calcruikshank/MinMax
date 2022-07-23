@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Vector3 lastLookedPosition;
     public Vector2 lookDirection;
     Vector3 movement;
+    Vector3 currentMovement;
     public Vector2 inputMovement;
     Vector2 inputFace;
 
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
     public float currentPercentage;
     public HealthPanelScript thisHPS;
     public Image circleImage;
+    float acceleration = 10f;
 
     bool pressedFireWhileDispelling = false;
 
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     PlayerInput playerInput;
     InputDevice currentDevice;
+
     public enum State
     {
         Normal,
@@ -92,7 +95,7 @@ public class PlayerController : MonoBehaviour
                 maxMaxHP = player.GetComponent<Stats>().maxHP;
             }
         }
-        //I hate UI
+        //I hate UI lol
         float calc = (200-(stats.maxHP/maxMaxHP)*200) + 10;
         thisHPS.healthSlider.GetComponent<RectTransform>().offsetMax = new Vector2(-1*calc, thisHPS.healthSlider.GetComponent<RectTransform>().offsetMax.y);
 
@@ -175,6 +178,7 @@ public class PlayerController : MonoBehaviour
         }
         anim.SetFloat("LegsMoveSpeed", currentSpeed / stats.Speed);
 
+        currentMovement = Vector3.MoveTowards(currentMovement, movement, acceleration * Time.deltaTime);
         /*if (movement.magnitude != 0)
         {
             currentSpeed += 165 * Time.deltaTime;
@@ -188,7 +192,7 @@ public class PlayerController : MonoBehaviour
     private void FixedHandleMovement()
     {
         //rb.AddForce(movement.normalized * moveSpeed);
-        rb.velocity = new Vector3(movement.x * currentSpeed, rb.velocity.y, movement.z * currentSpeed);
+        rb.velocity = new Vector3(currentMovement.x * currentSpeed, rb.velocity.y, currentMovement.z * currentSpeed);
 
         if (Mathf.Abs(rb.velocity.magnitude) >= .02f)
         {
@@ -407,6 +411,7 @@ public class PlayerController : MonoBehaviour
     {
         if (rollDownPressed && !anim.GetCurrentAnimatorStateInfo(0).IsName("Roll"))
         {
+            if (lastLookedPosition.normalized == Vector3.zero) return;
             rollDownPressed = false;
             StartRollAnimation();
         }
