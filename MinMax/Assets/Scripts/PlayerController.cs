@@ -557,6 +557,10 @@ public class PlayerController : MonoBehaviour
     }
     void ChangeStateToRoll()
     {
+        if (newDispelObject != null)
+        {
+            Destroy(newDispelObject);
+        }
         rootRoot.forward = lastLookedPosition;
         pelvis.forward = lastLookedPosition;
         pelvisLegs.forward = lastLookedPosition;
