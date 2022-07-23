@@ -10,32 +10,28 @@ using DG.Tweening;
 public class DieRoller : MonoBehaviour
 {
     public static DieRoller singleton;
-    public GameObject diePrefab, botPrefab, timerPanel, dieValuePanel, joinText;
+    public GameObject diePrefab, botPrefab, timerPanel, dieValuePanel, joinText, mainCanvas;
+    public GameObject[] addBotButtons;
+    public SpriteRenderer jefferyLogo;
     public Transform placeDiceHere, placePlayersHere;
     [HideInInspector] public DieScript currentDie;
     public TMP_Text valueText, timerText;
-    // public int playerIndex = 0;
     public Button rollButton, resetButton, optionsButton, xButton, playButton;
-    // public GameObject[] playerCursors;
     public MenuStatScript[] playerPanels;
-    // public List<PlayerCursor> pcs = new List<PlayerCursor>();
     public bool useBots = true, useSameStats = true;
     public Toggle botsToggle, sameStatsToggle;
     public List<string> sameStats = new List<string>();
     public List<string> statStrings = new List<string>();
-    // public Button[] addBotButtons;
     bool isRemovingPlayer = false;
     bool isAddingPlayer = false;
+    bool isAnimating = false;
     public float dieSpawnSize = 0.75f;
-    // public GameObject dragCanvas;
 
     void Awake()
     {
         if (singleton is null)
         {
-            // Debug.Log("setting die roller singleton");
             singleton = this;
-            // DontDestroyOnLoad(this);
         }
     }
 
@@ -45,28 +41,20 @@ public class DieRoller : MonoBehaviour
         Toggle_UseBots(true);
         botsToggle.isOn = useBots;
         sameStatsToggle.isOn = useSameStats;
-        // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
-        // for(int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
-        // {
-        //     // GameObject newPC = Instantiate(pc.gameObject);
-        //     // newPC.transform.SetParent(SoundManager.singleton.transform);
-        //     // pc.transform.SetParent(placePlayersHere.transform);
-        //     // SoundManager.singleton.pcs.Add(pc);
-        //     PlayerCursor pc = SoundManager.singleton.pcs[i];
-        //     if (pc.GetComponent<PlayerInput>()) {
-        //         OnPlayerJoined(pc.GetComponent<PlayerInput>());
-        //     }
-        //     else {
-        //         SoundManager.singleton.pcs.Remove(pc);
-        //         Destroy(pc.gameObject);
-        //     }
-        // }
+        isAnimating = true;
+        mainCanvas.SetActive(false);
+        jefferyLogo.transform.localScale = Vector3.zero;
+        jefferyLogo.transform.DOScale(Vector3.one, 1.0f).OnComplete(() => {
+            mainCanvas.SetActive(true);
+            isAnimating = false;
+        });
+        jefferyLogo.DOFade(SoundManager.singleton.pcs.Count > 0 ? 0 : 0.55f, 0.35f);
+        
     }
 
     public void Button_RollDie()
     {
-        // Debug.Log("rolling die");
-        if (isRemovingPlayer || isAddingPlayer) return;
+        if (isRemovingPlayer || isAddingPlayer || isAnimating) return;
         if (PlayersAreReady()) return;
         if (currentDie != null && !EveryoneHasUsedCurrentDie()) return;
         timerPanel.transform.DOScale(0, 0.2f).OnComplete(() => {
@@ -75,26 +63,20 @@ public class DieRoller : MonoBehaviour
         dieValuePanel.transform.DOScale(0, 0.2f).OnComplete(() => {
             dieValuePanel.SetActive(false);
         });
-        // SoundManager.singleton.PlaySound(3, 0.5f, 0.5f);
         currentDie = null;
         rollButton.interactable = false;
         GameObject rolledDie = Instantiate(diePrefab, placeDiceHere.position, Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
-        // currentDie = rolledDie.GetComponent<DieScript>();
         rolledDie.transform.localScale = new Vector3(dieSpawnSize, dieSpawnSize, dieSpawnSize);
         rolledDie.GetComponent<DieScript>().thisRB.AddForce(Vector3.right * Random.Range(200, 1000));
         rolledDie.GetComponent<DieScript>().thisRB.AddTorque(Vector3.right * Random.Range(-200000, 200000));
         rolledDie.GetComponent<DieScript>().thisDR = this;
-        // currentDie.stopped = false;
-        // currentDie.thisRB.isKinematic = false;
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             if (!pc.gameObject.activeSelf) continue;
-            // PlayerCursor pc = go.GetComponent<PlayerCursor>();
             pc.usedCurrentDie = false;
             pc.thisMSS.readyPanel.SetActive(false);
             pc.thisMSS.addBotButton.gameObject.SetActive(false);
         }
-        // StartCoroutine(Timer());
         time = 6;
     }
 
@@ -103,12 +85,10 @@ public class DieRoller : MonoBehaviour
         if (on)
         {
             GetComponent<PlayerInputManager>().EnableJoining();
-            // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
         }
         else
         {
             GetComponent<PlayerInputManager>().DisableJoining();
-            // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
         }
     }
 
@@ -116,31 +96,22 @@ public class DieRoller : MonoBehaviour
 
     public void Button_LoadGamesScene()
     {
+        if (isAnimating) return;
         isStartingGame = true;
         GetComponent<PlayerInputManager>().DisableJoining();
-
-        // SoundManager.singleton.pcs = new List<PlayerCursor>();
 
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             pc.SetUnusedStatsToThree();
-            // GameObject newPC = Instantiate(pc.gameObject);
-            // newPC.transform.SetParent(SoundManager.singleton.transform);
             pc.transform.SetParent(SoundManager.singleton.transform);
-            // if (pc.gameObject.GetComponent<PlayerInput>())
-            // {
-            //     OnPlayerLeft(pc.gameObject.GetComponent<PlayerInput>());
-            // }
-            // SoundManager.singleton.pcs.Add(pc);
         }
-
-        // GetComponent<PlayerInputManager>().joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
 
         SceneManager.LoadScene("SampleScene");
     }
 
     public void Button_RollSameStats()
     {
+        if (isAnimating) return;
         List<string> statsCopy = new List<string>(statStrings);
         for(int i = 0; i < 6; i++)
         {
@@ -157,7 +128,6 @@ public class DieRoller : MonoBehaviour
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
             if (!pc.gameObject.activeSelf) continue;
-            // PlayerCursor pc = go.GetComponent<PlayerCursor>();
             if (!pc.usedCurrentDie) return false;
         }
         timerPanel.transform.DOScale(0, 0.2f).OnComplete(() => {
@@ -183,33 +153,29 @@ public class DieRoller : MonoBehaviour
 
     public void CheckForDieUsage()
     {
-        if (currentDie is null || !EveryoneHasUsedCurrentDie()) return;
+        if (currentDie is null || !EveryoneHasUsedCurrentDie() || isAnimating) return;
         
         Destroy(currentDie.gameObject);
         currentDie = null;
         valueText.text = "-";
         rollButton.interactable = !PlayersAreReady();
-
-        // currentDie.thisMR.material = EveryoneHasUsedCurrentDie() ? usedDie : unusedDie;
     }
 
     public void OnPlayerJoined(PlayerInput pi)
     {
-        if (isRemovingPlayer || isStartingGame) return;
+        if (isRemovingPlayer || isStartingGame || isAnimating) return;
         isAddingPlayer = true;
-        // playerCursors[playerIndex].SetActive(true);
         pi.transform.SetParent(placePlayersHere);
         PlayerCursor joinedPlayer = pi.GetComponent<PlayerCursor>();
-        // FirstUnusedMenuStatScript().gameObject.SetActive(true);
-        // addBotButtons[pcs.Count].gameObject.SetActive(false);
         joinedPlayer.Initialize(FirstUnusedMenuStatScript(), false);
         SoundManager.singleton.pcs.Add(joinedPlayer);
-        // playerIndex++;
         joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
+        rollButton.gameObject.SetActive(SoundManager.singleton.pcs.Count > 0);
         rollButton.interactable = !PlayersAreRollingStats();
         resetButton.interactable = SoundManager.singleton.pcs.Count > 0;
         ResetAllStats();
         Invoke("SetRemovingPlayerToFalse", 0.1f);
+        jefferyLogo.DOFade(SoundManager.singleton.pcs.Count > 0 ? 0 : 0.55f, 0.35f);
     }
 
     public void OnPlayerLeft(PlayerInput pi)
@@ -217,16 +183,14 @@ public class DieRoller : MonoBehaviour
         if (isAddingPlayer) return;
         if (pi.currentControlScheme == "Keyboard&Mouse") Cursor.visible = true;
         isRemovingPlayer = true;
-        // playerIndex--;
-        // playerCursors[playerIndex].SetActive(false);
         PlayerCursor leftPlayer = pi.GetComponent<PlayerCursor>();
-        // SoundManager.singleton.pcs.Remove(leftPlayer);
         leftPlayer.thisMSS.backgroundPanel.gameObject.SetActive(false);
         joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
+        rollButton.gameObject.SetActive(SoundManager.singleton.pcs.Count > 0);
         rollButton.interactable = !PlayersAreRollingStats() && !PlayersAreReady();
         resetButton.interactable = SoundManager.singleton.pcs.Count > 0;
-        // addBotButtons[pcs.Count].gameObject.SetActive(useBots);
         Invoke("SetRemovingPlayerToFalse", 0.1f);
+        jefferyLogo.DOFade(SoundManager.singleton.pcs.Count > 0 ? 0 : 0.55f, 0.35f);
     }
 
     void SetRemovingPlayerToFalse()
@@ -293,7 +257,6 @@ public class DieRoller : MonoBehaviour
     public IEnumerator Timer()
     {
         timerText.text = ":0" + time.ToString();
-        // SoundManager.singleton.PlayRandomDieSound();
 
         while (time > 0)
         {
@@ -309,8 +272,6 @@ public class DieRoller : MonoBehaviour
                 }
             }
         }
-
-        // SoundManager.singleton.PlaySound(4, 0.3f, 0.2f);
 
         timerText.text = "";
 
@@ -330,7 +291,6 @@ public class DieRoller : MonoBehaviour
 
         currentDie = null;
         valueText.text = "-";
-        // rollButton.interactable = !PlayersAreReady();
         Button_RollDie();
     }
 
@@ -343,8 +303,6 @@ public class DieRoller : MonoBehaviour
     public void Toggle_UseBots(bool b)
     {
         useBots = b;
-        // b = !PlayersAreReady();
-        // foreach(Button bu in addBotButtons)
         for(int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
         {
             if (SoundManager.singleton.pcs[i].thisMSS.isBot)
@@ -355,39 +313,40 @@ public class DieRoller : MonoBehaviour
                 SoundManager.singleton.pcs[i].thisMSS.addBotButton.gameObject.SetActive(false);
                 SoundManager.singleton.pcs.Remove(leftPlayer);
                 joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
+                rollButton.gameObject.SetActive(SoundManager.singleton.pcs.Count > 0);
                 rollButton.interactable = !PlayersAreRollingStats() && !PlayersAreReady();
                 resetButton.interactable = SoundManager.singleton.pcs.Count > 0;
-                // addBotButtons[pcs.Count].gameObject.SetActive(useBots);
                 Destroy(leftPlayer.gameObject);
                 Invoke("SetRemovingPlayerToFalse", 0.1f);
             }
         }
-        // for (int i = 0; i < addBotButtons.Length; i++)
-        // {
-        //     // int buttonIndex = System.Array.IndexOf(AddBotButtons, bu);
-        //     bool isPlayer = i < pcs.Count;
-        //     // addBotButtons[i].gameObject.SetActive(b && !isPlayer);
-        // }
+        foreach(GameObject go in addBotButtons)
+        {
+            go.SetActive(b);
+        }
+        jefferyLogo.DOFade(SoundManager.singleton.pcs.Count > 0 ? 0 : 0.55f, 0.35f);
     }
 
     public void AddBot()
     {
-        if (!useBots || currentDie != null || isStartingGame) return;
+        if (!useBots || currentDie != null || isStartingGame || isAnimating) return;
         isAddingPlayer = true;
         GameObject botCursor = Instantiate(botPrefab);
         botCursor.transform.SetParent(placePlayersHere);
         PlayerCursor joinedPlayer = botCursor.GetComponent<PlayerCursor>();
         MenuStatScript first = FirstUnusedMenuStatScript();
         int mssIndex = System.Array.IndexOf(playerPanels, first);
-        // addBotButtons[mssIndex].gameObject.SetActive(false);
         joinedPlayer.Initialize(first, true);
         SoundManager.singleton.pcs.Add(joinedPlayer);
         joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
+        rollButton.gameObject.SetActive(SoundManager.singleton.pcs.Count > 0);
         rollButton.interactable = !PlayersAreRollingStats() && !PlayersAreReady();
         resetButton.interactable = SoundManager.singleton.pcs.Count > 0;
         ResetAllStats();
         Invoke("SetRemovingPlayerToFalse", 0.1f);
+        jefferyLogo.DOFade(SoundManager.singleton.pcs.Count > 0 ? 0 : 0.55f, 0.35f);
     }
+
     public void ResetAllThings(){
         foreach(var mss in playerPanels){
             RemovePlayer(mss);
@@ -395,6 +354,7 @@ public class DieRoller : MonoBehaviour
         playButton.gameObject.SetActive(false);
         ResetAllStats();
     }
+
     public bool PlayersAreReady()
     {
         if (SoundManager.singleton.pcs.Count < 1) return false;
@@ -423,10 +383,13 @@ public class DieRoller : MonoBehaviour
             leftPlayer.thisMSS.addBotButton.gameObject.SetActive(true);
         });
         joinText.SetActive(SoundManager.singleton.pcs.Count < 4);
+        rollButton.gameObject.SetActive(SoundManager.singleton.pcs.Count > 0);
         rollButton.interactable = !PlayersAreRollingStats() && !PlayersAreReady();
         resetButton.interactable = SoundManager.singleton.pcs.Count > 0;
-        // addBotButtons[mssIndex].gameObject.SetActive(useBots);
+        
         Destroy(leftPlayer.gameObject);
         Invoke("SetRemovingPlayerToFalse", 0.1f);
+
+        jefferyLogo.DOFade(SoundManager.singleton.pcs.Count > 0 ? 0 : 0.55f, 0.35f);
     }
 }
