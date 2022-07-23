@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Jeffery : MonoBehaviour
 {
@@ -22,8 +23,9 @@ public class Jeffery : MonoBehaviour
     private Vector3 lastPos = new Vector3();
     private float distMoved = 0;
     private float timeStamp = 0;
+    NavMeshPath path;
+    int pathIndex = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         controller = gameObject.GetComponent<PlayerController>();
@@ -32,9 +34,11 @@ public class Jeffery : MonoBehaviour
         InvokeRepeating("Fuzz", Random.Range(.3f,.7f), Random.Range(2f,3f));
         InvokeRepeating("Face", Random.Range(1f,10f), Random.Range(11f,20f));
         InvokeRepeating("LookForPower", Random.Range(2f,.4f), Random.Range(1f,3f));
+        InvokeRepeating("CalculatePath", 0f, .25f);
         //InvokeRepeating("FindDirection", 1f, 1f);
         keepDistance = controller.stats.ProjectileRange * .75f;
         keepRange = controller.stats.ProjectileRange * .10f;
+        path = new NavMeshPath();
     }
     private enum State
     {
@@ -78,15 +82,17 @@ public class Jeffery : MonoBehaviour
                 if(target != null){
                     var distance = Vector3.Distance(target.transform.position, transform.position);
                     var dir = target.transform.position - transform.position;
-                    if( distance > keepDistance + (keepRange + keepFuzz)){
+                    if(distance > keepDistance + (keepRange + keepFuzz)){
+                        if(Vector3.Distance(transform.position, path.corners[pathIndex])<1f){
+                            pathIndex++;
+                        }
+                        dir = path.corners[pathIndex] - transform.position;
                         moveDirection = new Vector2(dir.x,dir.z);
                         StopFire();
                     }else if(distance < keepDistance - (keepRange + keepFuzz)){
                         moveDirection = new Vector2(dir.x*-1,dir.z*-1);
                         Fire();     
                     }else{
-                        var strafe = Quaternion.AngleAxis(90, Vector3.left)*dir;
-                        //moveDirection = new Vector2(strafe.x,strafe.z);
                         moveDirection = new Vector2(0,0);
                         Fire();
                     }
@@ -163,11 +169,20 @@ public class Jeffery : MonoBehaviour
                 if(target != obj)
                     StopFire();
                     target = obj.GetComponent<PlayerController>();
+                    CalculatePath();
                     break;                    
             }
         }
     }
 
+    void CalculatePath(){
+        if(target != null){
+            pathIndex = 0;
+            NavMesh.CalculatePath(transform.position, target.transform.position, NavMesh.AllAreas, path);
+            for (int i = 0; i < path.corners.Length - 1; i++)
+                Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
+        }
+    }
     void Fuzz(){
         keepFuzz = Random.Range(-1f,1f);
         moveFuzzX = Random.Range(-1f,1f);
