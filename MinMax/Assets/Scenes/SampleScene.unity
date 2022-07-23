@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.25
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.083333336
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: f5963c7ec185e50b6b051e8688e336d1, type: 2}
 --- !u!1001 &3825015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,6 +133,10 @@ PrefabInstance:
     - target: {fileID: 8156540143558800336, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
       propertyPath: m_Name
       value: SmallRock1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8156540143558800336, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8825378132291316074, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
       propertyPath: m_RootOrder
@@ -207,6 +211,10 @@ PrefabInstance:
     - target: {fileID: 8156540143558800336, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
       propertyPath: m_Name
       value: SmallRock1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8156540143558800336, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8825378132291316074, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
       propertyPath: m_RootOrder
@@ -358,6 +366,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MossWall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1451257469994866437, guid: 6a18ac42657dc6c43b2368d2e01ca7d5, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2263118556857978303, guid: 6a18ac42657dc6c43b2368d2e01ca7d5, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -419,6 +431,10 @@ PrefabInstance:
     - target: {fileID: 7178767803096227291, guid: b603903ef92123e49a3617611a8dab27, type: 3}
       propertyPath: m_Name
       value: MossPatch (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178767803096227291, guid: b603903ef92123e49a3617611a8dab27, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7560360582373672801, guid: b603903ef92123e49a3617611a8dab27, type: 3}
       propertyPath: m_RootOrder
@@ -817,6 +833,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RuinSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 6917141706429365469, guid: 0ae7f5d0c4a75de46aeded11d12d9794, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ae7f5d0c4a75de46aeded11d12d9794, type: 3}
 --- !u!4 &272208367 stripped
@@ -960,6 +980,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LargeRuinArch (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4816949674028698386, guid: 415f30b7b7d6e1b44bd7576d952aa894, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5301562054813569448, guid: 415f30b7b7d6e1b44bd7576d952aa894, type: 3}
       propertyPath: m_RootOrder
       value: 25
@@ -1090,6 +1114,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LargeRock2
       objectReference: {fileID: 0}
+    - target: {fileID: 6383472311283829213, guid: 9e7a706c65bfb49419aaaea5c6cc01f8, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e7a706c65bfb49419aaaea5c6cc01f8, type: 3}
 --- !u!4 &380830053 stripped
@@ -1107,6 +1135,10 @@ PrefabInstance:
     - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_Name
       value: LargeRuinWall (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875826631922654810, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_RootOrder
@@ -1225,6 +1257,10 @@ PrefabInstance:
     - target: {fileID: 7178767803096227291, guid: b603903ef92123e49a3617611a8dab27, type: 3}
       propertyPath: m_Name
       value: MossPatch (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178767803096227291, guid: b603903ef92123e49a3617611a8dab27, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7560360582373672801, guid: b603903ef92123e49a3617611a8dab27, type: 3}
       propertyPath: m_RootOrder
@@ -1348,6 +1384,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 2198410590202259986, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
 --- !u!4 &503866901 stripped
@@ -1409,6 +1449,10 @@ PrefabInstance:
     - target: {fileID: 6814106666006107384, guid: 4be1a040855944c4090af303cde6c6a0, type: 3}
       propertyPath: m_Name
       value: RuinPillar (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6814106666006107384, guid: 4be1a040855944c4090af303cde6c6a0, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4be1a040855944c4090af303cde6c6a0, type: 3}
@@ -1609,6 +1653,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MossPatch (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7178767803096227291, guid: b603903ef92123e49a3617611a8dab27, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7560360582373672801, guid: b603903ef92123e49a3617611a8dab27, type: 3}
       propertyPath: m_RootOrder
       value: 30
@@ -1670,6 +1718,10 @@ PrefabInstance:
     - target: {fileID: 2551257214870810287, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
       propertyPath: m_Name
       value: LargeRock1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551257214870810287, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894743945004626965, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
       propertyPath: m_RootOrder
@@ -1973,6 +2025,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RuinPillar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6814106666006107384, guid: 4be1a040855944c4090af303cde6c6a0, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4be1a040855944c4090af303cde6c6a0, type: 3}
 --- !u!4 &718271607 stripped
@@ -1990,6 +2046,10 @@ PrefabInstance:
     - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_Name
       value: LargeRuinWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875826631922654810, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_RootOrder
@@ -2136,6 +2196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallRock2
       objectReference: {fileID: 0}
+    - target: {fileID: 8890049888463402937, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
 --- !u!4 &765968285 stripped
@@ -2231,6 +2295,10 @@ PrefabInstance:
     - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_Name
       value: LargeRuinWall (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875826631922654810, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_RootOrder
@@ -2384,6 +2452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MossWall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1451257469994866437, guid: 6a18ac42657dc6c43b2368d2e01ca7d5, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2263118556857978303, guid: 6a18ac42657dc6c43b2368d2e01ca7d5, type: 3}
       propertyPath: m_RootOrder
       value: 36
@@ -2514,6 +2586,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LargeRock2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6383472311283829213, guid: 9e7a706c65bfb49419aaaea5c6cc01f8, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e7a706c65bfb49419aaaea5c6cc01f8, type: 3}
 --- !u!4 &951257645 stripped
@@ -2630,6 +2706,10 @@ PrefabInstance:
     - target: {fileID: 4816949674028698386, guid: 415f30b7b7d6e1b44bd7576d952aa894, type: 3}
       propertyPath: m_Name
       value: LargeRuinArch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4816949674028698386, guid: 415f30b7b7d6e1b44bd7576d952aa894, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5301562054813569448, guid: 415f30b7b7d6e1b44bd7576d952aa894, type: 3}
       propertyPath: m_RootOrder
@@ -2893,6 +2973,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MossPatch
       objectReference: {fileID: 0}
+    - target: {fileID: 7178767803096227291, guid: b603903ef92123e49a3617611a8dab27, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7560360582373672801, guid: b603903ef92123e49a3617611a8dab27, type: 3}
       propertyPath: m_RootOrder
       value: 40
@@ -3042,6 +3126,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RuinPillar
       objectReference: {fileID: 0}
+    - target: {fileID: 6814106666006107384, guid: 4be1a040855944c4090af303cde6c6a0, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4be1a040855944c4090af303cde6c6a0, type: 3}
 --- !u!4 &1278135595 stripped
@@ -3111,6 +3199,10 @@ PrefabInstance:
     - target: {fileID: 2198410590202259986, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2198410590202259986, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
@@ -3185,6 +3277,10 @@ PrefabInstance:
     - target: {fileID: 6383472311283829213, guid: 9e7a706c65bfb49419aaaea5c6cc01f8, type: 3}
       propertyPath: m_Name
       value: LargeRock2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383472311283829213, guid: 9e7a706c65bfb49419aaaea5c6cc01f8, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e7a706c65bfb49419aaaea5c6cc01f8, type: 3}
@@ -3282,6 +3378,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MossPatch (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7178767803096227291, guid: b603903ef92123e49a3617611a8dab27, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7560360582373672801, guid: b603903ef92123e49a3617611a8dab27, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -3355,6 +3455,10 @@ PrefabInstance:
     - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_Name
       value: LargeRuinWall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 534906921873032416, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875826631922654810, guid: a45d90b2a2195274a988b55515c7c7ac, type: 3}
       propertyPath: m_RootOrder
@@ -3477,6 +3581,10 @@ PrefabInstance:
     - target: {fileID: 2198410590202259986, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2198410590202259986, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5084364ad26f88642bf7cd8d8fc773fa, type: 3}
@@ -3781,6 +3889,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallRock2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8890049888463402937, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
 --- !u!4 &1701661717 stripped
@@ -3798,6 +3910,10 @@ PrefabInstance:
     - target: {fileID: 2551257214870810287, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
       propertyPath: m_Name
       value: LargeRock1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551257214870810287, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894743945004626965, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
       propertyPath: m_RootOrder
@@ -3929,6 +4045,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RuinSmall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6917141706429365469, guid: 0ae7f5d0c4a75de46aeded11d12d9794, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ae7f5d0c4a75de46aeded11d12d9794, type: 3}
 --- !u!4 &1767499859 stripped
@@ -3990,6 +4110,10 @@ PrefabInstance:
     - target: {fileID: 8890049888463402937, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
       propertyPath: m_Name
       value: SmallRock2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890049888463402937, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
@@ -4148,6 +4272,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MossWall
       objectReference: {fileID: 0}
+    - target: {fileID: 1451257469994866437, guid: 6a18ac42657dc6c43b2368d2e01ca7d5, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2263118556857978303, guid: 6a18ac42657dc6c43b2368d2e01ca7d5, type: 3}
       propertyPath: m_RootOrder
       value: 39
@@ -4221,6 +4349,10 @@ PrefabInstance:
     - target: {fileID: 2551257214870810287, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
       propertyPath: m_Name
       value: LargeRock1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551257214870810287, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2894743945004626965, guid: 1831a90b01098434b85f17dc6329e423, type: 3}
       propertyPath: m_RootOrder
@@ -4431,6 +4563,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallRock1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8156540143558800336, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8825378132291316074, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -4504,6 +4640,10 @@ PrefabInstance:
     - target: {fileID: 8156540143558800336, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
       propertyPath: m_Name
       value: SmallRock1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8156540143558800336, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8825378132291316074, guid: 8c544bd21ff692f4d8cc04a7b3e391d3, type: 3}
       propertyPath: m_RootOrder
@@ -4634,6 +4774,10 @@ PrefabInstance:
     - target: {fileID: 8890049888463402937, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
       propertyPath: m_Name
       value: SmallRock2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8890049888463402937, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea7c47527b26b824aa4bafac873feb19, type: 3}
@@ -4766,6 +4910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brush
       objectReference: {fileID: 0}
+    - target: {fileID: 3788060657101367250, guid: 3cd4b1fd5f029454aa4a5fa3434f0988, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4601049018210499944, guid: 3cd4b1fd5f029454aa4a5fa3434f0988, type: 3}
       propertyPath: m_RootOrder
       value: 43
@@ -4859,6 +5007,10 @@ PrefabInstance:
     - target: {fileID: 6930730982512047635, guid: f532a3b0419f86a45b5933a53e732e06, type: 3}
       propertyPath: m_Name
       value: treee
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930730982512047635, guid: f532a3b0419f86a45b5933a53e732e06, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7738652794845719721, guid: f532a3b0419f86a45b5933a53e732e06, type: 3}
       propertyPath: m_RootOrder
