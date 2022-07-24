@@ -11,6 +11,7 @@ public class Jeffery : MonoBehaviour
     GameObject dodgeTarget = null;
     GameObject grabTarget = null;
     Vector3 moveTarget;
+    Vector3 pathTarget;
     Vector2 moveDirection;
     float keepDistance = 15f;
     float keepRange = 5f;
@@ -64,11 +65,10 @@ public class Jeffery : MonoBehaviour
             if(state == State.Goto){
                 state = State.Chasing;
             }
+            //We haven't moved in awhile
             if(distMoved < 2f){
                 move = 0;
                 FindDirection();
-                //state = State.Goto;
-                //moveTarget = new Vector3(transform.position.x + Random.Range(-5,5), transform.position.y, transform.position.z + Random.Range(-5,5));
             }
             distMoved = 0;
             timeStamp = Time.time;
@@ -77,16 +77,16 @@ public class Jeffery : MonoBehaviour
         float speed = 1f;
         LookAt();
         CheckDodge();
+        Vector3 dir;
         switch(state){
             case State.Chasing:
                 if(target != null){
                     var distance = Vector3.Distance(target.transform.position, transform.position);
-                    var dir = target.transform.position - transform.position;
+                    dir = target.transform.position - transform.position;
+
                     if(distance > keepDistance + (keepRange + keepFuzz)){
-                        if(Vector3.Distance(transform.position, path.corners[pathIndex])<1f){
-                            pathIndex++;
-                        }
-                        dir = path.corners[pathIndex] - transform.position;
+                        pathTarget = target.transform.position;
+                        dir = GetNextPathDir();
                         moveDirection = new Vector2(dir.x,dir.z);
                         StopFire();
                     }else if(distance < keepDistance - (keepRange + keepFuzz)){
@@ -136,8 +136,8 @@ public class Jeffery : MonoBehaviour
                 break;
             case State.Grabbing:
                 if(grabTarget != null && Vector3.Distance(grabTarget.transform.position,transform.position)<=60 && !(grabTarget.transform.position.y<.2) && !(grabTarget.transform.position.y>.5)){
-                    var dir = grabTarget.transform.position - transform.position;
-                    moveDirection = new Vector2(dir.x,dir.z); 
+                    dir = GetNextPathDir();
+                    moveDirection = new Vector2(dir.x,dir.z);
                 }else{
                     state = State.Chasing;
                 }
@@ -161,7 +161,9 @@ public class Jeffery : MonoBehaviour
         //moveDirection.y = moveDirection.y + moveFuzzZ;
         moveDirection.Normalize();
         controller.inputMovement = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
+        DebugPath();
     }
+
     void SelectTarget(){
         var listOfClosest = OrderByClosest(GameManager.g.Players,transform.position);
         foreach(var obj in listOfClosest){
@@ -169,20 +171,29 @@ public class Jeffery : MonoBehaviour
                 if(target != obj)
                     StopFire();
                     target = obj.GetComponent<PlayerController>();
-                    CalculatePath();
                     break;                    
             }
         }
     }
 
     void CalculatePath(){
-        if(target != null){
-            pathIndex = 0;
-            NavMesh.CalculatePath(transform.position, target.transform.position, NavMesh.AllAreas, path);
+        pathIndex = 0;
+        
+        NavMesh.CalculatePath(transform.position, pathTarget, NavMesh.AllAreas, path);
+    }
+    void DebugPath(){
+        if(path!=null && path.corners.Length>0){
             for (int i = 0; i < path.corners.Length - 1; i++)
                 Debug.DrawLine(path.corners[i], path.corners[i + 1], Color.red);
         }
     }
+    Vector3 GetNextPathDir(){
+        if(Vector3.Distance(transform.position, path.corners[pathIndex])<1f){
+            pathIndex++;
+        }
+        return path.corners[pathIndex] - transform.position;
+    }
+    
     void Fuzz(){
         keepFuzz = Random.Range(-1f,1f);
         moveFuzzX = Random.Range(-1f,1f);
@@ -200,6 +211,8 @@ public class Jeffery : MonoBehaviour
                 break;
             }
             grabTarget = obj;
+            pathTarget = obj.transform.position;
+            CalculatePath();
             StopFire();
             state = State.Grabbing;
             break;
