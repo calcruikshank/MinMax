@@ -176,11 +176,12 @@ public class Jeffery : MonoBehaviour
         }
     }
 
-    void CalculatePath(){
+    bool CalculatePath(){
         pathIndex = 0;
         
-        NavMesh.CalculatePath(transform.position, pathTarget, NavMesh.AllAreas, path);
+        return NavMesh.CalculatePath(transform.position, pathTarget, NavMesh.AllAreas, path);
     }
+
     void DebugPath(){
         if(path!=null && path.corners.Length>0){
             for (int i = 0; i < path.corners.Length - 1; i++)
@@ -210,11 +211,13 @@ public class Jeffery : MonoBehaviour
             if(Vector3.Distance(obj.transform.position,transform.position)>60){
                 break;
             }
+            
             grabTarget = obj;
             pathTarget = obj.transform.position;
-            CalculatePath();
-            StopFire();
-            state = State.Grabbing;
+            if(CalculatePath()){
+                StopFire();
+                state = State.Grabbing;
+            }
             break;
         }
     }
@@ -226,7 +229,7 @@ public class Jeffery : MonoBehaviour
             var timeToTarget = dist / controller.stats.ProjectileSpeed;
             var predictedPos  = target.transform.position + rb.velocity * timeToTarget;
             var dir = predictedPos - gun.transform.position;
-            controller.lookDirection = new Vector2(dir.x * .1f,dir.z *.1f);
+            controller.lookDirection = new Vector2(dir.x,dir.z);
         }else{
             StopFire();
         }
@@ -290,23 +293,7 @@ public class Jeffery : MonoBehaviour
                 moveDirection = moveTarget - transform.position;
                 break;
             }
-        }/*
-        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(90), 0, Mathf.Cos(90)),Color.red,10);
-        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(0), 0, Mathf.Cos(0)),Color.red,10);
-        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(180), 0, Mathf.Cos(180)),Color.red,10);
-        Debug.DrawRay(transform.position,new Vector3(Mathf.Sin(270), 0, Mathf.Cos(270)),Color.red,10);
-        if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 7)){
-            moveTarget = transform.position + transform.TransformDirection(Vector3.left) * 7;
-            state = State.Goto;
         }
-        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 7)){
-            moveTarget = transform.position + transform.TransformDirection(Vector3.right) * 7;
-            state = State.Goto;
-        }
-        else if(!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.back), out hit, 7)){
-            moveTarget = transform.position + transform.TransformDirection(Vector3.back) * 7;
-            state = State.Goto;
-        }*/
     }
     
     bool RayCastBullet(Bullet b){
