@@ -1246,6 +1246,7 @@ MonoBehaviour:
   follow: {fileID: 963194229}
   pbp: {fileID: 334803008}
   winnerCg: {fileID: 576967310}
+  pleaseWait: {fileID: 0}
   winnerText: {fileID: 1908674100}
 --- !u!1001 &467985714
 PrefabInstance:

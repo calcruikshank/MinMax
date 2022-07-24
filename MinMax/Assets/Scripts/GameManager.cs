@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,22 +33,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        winnerCg.transform.localScale = Vector3.zero;
+        winnerCg.alpha = 1f;
+        winnerCg.transform.DOScale(Vector3.one*2.15f, 0.35f);
         winnerText.text = "Get Ready...";
-        winnerCg.alpha = 1;
+
         startingGame = true;
         DieRoller.singleton = null;
         startedRestart = false;
         if (SoundManager.singleton == null) return;
         foreach(PlayerCursor pc in SoundManager.singleton.pcs)
         {
-            // PlayerCursor pc = DieRoller.singleton.pcs[i];
-            // pc.SetUnusedStatsToThree();
-            
             GameObject hp = Instantiate(healthPanelPrefab, canvasPanel.transform);
             HealthPanelScript hps = hp.GetComponent<HealthPanelScript>();
             Color playerColor = new Color(pc.playerImage.color.r, pc.playerImage.color.g, pc.playerImage.color.b, 255.0f);
             hps.playerName.text = pc.playerLabel.text;
-            // hps.playerName.color = playerColor;
             hps.sliderFill.color = playerColor;
             hps.playerBackground.color = playerColor;
             hps.playerHealthName.color = playerColor;
@@ -79,8 +79,19 @@ public class GameManager : MonoBehaviour
         if (startingGame)
         {
             startingGame = false;
-            winnerText.text = "GO!";
-            Invoke("SetStartingFalse", 1);
+            if (Players.Count > 1) 
+            {
+                winnerCg.transform.localScale = Vector3.zero;
+                winnerCg.alpha = 1f;
+                winnerCg.transform.DOScale(Vector3.one*2.15f, 0.35f);
+                winnerText.text = "GO!";
+                Invoke("SetStartingFalse", 1);
+            }
+            else
+            {
+                winnerText.text = "";
+                winnerCg.alpha = 0;
+            }
         }
         else
         {
@@ -102,7 +113,9 @@ public class GameManager : MonoBehaviour
                 pbp.enabled = false;
 
                 //show winner text here.
+                winnerCg.transform.localScale = Vector3.zero;
                 winnerCg.alpha = 1f;
+                winnerCg.transform.DOScale(Vector3.one*2.15f, 0.35f);
                 winnerText.text = Players[0].GetComponentInChildren<Jeffery>() ? (Random.Range(0,100) == 0 ? "JEFFERY WINS" : "BOTS WIN") : "YOU WIN";
 
                StartCoroutine(Restart());
@@ -116,20 +129,13 @@ public class GameManager : MonoBehaviour
         if (!startedRestart)
         {
             startedRestart = true;
-            // foreach(PlayerCursor pc in SoundManager.singleton.pcs)
             for (int i = SoundManager.singleton.pcs.Count - 1; i >= 0; i--)
             {
                 Destroy(SoundManager.singleton.pcs[i].gameObject);
             }
             SoundManager.singleton.pcs.Clear();
-            // Destroy(SpawnManager.singleton.gameObject);
-            // SpawnManager.singleton = null;
             yield return new WaitForSeconds(7f);
             SceneManager.LoadScene("Main Menu");
-            // DieRoller.singleton.gameObject.SetActive(true);
-            // DieRoller.singleton.ResetAllThings();
-            // GameObject dr = GameObject.Find("DieRoller");
-            // if (dr != null) DieRoller.singleton = dr.GetComponent<DieRoller>();
         }
     }
 
