@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
+        if (GameManager.g.startingGame) return;
         switch (state)
         {
             case State.Normal:
@@ -150,6 +151,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
+        if (GameManager.g.startingGame) return;
         switch (state)
         {
             case State.Normal:

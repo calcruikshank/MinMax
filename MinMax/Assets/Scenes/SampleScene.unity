@@ -1246,7 +1246,6 @@ MonoBehaviour:
   follow: {fileID: 963194229}
   pbp: {fileID: 334803008}
   winnerCg: {fileID: 576967310}
-  pleaseWait: {fileID: 0}
   winnerText: {fileID: 1908674100}
 --- !u!1001 &467985714
 PrefabInstance:
@@ -3718,8 +3717,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
   m_MaxPlayerCount: 4
-  m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_AllowJoining: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
